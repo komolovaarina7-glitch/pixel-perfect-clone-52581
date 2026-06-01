@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WhoWeAreRouteImport } from './routes/who-we-are'
 import { Route as ThinkingRouteImport } from './routes/thinking'
 import { Route as SubmitRouteImport } from './routes/submit'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CasesRouteImport } from './routes/cases'
@@ -31,6 +32,11 @@ const ThinkingRoute = ThinkingRouteImport.update({
 const SubmitRoute = SubmitRouteImport.update({
   id: '/submit',
   path: '/submit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesRoute = ServicesRouteImport.update({
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/cases': typeof CasesRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/submit': typeof SubmitRoute
   '/thinking': typeof ThinkingRoute
   '/who-we-are': typeof WhoWeAreRoute
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/cases': typeof CasesRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/submit': typeof SubmitRoute
   '/thinking': typeof ThinkingRoute
   '/who-we-are': typeof WhoWeAreRoute
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/cases': typeof CasesRoute
   '/contact': typeof ContactRoute
   '/services': typeof ServicesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/submit': typeof SubmitRoute
   '/thinking': typeof ThinkingRoute
   '/who-we-are': typeof WhoWeAreRoute
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/cases'
     | '/contact'
     | '/services'
+    | '/sitemap.xml'
     | '/submit'
     | '/thinking'
     | '/who-we-are'
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/cases'
     | '/contact'
     | '/services'
+    | '/sitemap.xml'
     | '/submit'
     | '/thinking'
     | '/who-we-are'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/cases'
     | '/contact'
     | '/services'
+    | '/sitemap.xml'
     | '/submit'
     | '/thinking'
     | '/who-we-are'
@@ -129,6 +141,7 @@ export interface RootRouteChildren {
   CasesRoute: typeof CasesRoute
   ContactRoute: typeof ContactRoute
   ServicesRoute: typeof ServicesRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SubmitRoute: typeof SubmitRoute
   ThinkingRoute: typeof ThinkingRoute
   WhoWeAreRoute: typeof WhoWeAreRoute
@@ -155,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/submit'
       fullPath: '/submit'
       preLoaderRoute: typeof SubmitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services': {
@@ -201,6 +221,7 @@ const rootRouteChildren: RootRouteChildren = {
   CasesRoute: CasesRoute,
   ContactRoute: ContactRoute,
   ServicesRoute: ServicesRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SubmitRoute: SubmitRoute,
   ThinkingRoute: ThinkingRoute,
   WhoWeAreRoute: WhoWeAreRoute,
