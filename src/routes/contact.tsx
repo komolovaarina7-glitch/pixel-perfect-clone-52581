@@ -43,8 +43,7 @@ function Contact() {
             <p className="eyebrow mb-3">Channels</p>
             <ul className="space-y-2">
               <li>
-                <a href="mailto:office@repositionlab.com" className="text-foreground hover:text-accent transition-colors">office@repositionlab.com</a>
-                <p className="text-xs text-muted-foreground mt-1">[NEEDS CONFIRMATION]</p>
+                <p className="text-foreground">Contact channel available on request.</p>
               </li>
               <li className="pt-4">
                 <p className="text-foreground">Encrypted channel</p>

@@ -126,9 +126,9 @@ function Home() {
                     className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
                   />
                 </div>
-                <div className="mt-4 flex items-baseline justify-between gap-3">
+                <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
                   <h3 className="serif text-lg">{c.title}</h3>
-                  <span className="eyebrow whitespace-nowrap text-[10px]">{c.theme}</span>
+                  <span className="eyebrow text-[10px]">{c.theme}</span>
                 </div>
               </Link>
             ))}

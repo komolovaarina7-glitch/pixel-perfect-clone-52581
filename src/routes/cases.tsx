@@ -73,9 +73,8 @@ function Cases() {
         </h1>
         <p className="mt-8 max-w-2xl text-muted-foreground text-lg leading-relaxed">
           Each entry illustrates how an asset was re-read — its challenge, the repositioning logic
-          and the strategic direction the recovery thesis pointed toward. Confidential commercial
-          detail is held under mandate. [NEEDS CONFIRMATION] markers indicate facts intentionally
-          withheld from public presentation.
+          and the strategic direction the recovery thesis pointed toward. Certain commercial details
+          are withheld from public presentation.
         </p>
       </header>
 
@@ -89,9 +88,9 @@ function Cases() {
                 </div>
               </div>
               <div className="md:col-span-6 space-y-6">
-                <div className="flex items-baseline justify-between gap-4">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
                   <h2 className="serif text-2xl md:text-3xl">{c.title}</h2>
-                  <span className="eyebrow whitespace-nowrap">{c.theme}</span>
+                  <span className="eyebrow">{c.theme}</span>
                 </div>
                 <div>
                   <p className="eyebrow">Asset challenge</p>

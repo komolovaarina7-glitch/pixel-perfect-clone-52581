@@ -56,7 +56,7 @@ function Submit() {
         </h1>
         <p className="mt-8 max-w-2xl text-muted-foreground text-lg leading-relaxed">
           Submissions are read by a senior partner. We respond only to mandates we can credibly progress.
-          All information is treated as confidential and held under non-disclosure as a matter of practice.
+          Information submitted through this form is intended for confidential review.
         </p>
       </header>
 
@@ -66,8 +66,7 @@ function Submit() {
             <div>
               <p className="eyebrow mb-3">Confidentiality</p>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Material submitted is reviewed internally by REPOSITION LAB partners only.
-                It is not shared with third parties without explicit written consent.
+                Submitted material is intended for internal review and will not be used publicly without prior consent.
               </p>
             </div>
             <div>
@@ -91,8 +90,7 @@ function Submit() {
                 <p className="eyebrow">Received</p>
                 <h2 className="serif text-3xl mt-4">Your submission has been logged.</h2>
                 <p className="mt-4 text-muted-foreground leading-relaxed">
-                  A senior partner will respond within five business days where the mandate fits our practice.
-                  Where it does not, we will say so directly.
+                  Where the mandate appears relevant, a response may follow after review.
                 </p>
               </div>
             ) : (
