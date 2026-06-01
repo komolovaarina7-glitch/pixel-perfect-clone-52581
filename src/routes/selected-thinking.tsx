@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/thinking")({
+export const Route = createFileRoute("/selected-thinking")({
   head: () => ({
     meta: [
       { title: "Selected Thinking — REPOSITION LAB" },

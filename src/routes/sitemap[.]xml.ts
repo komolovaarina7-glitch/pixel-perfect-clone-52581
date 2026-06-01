@@ -15,7 +15,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/services", changefreq: "monthly", priority: "0.9" },
           { path: "/cases", changefreq: "monthly", priority: "0.9" },
           { path: "/approach", changefreq: "monthly", priority: "0.8" },
-          { path: "/thinking", changefreq: "monthly", priority: "0.7" },
+          { path: "/selected-thinking", changefreq: "monthly", priority: "0.7" },
           { path: "/submit", changefreq: "yearly", priority: "0.8" },
           { path: "/contact", changefreq: "yearly", priority: "0.6" },
         ];
