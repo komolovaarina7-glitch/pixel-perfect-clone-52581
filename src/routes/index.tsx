@@ -70,12 +70,12 @@ function Home() {
               Each discipline opens as its own dedicated reading.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-border">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {directions.map((d) => (
               <Link
                 key={d.to}
                 to={d.to}
-                className="group bg-background p-7 flex flex-col gap-3 min-h-[180px] hover:bg-muted/30 transition-colors"
+                className="group cursor-pointer border border-border bg-background p-7 flex flex-col gap-3 min-h-[190px] hover:border-accent/60 hover:bg-muted/30 transition-colors"
               >
                 <div className="flex items-baseline justify-between">
                   <span className="font-mono text-xs text-muted-foreground">{d.eyebrow}</span>
