@@ -19,7 +19,7 @@ export function SiteFooter() {
             <li><Link to="/services" className="hover:text-foreground text-muted-foreground">Services</Link></li>
             <li><Link to="/cases" className="hover:text-foreground text-muted-foreground">Transformation Cases</Link></li>
             <li><Link to="/approach" className="hover:text-foreground text-muted-foreground">Approach</Link></li>
-            <li><Link to="/thinking" className="hover:text-foreground text-muted-foreground">Selected Thinking</Link></li>
+            <li><Link to="/selected-thinking" className="hover:text-foreground text-muted-foreground">Selected Thinking</Link></li>
           </ul>
         </div>
         <div>
