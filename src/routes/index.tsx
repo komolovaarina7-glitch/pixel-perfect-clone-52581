@@ -18,12 +18,13 @@ export const Route = createFileRoute("/")({
 });
 
 const directions = [
-  { to: "/who-we-are", eyebrow: "01", title: "Who We Are", desc: "An institutional repositioning and recovery practice — philosophy, posture and discipline." },
-  { to: "/services", eyebrow: "02", title: "Services", desc: "Five disciplines of strategic recovery, from rapid diagnostics to full institutional packaging." },
-  { to: "/cases", eyebrow: "03", title: "Cases", desc: "Selected transformation intelligence across heritage, industrial and special-situation assets." },
-  { to: "/approach", eyebrow: "04", title: "Approach", desc: "The five-stage institutional method: diagnose, reposition, package, engage, recover." },
-  { to: "/selected-thinking", eyebrow: "05", title: "Selected Thinking", desc: "Notes on hidden value, liquidity engineering and recovery-focused real estate intelligence." },
-  { to: "/submit", eyebrow: "06", title: "Submit an Asset", desc: "Confidential intake for owners, banks and capital seeking a strategic review." },
+  { to: "/who-we-are", eyebrow: "01", title: "Who We Are", desc: "Philosophy, posture and institutional discipline." },
+  { to: "/services", eyebrow: "02", title: "Services", desc: "Five disciplines of strategic recovery and packaging." },
+  { to: "/cases", eyebrow: "03", title: "Transformation Intelligence Cases", desc: "Heritage, industrial and special-situation theses." },
+  { to: "/approach", eyebrow: "04", title: "Approach", desc: "The five-stage institutional method." },
+  { to: "/selected-thinking", eyebrow: "05", title: "Selected Thinking", desc: "Notes on hidden value and liquidity engineering." },
+  { to: "/submit", eyebrow: "06", title: "Submit an Asset", desc: "Confidential intake for owners, banks and capital." },
+  { to: "/contact", eyebrow: "07", title: "Contact", desc: "Discreet institutional channels for qualified counterparties." },
 ] as const;
 
 const previewCases = [
