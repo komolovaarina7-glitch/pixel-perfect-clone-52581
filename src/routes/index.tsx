@@ -18,12 +18,13 @@ export const Route = createFileRoute("/")({
 });
 
 const directions = [
-  { to: "/who-we-are", eyebrow: "01", title: "Who We Are", desc: "An institutional repositioning and recovery practice — philosophy, posture and discipline." },
-  { to: "/services", eyebrow: "02", title: "Services", desc: "Five disciplines of strategic recovery, from rapid diagnostics to full institutional packaging." },
-  { to: "/cases", eyebrow: "03", title: "Cases", desc: "Selected transformation intelligence across heritage, industrial and special-situation assets." },
-  { to: "/approach", eyebrow: "04", title: "Approach", desc: "The five-stage institutional method: diagnose, reposition, package, engage, recover." },
-  { to: "/selected-thinking", eyebrow: "05", title: "Selected Thinking", desc: "Notes on hidden value, liquidity engineering and recovery-focused real estate intelligence." },
-  { to: "/submit", eyebrow: "06", title: "Submit an Asset", desc: "Confidential intake for owners, banks and capital seeking a strategic review." },
+  { to: "/who-we-are", eyebrow: "01", title: "Who We Are", desc: "Philosophy, posture and institutional discipline." },
+  { to: "/services", eyebrow: "02", title: "Services", desc: "Five disciplines of strategic recovery and packaging." },
+  { to: "/cases", eyebrow: "03", title: "Transformation Intelligence Cases", desc: "Heritage, industrial and special-situation theses." },
+  { to: "/approach", eyebrow: "04", title: "Approach", desc: "The five-stage institutional method." },
+  { to: "/selected-thinking", eyebrow: "05", title: "Selected Thinking", desc: "Notes on hidden value and liquidity engineering." },
+  { to: "/submit", eyebrow: "06", title: "Submit an Asset", desc: "Confidential intake for owners, banks and capital." },
+  { to: "/contact", eyebrow: "07", title: "Contact", desc: "Discreet institutional channels for qualified counterparties." },
 ] as const;
 
 const previewCases = [
@@ -35,8 +36,8 @@ const previewCases = [
 function Home() {
   return (
     <div>
-      {/* HERO */}
-      <section className="relative min-h-[92vh] flex items-end overflow-hidden">
+      {/* HERO — short entry, not a scroll */}
+      <section className="relative min-h-[70vh] flex items-end overflow-hidden">
         <img
           src={heroImg}
           alt="Cinematic facade of a distressed heritage industrial building at dusk"
@@ -44,97 +45,78 @@ function Home() {
           width={1920}
           height={1080}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30" />
-        <div className="relative container-rl pb-24 pt-40 grid gap-16 md:grid-cols-12 items-end">
-          <div className="md:col-span-9">
-            <p className="eyebrow">REPOSITION LAB — Est. RANTA LIMITED, London</p>
-            <h1 className="serif text-4xl md:text-6xl lg:text-7xl mt-6 leading-[1.05]">
-              Transforming distressed &amp; underutilized real estate into <em className="text-accent not-italic">investable opportunities</em>.
-            </h1>
-            <p className="mt-8 text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed">
-              A strategic recovery and real estate intelligence partner for banks, asset holders,
-              special situations investors and institutional owners.
-            </p>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <Link to="/submit" className="px-6 py-3.5 bg-foreground text-background text-[12px] tracking-[0.18em] uppercase hover:bg-accent hover:text-accent-foreground transition-colors">
-                Request Confidential Review
-              </Link>
-              <Link to="/who-we-are" className="px-6 py-3.5 border border-foreground/40 text-[12px] tracking-[0.18em] uppercase hover:bg-foreground hover:text-background transition-colors">
-                Enter the Practice
-              </Link>
-            </div>
-          </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/75 to-background/30" />
+        <div className="relative container-rl pb-16 pt-32">
+          <p className="eyebrow">REPOSITION LAB — RANTA LIMITED, London</p>
+          <h1 className="serif text-3xl md:text-5xl lg:text-6xl mt-5 max-w-4xl leading-[1.05]">
+            Transforming distressed &amp; underutilized real estate into <em className="text-accent not-italic">investable opportunities</em>.
+          </h1>
+          <p className="mt-6 text-sm md:text-base text-muted-foreground max-w-xl leading-relaxed">
+            A strategic recovery and real estate intelligence partner for banks,
+            asset holders, special situations investors and institutional owners.
+          </p>
         </div>
       </section>
 
-      {/* DIRECTIONAL NAVIGATION CARDS */}
-      <section className="py-28 border-t border-border">
+      {/* DIRECTIONAL HUB — the homepage's primary job */}
+      <section className="py-20 border-t border-border">
         <div className="container-rl">
-          <div className="flex items-end justify-between flex-wrap gap-6 mb-14">
+          <div className="flex items-end justify-between flex-wrap gap-6 mb-10">
             <div>
               <p className="eyebrow">Index</p>
-              <h2 className="serif text-3xl md:text-5xl mt-4 max-w-2xl">Choose a direction.</h2>
+              <h2 className="serif text-2xl md:text-4xl mt-3 max-w-2xl">Choose a strategic direction.</h2>
             </div>
-            <p className="text-sm text-muted-foreground max-w-sm">
-              Each discipline is its own dedicated reading. Select the entry that matches your mandate.
+            <p className="text-sm text-muted-foreground max-w-xs">
+              Each discipline opens as its own dedicated reading.
             </p>
           </div>
-          <div className="rule" />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border mt-px">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-px bg-border">
             {directions.map((d) => (
               <Link
                 key={d.to}
                 to={d.to}
-                className="group bg-background p-8 flex flex-col gap-4 min-h-[220px] hover:bg-muted/30 transition-colors"
+                className="group bg-background p-7 flex flex-col gap-3 min-h-[180px] hover:bg-muted/30 transition-colors"
               >
                 <div className="flex items-baseline justify-between">
                   <span className="font-mono text-xs text-muted-foreground">{d.eyebrow}</span>
-                  <span className="text-[12px] tracking-[0.18em] uppercase text-muted-foreground group-hover:text-accent transition-colors">Open →</span>
+                  <span className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground group-hover:text-accent transition-colors">Open →</span>
                 </div>
-                <h3 className="serif text-2xl group-hover:text-accent transition-colors">{d.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mt-auto">{d.desc}</p>
+                <h3 className="serif text-xl group-hover:text-accent transition-colors">{d.title}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed mt-auto">{d.desc}</p>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CREDIBILITY STATEMENT */}
-      <section className="paper py-24">
-        <div className="container-rl grid md:grid-cols-12 gap-10 items-start">
-          <div className="md:col-span-4">
-            <p className="eyebrow">Position</p>
-            <div className="rule mt-4" />
-          </div>
-          <div className="md:col-span-8">
-            <p className="serif text-2xl md:text-3xl leading-snug text-ink">
-              We understand value where others only see problems. Most distressed assets are not worthless —
-              they are misread, mispositioned, poorly packaged or trapped in illiquidity.
-            </p>
-            <p className="mt-6 text-ink/70 leading-relaxed max-w-2xl">
-              Our work is the discipline of re-reading them: their structure, their narrative,
-              and the capital they can attract.
-            </p>
-          </div>
+      {/* CREDIBILITY — short positioning statement */}
+      <section className="paper py-16">
+        <div className="container-rl max-w-3xl">
+          <p className="eyebrow">Position</p>
+          <p className="serif text-xl md:text-2xl mt-4 leading-snug text-ink">
+            We understand value where others only see problems. Most distressed assets
+            are not worthless — they are misread, mispositioned, poorly packaged or
+            trapped in illiquidity.
+          </p>
         </div>
       </section>
 
-      {/* 3 SELECTED CASES */}
-      <section className="py-28">
+      {/* 3 SELECTED CASES — preview only, full grid lives on /cases */}
+      <section className="py-20">
         <div className="container-rl">
-          <div className="flex items-end justify-between flex-wrap gap-6 mb-14">
+          <div className="flex items-end justify-between flex-wrap gap-4 mb-8">
             <div>
-              <p className="eyebrow">Selected Cases</p>
-              <h2 className="serif text-3xl md:text-5xl mt-4 max-w-2xl">Three repositioning theses.</h2>
+              <p className="eyebrow">Selected Cases · Preview</p>
+              <h2 className="serif text-2xl md:text-3xl mt-3">Three repositioning theses.</h2>
             </div>
-            <Link to="/cases" className="text-[12px] tracking-[0.18em] uppercase text-muted-foreground hover:text-foreground">
+            <Link to="/cases" className="text-[11px] tracking-[0.18em] uppercase border border-foreground/40 px-4 py-2 hover:bg-foreground hover:text-background transition-colors">
               View all cases →
             </Link>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {previewCases.map((c) => (
-              <article key={c.slug} className="group">
-                <div className="aspect-[4/5] overflow-hidden bg-muted">
+              <Link to="/cases" key={c.slug} className="group block">
+                <div className="aspect-[4/3] overflow-hidden bg-muted">
                   <img
                     src={c.img}
                     alt={c.title}
@@ -144,29 +126,28 @@ function Home() {
                     className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
                   />
                 </div>
-                <div className="mt-5 flex items-baseline justify-between gap-4">
-                  <h3 className="serif text-xl">{c.title}</h3>
-                  <span className="eyebrow whitespace-nowrap">{c.theme}</span>
+                <div className="mt-4 flex items-baseline justify-between gap-3">
+                  <h3 className="serif text-lg">{c.title}</h3>
+                  <span className="eyebrow whitespace-nowrap text-[10px]">{c.theme}</span>
                 </div>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{c.summary}</p>
-              </article>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
       {/* FINAL CTA */}
-      <section className="py-32 border-t border-border">
-        <div className="container-rl text-center max-w-3xl">
+      <section className="py-20 border-t border-border">
+        <div className="container-rl text-center max-w-2xl">
           <p className="eyebrow">Confidential</p>
-          <h2 className="serif text-3xl md:text-5xl mt-6 leading-tight">
-            If you hold an asset others have failed to read, submit it for a confidential review.
+          <h2 className="serif text-2xl md:text-3xl mt-5 leading-tight">
+            Hold an asset others have failed to read?
           </h2>
-          <div className="mt-10 flex justify-center gap-3 flex-wrap">
-            <Link to="/submit" className="px-7 py-3.5 bg-accent text-accent-foreground text-[12px] tracking-[0.18em] uppercase hover:bg-foreground hover:text-background transition-colors">
+          <div className="mt-8 flex justify-center gap-3 flex-wrap">
+            <Link to="/submit" className="px-6 py-3 bg-accent text-accent-foreground text-[11px] tracking-[0.18em] uppercase hover:bg-foreground hover:text-background transition-colors">
               Submit an Asset
             </Link>
-            <Link to="/contact" className="px-7 py-3.5 border border-foreground/40 text-[12px] tracking-[0.18em] uppercase hover:bg-foreground hover:text-background transition-colors">
+            <Link to="/contact" className="px-6 py-3 border border-foreground/40 text-[11px] tracking-[0.18em] uppercase hover:bg-foreground hover:text-background transition-colors">
               Contact
             </Link>
           </div>
