@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { BackToHome } from "@/components/site/BackToHome";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -15,7 +16,8 @@ export const Route = createFileRoute("/contact")({
 function Contact() {
   return (
     <article>
-      <header className="container-rl pt-32 pb-16">
+      <BackToHome />
+      <header className="container-rl pt-8 pb-16">
         <p className="eyebrow">Contact</p>
         <h1 className="serif text-4xl md:text-6xl mt-6 max-w-3xl leading-[1.05]">
           Discreet, institutional, written.
