@@ -14,6 +14,7 @@ import { Route as ThinkingRouteImport } from './routes/thinking'
 import { Route as SubmitRouteImport } from './routes/submit'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as SelectedThinkingRouteImport } from './routes/selected-thinking'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CasesRouteImport } from './routes/cases'
 import { Route as ApproachRouteImport } from './routes/approach'
@@ -44,6 +45,11 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SelectedThinkingRoute = SelectedThinkingRouteImport.update({
+  id: '/selected-thinking',
+  path: '/selected-thinking',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/approach': typeof ApproachRoute
   '/cases': typeof CasesRoute
   '/contact': typeof ContactRoute
+  '/selected-thinking': typeof SelectedThinkingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/submit': typeof SubmitRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/approach': typeof ApproachRoute
   '/cases': typeof CasesRoute
   '/contact': typeof ContactRoute
+  '/selected-thinking': typeof SelectedThinkingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/submit': typeof SubmitRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/approach': typeof ApproachRoute
   '/cases': typeof CasesRoute
   '/contact': typeof ContactRoute
+  '/selected-thinking': typeof SelectedThinkingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/submit': typeof SubmitRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/approach'
     | '/cases'
     | '/contact'
+    | '/selected-thinking'
     | '/services'
     | '/sitemap.xml'
     | '/submit'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/approach'
     | '/cases'
     | '/contact'
+    | '/selected-thinking'
     | '/services'
     | '/sitemap.xml'
     | '/submit'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/approach'
     | '/cases'
     | '/contact'
+    | '/selected-thinking'
     | '/services'
     | '/sitemap.xml'
     | '/submit'
@@ -140,6 +152,7 @@ export interface RootRouteChildren {
   ApproachRoute: typeof ApproachRoute
   CasesRoute: typeof CasesRoute
   ContactRoute: typeof ContactRoute
+  SelectedThinkingRoute: typeof SelectedThinkingRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SubmitRoute: typeof SubmitRoute
@@ -184,6 +197,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/selected-thinking': {
+      id: '/selected-thinking'
+      path: '/selected-thinking'
+      fullPath: '/selected-thinking'
+      preLoaderRoute: typeof SelectedThinkingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -220,6 +240,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApproachRoute: ApproachRoute,
   CasesRoute: CasesRoute,
   ContactRoute: ContactRoute,
+  SelectedThinkingRoute: SelectedThinkingRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SubmitRoute: SubmitRoute,
@@ -229,3 +250,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
