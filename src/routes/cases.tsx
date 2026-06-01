@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { BackToHome } from "@/components/site/BackToHome";
 import castleImg from "@/assets/case-castle.jpg";
 import industrialImg from "@/assets/case-industrial.jpg";
 import rigaImg from "@/assets/case-riga.jpg";
@@ -64,7 +65,8 @@ const cases = [
 function Cases() {
   return (
     <article>
-      <header className="container-rl pt-32 pb-16">
+      <BackToHome />
+      <header className="container-rl pt-8 pb-16">
         <p className="eyebrow">Transformation Intelligence Cases</p>
         <h1 className="serif text-4xl md:text-6xl mt-6 max-w-4xl leading-[1.05]">
           Selected repositioning theses. These are not listings.

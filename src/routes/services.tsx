@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { BackToHome } from "@/components/site/BackToHome";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -53,7 +54,8 @@ const services = [
 function Services() {
   return (
     <article>
-      <header className="container-rl pt-32 pb-20">
+      <BackToHome />
+      <header className="container-rl pt-8 pb-20">
         <p className="eyebrow">Services</p>
         <h1 className="serif text-4xl md:text-6xl mt-6 max-w-3xl leading-[1.05]">
           Five disciplines of strategic recovery.
