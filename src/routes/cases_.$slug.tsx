@@ -1,0 +1,328 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { BackToHome } from "@/components/site/BackToHome";
+import { cases } from "@/data/cases";
+import { useLanguage } from "@/i18n";
+
+export const Route = createFileRoute("/cases_/$slug")({
+  component: CaseDetail,
+});
+
+function CaseDetail() {
+  const { slug } = Route.useParams();
+  const { t, l } = useLanguage();
+  const caseStudy = cases.find((item) => item.slug === slug);
+
+  if (!caseStudy) {
+    return (
+      <article>
+        <BackToHome />
+        <header className="container-rl pt-8 pb-16">
+          <Link
+            to="/cases"
+            className="page-reveal page-reveal-delay-1 inline-flex items-center gap-2 text-[11px] tracking-[0.22em] uppercase text-muted-foreground hover:text-accent transition-colors border-b border-transparent hover:border-accent/40 pb-1"
+          >
+            <span aria-hidden>←</span>
+            <span>{l(t.common.backToCases)}</span>
+          </Link>
+          <p className="eyebrow mt-10 text-accent page-reveal page-reveal-delay-1">
+            {l(t.cases.notFoundLabel)}
+          </p>
+          <h1 className="mobile-safe-text serif text-4xl md:text-6xl mt-6 max-w-3xl leading-[1.05] text-foreground page-reveal page-reveal-delay-2">
+            {l(t.cases.notFoundTitle)}
+          </h1>
+        </header>
+      </article>
+    );
+  }
+
+  return (
+    <article>
+      <BackToHome />
+      <header className="container-rl pt-8 pb-16">
+        <Link
+          to="/cases"
+          className="page-reveal page-reveal-delay-1 inline-flex items-center gap-2 text-[11px] tracking-[0.22em] uppercase text-muted-foreground hover:text-accent transition-colors border-b border-transparent hover:border-accent/40 pb-1"
+        >
+          <span aria-hidden>←</span>
+          <span>{l(t.common.backToCases)}</span>
+        </Link>
+        <p className="eyebrow mt-10 text-accent page-reveal page-reveal-delay-1">
+          {l(caseStudy.theme)}
+        </p>
+        <h1 className="mobile-safe-text serif text-4xl md:text-6xl mt-6 max-w-4xl leading-[1.05] text-foreground page-reveal page-reveal-delay-2">
+          {l(caseStudy.title)}
+        </h1>
+        {caseStudy.subtitle && (
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground page-reveal page-reveal-delay-3">
+            {l(caseStudy.subtitle)}
+          </p>
+        )}
+      </header>
+
+      <section className="border-t border-rule">
+        <div className="container-rl py-16 grid lg:grid-cols-12 gap-12 items-start">
+          <div className="lg:col-span-5">
+            <div className="aspect-[4/3] overflow-hidden bg-muted border border-rule">
+              <img
+                src={caseStudy.img}
+                alt={l(caseStudy.title)}
+                loading="lazy"
+                width={1280}
+                height={960}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+
+          <div className="lg:col-span-7 space-y-10">
+            <div>
+              <p className="eyebrow text-accent">{l(t.cases.assetChallenge)}</p>
+              <p className="mt-3 text-muted-foreground leading-relaxed text-lg">
+                {l(caseStudy.challenge)}
+              </p>
+            </div>
+            <div>
+              <p className="eyebrow text-accent">{l(t.cases.logic)}</p>
+              <p className="mt-3 text-muted-foreground leading-relaxed text-lg">
+                {l(caseStudy.logic)}
+              </p>
+            </div>
+            <div>
+              <p className="eyebrow text-accent">{l(t.cases.direction)}</p>
+              <p className="mt-3 text-foreground/85 leading-relaxed text-lg">
+                {l(caseStudy.direction)}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {caseStudy.sections && caseStudy.sections.length > 0 && (
+        <section className="border-t border-rule py-20">
+          <div className="container-rl max-w-4xl space-y-16">
+            {caseStudy.sections.map((s, i) => {
+              const gl = caseStudy.gallery ?? [];
+              const extItem = gl.find((g) => g.type === "exterior");
+              const upperItem = gl.find((g) => g.type === "upper");
+              const intItem = gl.find((g) => g.type === "interior");
+              const detailItem = gl.find((g) => g.type === "detail");
+              const lowerItem = gl.find((g) => g.type === "lower");
+              const atmItem = gl.find((g) => g.type === "atmosphere");
+
+              return (
+                <div key={s.eyebrow.en}>
+                  <p className="eyebrow text-accent">{l(s.eyebrow)}</p>
+                  <div className="mt-6 space-y-5 text-lg leading-relaxed text-foreground/80">
+                    {s.body.map((para, j) => (
+                      <p key={j}>{l(para)}</p>
+                    ))}
+                  </div>
+
+                  {/* After "Repositioning Thesis" — wide exterior slot */}
+                  {slug === "bauskas-16a-riga" && i === 0 && (
+                    <div className="mt-12">
+                      {extItem ? (
+                        <div className="aspect-[16/9] overflow-hidden border border-rule">
+                          <img
+                            src={extItem.src}
+                            alt={extItem.alt}
+                            loading="lazy"
+                            width={1280}
+                            height={720}
+                            className="w-full h-full object-cover"
+                            style={
+                              extItem.objectPosition
+                                ? { objectPosition: extItem.objectPosition }
+                                : undefined
+                            }
+                          />
+                        </div>
+                      ) : (
+                        <div className="aspect-[16/9] border border-rule bg-background flex items-end p-5">
+                          <span className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground/50">
+                            Image slot — exterior
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* After "Spatial Identity as Value Driver" — 2-col interior row */}
+                  {slug === "bauskas-16a-riga" && i === 1 && (
+                    <div className="mt-12 grid sm:grid-cols-2 gap-5">
+                      {intItem ? (
+                        <div className="aspect-[4/3] overflow-hidden border border-rule">
+                          <img
+                            src={intItem.src}
+                            alt={intItem.alt}
+                            loading="lazy"
+                            width={800}
+                            height={600}
+                            className="w-full h-full object-cover"
+                            style={
+                              intItem.objectPosition
+                                ? { objectPosition: intItem.objectPosition }
+                                : undefined
+                            }
+                          />
+                        </div>
+                      ) : (
+                        <div className="aspect-[4/3] border border-rule bg-background flex items-end p-4">
+                          <span className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground/50">
+                            Image slot — interior atmosphere
+                          </span>
+                        </div>
+                      )}
+                      {detailItem ? (
+                        <div className="aspect-[4/3] overflow-hidden border border-rule">
+                          <img
+                            src={detailItem.src}
+                            alt={detailItem.alt}
+                            loading="lazy"
+                            width={800}
+                            height={600}
+                            className="w-full h-full object-cover"
+                            style={
+                              detailItem.objectPosition
+                                ? { objectPosition: detailItem.objectPosition }
+                                : undefined
+                            }
+                          />
+                        </div>
+                      ) : (
+                        <div className="aspect-[4/3] border border-rule bg-background flex items-end p-4">
+                          <span className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground/50">
+                            Image slot — architectural detail
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* After "Cinematic Upper Environment" — wide upper space slot */}
+                  {slug === "bauskas-16a-riga" && i === 2 && (
+                    <div className="mt-12">
+                      {upperItem ? (
+                        <div className="aspect-[16/9] overflow-hidden border border-rule">
+                          <img
+                            src={upperItem.src}
+                            alt={upperItem.alt}
+                            loading="lazy"
+                            width={1280}
+                            height={720}
+                            className="w-full h-full object-cover"
+                            style={
+                              upperItem.objectPosition
+                                ? { objectPosition: upperItem.objectPosition }
+                                : undefined
+                            }
+                          />
+                        </div>
+                      ) : (
+                        <div className="aspect-[16/9] border border-rule bg-background flex items-end p-5">
+                          <span className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground/50">
+                            Image slot — upper representative space
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* After "Residential Flexibility" — 2-col lower level row */}
+                  {slug === "bauskas-16a-riga" && i === 3 && (
+                    <div className="mt-12 grid sm:grid-cols-2 gap-5">
+                      {lowerItem ? (
+                        <div className="aspect-[4/3] overflow-hidden border border-rule">
+                          <img
+                            src={lowerItem.src}
+                            alt={lowerItem.alt}
+                            loading="lazy"
+                            width={800}
+                            height={600}
+                            className="w-full h-full object-cover"
+                            style={
+                              lowerItem.objectPosition
+                                ? { objectPosition: lowerItem.objectPosition }
+                                : undefined
+                            }
+                          />
+                        </div>
+                      ) : (
+                        <div className="aspect-[4/3] border border-rule bg-background flex items-end p-4">
+                          <span className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground/50">
+                            Image slot — residential floor
+                          </span>
+                        </div>
+                      )}
+                      {atmItem ? (
+                        <div className="aspect-[4/3] overflow-hidden border border-rule">
+                          <img
+                            src={atmItem.src}
+                            alt={atmItem.alt}
+                            loading="lazy"
+                            width={800}
+                            height={600}
+                            className="w-full h-full object-cover"
+                            style={
+                              atmItem.objectPosition
+                                ? { objectPosition: atmItem.objectPosition }
+                                : undefined
+                            }
+                          />
+                        </div>
+                      ) : (
+                        <div className="aspect-[4/3] border border-rule bg-background flex items-end p-4">
+                          <span className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground/50">
+                            Image slot — lower level
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {caseStudy.advantages && caseStudy.advantages.length > 0 && (
+        <section className="border-t border-rule py-20">
+          <div className="container-rl max-w-4xl">
+            <p className="eyebrow text-accent">{l(t.cases.advantagesLabel)}</p>
+            <div className="mt-8 grid gap-7 md:grid-cols-2">
+              {caseStudy.advantages.map((advantage) => (
+                <div key={advantage.title.en}>
+                  <h2 className="serif text-2xl text-foreground">{l(advantage.title)}</h2>
+                  <p className="mt-3 text-muted-foreground leading-relaxed">{l(advantage.body)}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="paper py-20">
+        <div className="container-rl">
+          <p className="eyebrow text-accent">{l(t.cases.evidenceLabel)}</p>
+          <div className="mt-6 border border-rule min-h-[220px] flex items-center justify-center px-6 text-center">
+            <p className="text-sm text-ink/65 max-w-xl leading-relaxed">
+              {l(t.cases.evidenceText)}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24">
+        <div className="container-rl text-center">
+          <Link
+            to="/submit"
+            className="px-7 py-3.5 bg-accent text-accent-foreground text-[12px] tracking-[0.18em] uppercase hover:opacity-90 transition-opacity"
+          >
+            {l(t.cases.submit)}
+          </Link>
+        </div>
+      </section>
+    </article>
+  );
+}
