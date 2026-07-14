@@ -14,10 +14,12 @@ import { Route as SubmitRouteImport } from './routes/submit'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SelectedThinkingRouteImport } from './routes/selected-thinking'
+import { Route as RecoveryValidationRouteImport } from './routes/recovery-validation'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CasesRouteImport } from './routes/cases'
 import { Route as ApproachRouteImport } from './routes/approach'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CasesSlugRouteImport } from './routes/cases_.$slug'
 
 const WhoWeAreRoute = WhoWeAreRouteImport.update({
   id: '/who-we-are',
@@ -44,6 +46,11 @@ const SelectedThinkingRoute = SelectedThinkingRouteImport.update({
   path: '/selected-thinking',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecoveryValidationRoute = RecoveryValidationRouteImport.update({
+  id: '/recovery-validation',
+  path: '/recovery-validation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -64,28 +71,37 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CasesSlugRoute = CasesSlugRouteImport.update({
+  id: '/cases_/$slug',
+  path: '/cases/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/approach': typeof ApproachRoute
   '/cases': typeof CasesRoute
   '/contact': typeof ContactRoute
+  '/recovery-validation': typeof RecoveryValidationRoute
   '/selected-thinking': typeof SelectedThinkingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/submit': typeof SubmitRoute
   '/who-we-are': typeof WhoWeAreRoute
+  '/cases/$slug': typeof CasesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/approach': typeof ApproachRoute
   '/cases': typeof CasesRoute
   '/contact': typeof ContactRoute
+  '/recovery-validation': typeof RecoveryValidationRoute
   '/selected-thinking': typeof SelectedThinkingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/submit': typeof SubmitRoute
   '/who-we-are': typeof WhoWeAreRoute
+  '/cases/$slug': typeof CasesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -93,11 +109,13 @@ export interface FileRoutesById {
   '/approach': typeof ApproachRoute
   '/cases': typeof CasesRoute
   '/contact': typeof ContactRoute
+  '/recovery-validation': typeof RecoveryValidationRoute
   '/selected-thinking': typeof SelectedThinkingRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/submit': typeof SubmitRoute
   '/who-we-are': typeof WhoWeAreRoute
+  '/cases_/$slug': typeof CasesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -106,33 +124,39 @@ export interface FileRouteTypes {
     | '/approach'
     | '/cases'
     | '/contact'
+    | '/recovery-validation'
     | '/selected-thinking'
     | '/services'
     | '/sitemap.xml'
     | '/submit'
     | '/who-we-are'
+    | '/cases/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/approach'
     | '/cases'
     | '/contact'
+    | '/recovery-validation'
     | '/selected-thinking'
     | '/services'
     | '/sitemap.xml'
     | '/submit'
     | '/who-we-are'
+    | '/cases/$slug'
   id:
     | '__root__'
     | '/'
     | '/approach'
     | '/cases'
     | '/contact'
+    | '/recovery-validation'
     | '/selected-thinking'
     | '/services'
     | '/sitemap.xml'
     | '/submit'
     | '/who-we-are'
+    | '/cases_/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -140,11 +164,13 @@ export interface RootRouteChildren {
   ApproachRoute: typeof ApproachRoute
   CasesRoute: typeof CasesRoute
   ContactRoute: typeof ContactRoute
+  RecoveryValidationRoute: typeof RecoveryValidationRoute
   SelectedThinkingRoute: typeof SelectedThinkingRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SubmitRoute: typeof SubmitRoute
   WhoWeAreRoute: typeof WhoWeAreRoute
+  CasesSlugRoute: typeof CasesSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -184,6 +210,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SelectedThinkingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/recovery-validation': {
+      id: '/recovery-validation'
+      path: '/recovery-validation'
+      fullPath: '/recovery-validation'
+      preLoaderRoute: typeof RecoveryValidationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -212,6 +245,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cases_/$slug': {
+      id: '/cases_/$slug'
+      path: '/cases/$slug'
+      fullPath: '/cases/$slug'
+      preLoaderRoute: typeof CasesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -220,11 +260,13 @@ const rootRouteChildren: RootRouteChildren = {
   ApproachRoute: ApproachRoute,
   CasesRoute: CasesRoute,
   ContactRoute: ContactRoute,
+  RecoveryValidationRoute: RecoveryValidationRoute,
   SelectedThinkingRoute: SelectedThinkingRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SubmitRoute: SubmitRoute,
   WhoWeAreRoute: WhoWeAreRoute,
+  CasesSlugRoute: CasesSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

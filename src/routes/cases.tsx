@@ -1,119 +1,129 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BackToHome } from "@/components/site/BackToHome";
-import castleImg from "@/assets/case-castle.jpg";
-import industrialImg from "@/assets/case-industrial.jpg";
-import rigaImg from "@/assets/case-riga.jpg";
-import apartmentsImg from "@/assets/case-apartments.jpg";
-import turkeyImg from "@/assets/case-turkey.jpg";
+import { cases } from "@/data/cases";
+import { useLanguage, withoutTerminalDots } from "@/i18n";
 
 export const Route = createFileRoute("/cases")({
   head: () => ({
     meta: [
       { title: "Transformation Intelligence Cases — REPOSITION LAB" },
-      { name: "description", content: "Selected repositioning theses across heritage, industrial, urban and lifestyle real estate." },
+      {
+        name: "description",
+        content:
+          "Selected repositioning theses across heritage, industrial, urban and lifestyle real estate.",
+      },
       { property: "og:title", content: "Transformation Intelligence Cases" },
-      { property: "og:description", content: "Selected repositioning theses across heritage, industrial and special-situation real estate." },
-      { property: "og:image", content: castleImg },
+      {
+        property: "og:description",
+        content:
+          "Selected repositioning theses across heritage, industrial and special-situation real estate.",
+      },
+      { property: "og:image", content: cases[0].img },
     ],
   }),
   component: Cases,
 });
 
-const cases = [
-  {
-    title: "Slovenia Castle",
-    theme: "Heritage Repositioning",
-    img: castleImg,
-    challenge: "A forgotten heritage structure carrying cultural weight but no defensible commercial thesis.",
-    logic: "Cultural destination positioning combining boutique hospitality, educational integration and recreation zoning under a single recovery narrative.",
-    direction: "Adaptive reuse · cultural destination · qualified hospitality capital.",
-  },
-  {
-    title: "Industrial Heritage, Slovenia",
-    theme: "Adaptive Reuse",
-    img: industrialImg,
-    challenge: "A historic pumpkin oil factory — culturally significant, structurally sound, commercially illegible.",
-    logic: "Conversion thesis structured around boutique hospitality, creative-industry tenancy and a heritage-aware narrative for qualified operators.",
-    direction: "Industrial heritage repositioning · boutique hospitality · creative tenancy.",
-  },
-  {
-    title: "Bauskas 16A, Riga",
-    theme: "Urban Heritage",
-    img: rigaImg,
-    challenge: "A cinematic urban building under-read by the local market and miscast for conventional uses.",
-    logic: "Reframed as event destination and private-club hospitality concept — a narrative-led repositioning calibrated to lifestyle capital.",
-    direction: "Cinematic asset · hospitality repositioning · private club concept.",
-  },
-  {
-    title: "Distressed Prime Apartments",
-    theme: "Premium Conversion",
-    img: apartmentsImg,
-    challenge: "Communal apartment layouts in distressed condition, embedded in genuinely premium urban locations.",
-    logic: "Conversion thesis toward high-yield premium residential product — value driven by location release, not cosmetic finish.",
-    direction: "Distressed location plays · communal-to-premium conversion · residential repositioning.",
-  },
-  {
-    title: "Turkey Lifestyle Repositioning",
-    theme: "Hospitality Strategy",
-    img: turkeyImg,
-    challenge: "A coastal asset trapped in a generic holiday-rental narrative that capped both yield and exit optionality.",
-    logic: "Reframed around lifestyle hospitality and slow-tourism positioning — narrative engineered to attract qualified operators rather than retail buyers.",
-    direction: "Lifestyle hospitality · slow tourism · operator-led capital fit.",
-  },
-];
-
 function Cases() {
+  const { t, l } = useLanguage();
+
   return (
-    <article>
-      <BackToHome />
-      <header className="container-rl pt-8 pb-16">
-        <p className="eyebrow">Transformation Intelligence Cases</p>
-        <h1 className="serif text-4xl md:text-6xl mt-6 max-w-4xl leading-[1.05]">
-          Selected repositioning theses. These are not listings.
-        </h1>
-        <p className="mt-8 max-w-2xl text-muted-foreground text-lg leading-relaxed">
-          Each entry illustrates how an asset was re-read — its challenge, the repositioning logic
-          and the strategic direction the recovery thesis pointed toward. Certain commercial details
-          are withheld from public presentation.
-        </p>
-      </header>
+    <article className="cases-page">
+      <section className="cases-hero standard-page-hero">
+        <div className="cases-hero-bg" aria-hidden="true">
+          <span className="cases-hero-orb cases-hero-orb--1" />
+          <span className="cases-hero-orb cases-hero-orb--2" />
+          <span className="cases-hero-ribbon cases-hero-ribbon--1" />
+          <span className="cases-hero-ribbon cases-hero-ribbon--2" />
+          <span className="cases-hero-ribbon cases-hero-ribbon--3" />
+          <span className="cases-hero-flare cases-hero-flare--1" />
+          <span className="cases-hero-flare cases-hero-flare--2" />
+          <div className="cases-hero-linework">
+            <svg viewBox="0 0 760 520" role="presentation" focusable="false">
+              <circle cx="560" cy="260" r="214" />
+              <circle cx="560" cy="260" r="122" />
+              <path d="M560 46 A214 214 0 0 1 744 151" />
+              <path d="M68 462 C246 270 386 178 724 64" />
+              <path d="M106 94 C270 210 430 286 756 306" />
+              <path d="M362 518 L714 26" />
+              <line x1="560" y1="0" x2="560" y2="520" />
+              <line x1="104" y1="260" x2="760" y2="260" />
+            </svg>
+          </div>
+        </div>
+
+        <BackToHome />
+        <header className="container-rl cases-hero-content">
+          <p className="eyebrow text-accent page-reveal page-reveal-delay-1">
+            {l(t.cases.eyebrow)}
+          </p>
+          <h1 className="standard-page-hero-title mobile-safe-text serif mt-6 max-w-4xl text-foreground page-reveal page-reveal-delay-2">
+            {withoutTerminalDots(l(t.cases.title))}
+          </h1>
+          <p className="mt-8 max-w-2xl text-foreground/75 text-lg leading-relaxed page-reveal page-reveal-delay-3">
+            {l(t.cases.intro)}
+          </p>
+        </header>
+      </section>
 
       <section>
         <div className="container-rl space-y-px">
           {cases.map((c, i) => (
-            <div key={c.title} className="grid md:grid-cols-12 gap-10 py-12 border-t border-border items-start">
+            <Link
+              key={c.slug}
+              to="/cases/$slug"
+              params={{ slug: c.slug }}
+              className="group grid md:grid-cols-12 gap-10 py-12 border-t border-rule items-start transition-colors hover:border-accent"
+            >
               <div className={`md:col-span-6 ${i % 2 ? "md:order-2" : ""}`}>
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img src={c.img} alt={c.title} loading="lazy" width={1280} height={960} className="w-full h-full object-cover" />
+                <div className="aspect-[4/3] overflow-hidden border border-rule transition-colors group-hover:border-accent">
+                  <img
+                    src={c.img}
+                    alt={l(c.title)}
+                    loading="lazy"
+                    width={1280}
+                    height={960}
+                    className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
+                  />
                 </div>
               </div>
               <div className="md:col-span-6 space-y-6">
-                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                  <h2 className="serif text-2xl md:text-3xl">{c.title}</h2>
-                  <span className="eyebrow">{c.theme}</span>
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
+                  <h2 className="mobile-safe-text serif text-2xl md:text-3xl text-foreground group-hover:text-accent transition-colors">
+                    {l(c.title)}
+                  </h2>
+                  <span className="eyebrow mobile-safe-text text-accent sm:whitespace-nowrap">
+                    {l(c.theme)}
+                  </span>
                 </div>
                 <div>
-                  <p className="eyebrow">Asset challenge</p>
-                  <p className="mt-2 text-muted-foreground leading-relaxed">{c.challenge}</p>
+                  <p className="eyebrow text-accent">{l(t.cases.assetChallenge)}</p>
+                  <p className="mt-2 text-muted-foreground leading-relaxed">{l(c.challenge)}</p>
                 </div>
                 <div>
-                  <p className="eyebrow">Repositioning logic</p>
-                  <p className="mt-2 text-muted-foreground leading-relaxed">{c.logic}</p>
+                  <p className="eyebrow text-accent">{l(t.cases.logic)}</p>
+                  <p className="mt-2 text-muted-foreground leading-relaxed">{l(c.logic)}</p>
                 </div>
                 <div>
-                  <p className="eyebrow">Strategic direction</p>
-                  <p className="mt-2 text-foreground/85 leading-relaxed">{c.direction}</p>
+                  <p className="eyebrow text-accent">{l(t.cases.direction)}</p>
+                  <p className="mt-2 text-foreground/85 leading-relaxed">{l(c.direction)}</p>
                 </div>
+                <p className="text-[11px] tracking-[0.18em] uppercase text-accent">
+                  {l(t.common.readCase)}
+                </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
 
       <section className="py-24">
         <div className="container-rl text-center">
-          <Link to="/submit" className="px-7 py-3.5 bg-accent text-accent-foreground text-[12px] tracking-[0.18em] uppercase hover:bg-foreground hover:text-background transition-colors">
-            Submit an Asset for Review
+          <Link
+            to="/submit"
+            className="premium-action px-7 py-3.5 text-[12px] tracking-[0.18em] uppercase"
+          >
+            {l(t.cases.submit)}
           </Link>
         </div>
       </section>

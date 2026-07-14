@@ -1,11 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BackToHome } from "@/components/site/BackToHome";
+import { useLanguage, withoutTerminalDots, type LocalizedString } from "@/i18n";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — REPOSITION LAB" },
-      { name: "description", content: "Confidential institutional contact for REPOSITION LAB. London office, strategic operations in Latvia, Slovenia and Turkey." },
+      {
+        name: "description",
+        content:
+          "Confidential institutional contact for REPOSITION LAB. London office, strategic operations in Latvia, Slovenia and Turkey.",
+      },
       { property: "og:title", content: "Contact — REPOSITION LAB" },
       { property: "og:description", content: "Confidential institutional contact." },
     ],
@@ -13,26 +18,54 @@ export const Route = createFileRoute("/contact")({
   component: Contact,
 });
 
+const page = {
+  eyebrow: { en: "Contact", ru: "Контакт" },
+  title: {
+    en: "Discreet, institutional, written.",
+    ru: "Закрытый профессиональный контакт. Только по существу.",
+  },
+  practice: { en: "Practice", ru: "Практика" },
+  location: { en: "London, United Kingdom", ru: "Лондон, Великобритания" },
+  operations: { en: "Strategic Operations", ru: "География работы" },
+  channels: { en: "Channels", ru: "Каналы" },
+  primaryChannel: {
+    en: "Primary written contact channel.",
+    ru: "Основной письменный канал связи.",
+  },
+  secure: { en: "Secure communication", ru: "Защищённая связь" },
+  secureText: {
+    en: "Secure communication can be arranged separately for qualified counterparties where appropriate.",
+    ru: "Защищённая связь может быть организована отдельно для квалифицированных контрагентов там, где это уместно.",
+  },
+  note: { en: "Note", ru: "Важно" },
+  noteText: {
+    en: "REPOSITION LAB does not engage with retail enquiries, unsolicited listings or speculative investment offers. For asset submissions, use the confidential review form.",
+    ru: "REPOSITION LAB не работает с розничными запросами, обычными объявлениями о продаже или спекулятивными инвестиционными предложениями. Чтобы предложить объект на предварительный разбор, используйте конфиденциальную форму.",
+  },
+} satisfies Record<string, LocalizedString>;
+
 function Contact() {
+  const { l } = useLanguage();
+
   return (
     <article>
       <BackToHome />
-      <header className="container-rl pt-8 pb-16">
-        <p className="eyebrow">Contact</p>
-        <h1 className="serif text-4xl md:text-6xl mt-6 max-w-3xl leading-[1.05]">
-          Discreet, institutional, written.
+      <header className="standard-page-hero standard-page-hero-content container-rl">
+        <p className="eyebrow text-accent page-reveal page-reveal-delay-1">{l(page.eyebrow)}</p>
+        <h1 className="standard-page-hero-title mobile-safe-text serif mt-6 max-w-4xl text-foreground page-reveal page-reveal-delay-2">
+          {withoutTerminalDots(l(page.title))}
         </h1>
       </header>
 
-      <section className="border-t border-border">
+      <section className="border-t border-rule">
         <div className="container-rl py-20 grid md:grid-cols-12 gap-12">
           <div className="md:col-span-4">
-            <p className="eyebrow mb-3">Practice</p>
-            <p className="serif text-2xl">RANTA LIMITED</p>
-            <p className="text-muted-foreground mt-1">London, United Kingdom</p>
+            <p className="eyebrow mb-3 text-accent">{l(page.practice)}</p>
+            <p className="serif text-2xl text-foreground">RANTA LIMITED</p>
+            <p className="text-muted-foreground mt-1">{l(page.location)}</p>
           </div>
           <div className="md:col-span-4">
-            <p className="eyebrow mb-3">Strategic Operations</p>
+            <p className="eyebrow mb-3 text-accent">{l(page.operations)}</p>
             <ul className="space-y-1 text-muted-foreground">
               <li>Latvia</li>
               <li>Slovenia</li>
@@ -40,14 +73,20 @@ function Contact() {
             </ul>
           </div>
           <div className="md:col-span-4">
-            <p className="eyebrow mb-3">Channels</p>
+            <p className="eyebrow mb-3 text-accent">{l(page.channels)}</p>
             <ul className="space-y-2">
               <li>
-                <p className="text-foreground">Contact channel available on request.</p>
+                <a
+                  href="mailto:office@repositionlab.com"
+                  className="mobile-safe-text break-all text-foreground hover:text-accent transition-colors"
+                >
+                  office@repositionlab.com
+                </a>
+                <p className="text-xs text-muted-foreground mt-1">{l(page.primaryChannel)}</p>
               </li>
               <li className="pt-4">
-                <p className="text-foreground">Encrypted channel</p>
-                <p className="text-xs text-muted-foreground mt-1">Available on request for qualified counterparties.</p>
+                <p className="text-foreground">{l(page.secure)}</p>
+                <p className="text-xs text-muted-foreground mt-1">{l(page.secureText)}</p>
               </li>
             </ul>
           </div>
@@ -56,10 +95,9 @@ function Contact() {
 
       <section className="paper py-20">
         <div className="container-rl max-w-3xl">
-          <p className="eyebrow">Note</p>
-          <p className="serif text-2xl md:text-3xl mt-4 leading-snug">
-            REPOSITION LAB does not engage with retail enquiries, unsolicited listings or
-            speculative investment offers. For asset submissions, use the confidential review form.
+          <p className="eyebrow text-accent">{l(page.note)}</p>
+          <p className="mobile-safe-text serif text-2xl md:text-3xl mt-4 leading-snug text-ink">
+            {l(page.noteText)}
           </p>
         </div>
       </section>

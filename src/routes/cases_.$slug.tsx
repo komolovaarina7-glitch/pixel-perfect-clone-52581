@@ -19,7 +19,7 @@ function CaseDetail() {
         <header className="container-rl pt-8 pb-16">
           <Link
             to="/cases"
-            className="page-reveal page-reveal-delay-1 inline-flex items-center gap-2 text-[11px] tracking-[0.22em] uppercase text-muted-foreground hover:text-accent transition-colors border-b border-transparent hover:border-accent/40 pb-1"
+            className="page-reveal page-reveal-delay-1 mobile-safe-text inline-flex max-w-full items-center gap-2 text-[11px] tracking-[0.16em] uppercase text-muted-foreground hover:text-accent transition-colors border-b border-transparent hover:border-accent/40 pb-1 sm:tracking-[0.22em]"
           >
             <span aria-hidden>←</span>
             <span>{l(t.common.backToCases)}</span>
@@ -41,7 +41,7 @@ function CaseDetail() {
       <header className="container-rl pt-8 pb-16">
         <Link
           to="/cases"
-          className="page-reveal page-reveal-delay-1 inline-flex items-center gap-2 text-[11px] tracking-[0.22em] uppercase text-muted-foreground hover:text-accent transition-colors border-b border-transparent hover:border-accent/40 pb-1"
+          className="page-reveal page-reveal-delay-1 mobile-safe-text inline-flex max-w-full items-center gap-2 text-[11px] tracking-[0.16em] uppercase text-muted-foreground hover:text-accent transition-colors border-b border-transparent hover:border-accent/40 pb-1 sm:tracking-[0.22em]"
         >
           <span aria-hidden>←</span>
           <span>{l(t.common.backToCases)}</span>
@@ -59,10 +59,10 @@ function CaseDetail() {
         )}
       </header>
 
-      <section className="border-t border-rule">
-        <div className="container-rl py-16 grid lg:grid-cols-12 gap-12 items-start">
-          <div className="lg:col-span-5">
-            <div className="aspect-[4/3] overflow-hidden bg-muted border border-rule">
+      <section className="case-file-intro border-t border-rule">
+        <div className="container-rl py-12 grid gap-10 items-start lg:grid-cols-12 lg:gap-14 lg:py-16">
+          <div className="case-file-visual lg:col-span-5">
+            <div className="case-file-image aspect-[4/3] overflow-hidden bg-muted border border-rule">
               <img
                 src={caseStudy.img}
                 alt={l(caseStudy.title)}
@@ -74,20 +74,20 @@ function CaseDetail() {
             </div>
           </div>
 
-          <div className="lg:col-span-7 space-y-10">
-            <div>
+          <div className="case-file-dossier lg:col-span-7">
+            <div className="case-file-finding">
               <p className="eyebrow text-accent">{l(t.cases.assetChallenge)}</p>
               <p className="mt-3 text-muted-foreground leading-relaxed text-lg">
                 {l(caseStudy.challenge)}
               </p>
             </div>
-            <div>
+            <div className="case-file-finding">
               <p className="eyebrow text-accent">{l(t.cases.logic)}</p>
               <p className="mt-3 text-muted-foreground leading-relaxed text-lg">
                 {l(caseStudy.logic)}
               </p>
             </div>
-            <div>
+            <div className="case-file-finding">
               <p className="eyebrow text-accent">{l(t.cases.direction)}</p>
               <p className="mt-3 text-foreground/85 leading-relaxed text-lg">
                 {l(caseStudy.direction)}
@@ -98,8 +98,8 @@ function CaseDetail() {
       </section>
 
       {caseStudy.sections && caseStudy.sections.length > 0 && (
-        <section className="border-t border-rule py-20">
-          <div className="container-rl max-w-4xl space-y-16">
+        <section className="case-file-sections border-t border-rule py-16 md:py-20">
+          <div className="container-rl max-w-5xl space-y-14 md:space-y-20">
             {caseStudy.sections.map((s, i) => {
               const gl = caseStudy.gallery ?? [];
               const extItem = gl.find((g) => g.type === "exterior");
@@ -110,9 +110,9 @@ function CaseDetail() {
               const atmItem = gl.find((g) => g.type === "atmosphere");
 
               return (
-                <div key={s.eyebrow.en}>
+                <div key={s.eyebrow.en} className="case-file-chapter">
                   <p className="eyebrow text-accent">{l(s.eyebrow)}</p>
-                  <div className="mt-6 space-y-5 text-lg leading-relaxed text-foreground/80">
+                  <div className="mt-6 max-w-4xl space-y-5 text-lg leading-relaxed text-foreground/80">
                     {s.body.map((para, j) => (
                       <p key={j}>{l(para)}</p>
                     ))}
@@ -120,9 +120,9 @@ function CaseDetail() {
 
                   {/* After "Repositioning Thesis" — wide exterior slot */}
                   {slug === "bauskas-16a-riga" && i === 0 && (
-                    <div className="mt-12">
+                    <div className="case-file-evidence-zone mt-12">
                       {extItem ? (
-                        <div className="aspect-[16/9] overflow-hidden border border-rule">
+                        <div className="case-file-evidence-plate case-file-evidence-plate-wide aspect-[16/9] overflow-hidden border border-rule">
                           <img
                             src={extItem.src}
                             alt={extItem.alt}
@@ -149,9 +149,9 @@ function CaseDetail() {
 
                   {/* After "Spatial Identity as Value Driver" — 2-col interior row */}
                   {slug === "bauskas-16a-riga" && i === 1 && (
-                    <div className="mt-12 grid sm:grid-cols-2 gap-5">
+                    <div className="case-file-evidence-zone mt-12 grid sm:grid-cols-2 gap-5">
                       {intItem ? (
-                        <div className="aspect-[4/3] overflow-hidden border border-rule">
+                        <div className="case-file-evidence-plate aspect-[4/3] overflow-hidden border border-rule">
                           <img
                             src={intItem.src}
                             alt={intItem.alt}
@@ -174,7 +174,7 @@ function CaseDetail() {
                         </div>
                       )}
                       {detailItem ? (
-                        <div className="aspect-[4/3] overflow-hidden border border-rule">
+                        <div className="case-file-evidence-plate aspect-[4/3] overflow-hidden border border-rule">
                           <img
                             src={detailItem.src}
                             alt={detailItem.alt}
@@ -201,9 +201,9 @@ function CaseDetail() {
 
                   {/* After "Cinematic Upper Environment" — wide upper space slot */}
                   {slug === "bauskas-16a-riga" && i === 2 && (
-                    <div className="mt-12">
+                    <div className="case-file-evidence-zone mt-12">
                       {upperItem ? (
-                        <div className="aspect-[16/9] overflow-hidden border border-rule">
+                        <div className="case-file-evidence-plate case-file-evidence-plate-wide aspect-[16/9] overflow-hidden border border-rule">
                           <img
                             src={upperItem.src}
                             alt={upperItem.alt}
@@ -230,9 +230,9 @@ function CaseDetail() {
 
                   {/* After "Residential Flexibility" — 2-col lower level row */}
                   {slug === "bauskas-16a-riga" && i === 3 && (
-                    <div className="mt-12 grid sm:grid-cols-2 gap-5">
+                    <div className="case-file-evidence-zone mt-12 grid sm:grid-cols-2 gap-5">
                       {lowerItem ? (
-                        <div className="aspect-[4/3] overflow-hidden border border-rule">
+                        <div className="case-file-evidence-plate aspect-[4/3] overflow-hidden border border-rule">
                           <img
                             src={lowerItem.src}
                             alt={lowerItem.alt}
@@ -255,7 +255,7 @@ function CaseDetail() {
                         </div>
                       )}
                       {atmItem ? (
-                        <div className="aspect-[4/3] overflow-hidden border border-rule">
+                        <div className="case-file-evidence-plate aspect-[4/3] overflow-hidden border border-rule">
                           <img
                             src={atmItem.src}
                             alt={atmItem.alt}
@@ -289,7 +289,9 @@ function CaseDetail() {
       {caseStudy.advantages && caseStudy.advantages.length > 0 && (
         <section className="border-t border-rule py-20">
           <div className="container-rl max-w-4xl">
-            <p className="eyebrow text-accent">{l(t.cases.advantagesLabel)}</p>
+            <p className="case-file-advantages-label eyebrow text-accent">
+              {l(t.cases.advantagesLabel)}
+            </p>
             <div className="mt-8 grid gap-7 md:grid-cols-2">
               {caseStudy.advantages.map((advantage) => (
                 <div key={advantage.title.en}>
@@ -302,22 +304,26 @@ function CaseDetail() {
         </section>
       )}
 
-      <section className="paper py-20">
-        <div className="container-rl">
-          <p className="eyebrow text-accent">{l(t.cases.evidenceLabel)}</p>
-          <div className="mt-6 border border-rule min-h-[220px] flex items-center justify-center px-6 text-center">
-            <p className="text-sm text-ink/65 max-w-xl leading-relaxed">
-              {l(t.cases.evidenceText)}
+      {slug !== "bauskas-16a-riga" && (
+        <section className="paper py-20">
+          <div className="container-rl">
+            <p className="case-file-evidence-label eyebrow text-accent">
+              {l(t.cases.evidenceLabel)}
             </p>
+            <div className="mt-6 border border-rule min-h-[220px] flex items-center justify-center px-6 text-center">
+              <p className="text-sm text-ink/65 max-w-xl leading-relaxed">
+                {l(t.cases.evidenceText)}
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <section className="py-24">
         <div className="container-rl text-center">
           <Link
             to="/submit"
-            className="px-7 py-3.5 bg-accent text-accent-foreground text-[12px] tracking-[0.18em] uppercase hover:opacity-90 transition-opacity"
+            className="premium-action px-7 py-3.5 text-[12px] tracking-[0.18em] uppercase"
           >
             {l(t.cases.submit)}
           </Link>

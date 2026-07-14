@@ -1,101 +1,177 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BackToHome } from "@/components/site/BackToHome";
+import { useLanguage, withoutTerminalDots } from "@/i18n";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — REPOSITION LAB" },
-      { name: "description", content: "Rapid Asset Recovery, Portfolio Screening, Full Repositioning & Packaging, Distressed Heritage and Tokenization Readiness." },
-      { property: "og:title", content: "Services — REPOSITION LAB" },
-      { property: "og:description", content: "Five disciplines of strategic real estate recovery." },
+      { title: "Services - REPOSITION LAB" },
+      {
+        name: "description",
+        content:
+          "Rapid Asset Recovery, Portfolio Screening, Full Repositioning & Packaging, Distressed Heritage and Digital Structuring Readiness.",
+      },
+      { property: "og:title", content: "Services - REPOSITION LAB" },
+      {
+        property: "og:description",
+        content: "Five disciplines of strategic real estate recovery.",
+      },
     ],
   }),
   component: Services,
 });
 
-const services = [
-  {
-    n: "01",
-    title: "Rapid Asset Recovery Assessment",
-    short: "Concentrated diagnostic of a single asset.",
-    body: "A focused engagement on one distressed, stalled or underutilized asset. We strip it to its structural reality — title, condition, zoning, narrative and capital fit — and return a defensible repositioning thesis with a recommended recovery path. Designed for owners who need direction before they commit further capital or release the asset.",
-    deliverables: ["Asset-level diagnostic", "Repositioning thesis", "Recommended recovery path", "Indicative capital fit"],
-  },
-  {
-    n: "02",
-    title: "Portfolio Screening & Asset Prioritization",
-    short: "Triage across non-core and REO portfolios.",
-    body: "We work with banks, REO divisions and institutional holders to triage portfolios of distressed or non-core real estate. Each asset is scored on recoverability, repositioning potential, capital intensity and release readiness — so management can concentrate effort where intervention compounds.",
-    deliverables: ["Portfolio-level screen", "Asset prioritization matrix", "Intervention vs release recommendation", "Sequencing plan"],
-  },
-  {
-    n: "03",
-    title: "Full Repositioning & Investment Packaging",
-    short: "End-to-end thesis, narrative and institutional packaging.",
-    body: "For mandates where the thesis is clear and the path is committed. We build the full repositioning strategy, the institutional narrative, the documentation suite and the capital-ready packaging — and run a selective process to qualified investors and operators on a discreet basis.",
-    deliverables: ["Repositioning strategy", "Institutional information memorandum", "Capital narrative", "Selective investor process"],
-  },
-  {
-    n: "04",
-    title: "Distressed Heritage & Special Assets",
-    short: "Castles, industrial heritage and cinematic buildings.",
-    body: "A specialist track for assets that resist conventional valuation: castles, forgotten industrial structures, culturally significant buildings, hospitality-convertible heritage and properties whose value is partly narrative. We design adaptive reuse, cultural hospitality and destination repositioning theses calibrated to qualified capital.",
-    deliverables: ["Adaptive reuse thesis", "Cultural hospitality positioning", "Heritage-aware capital narrative", "Operator and partner mapping"],
-  },
-  {
-    n: "05",
-    title: "Tokenization Readiness",
-    short: "Selective digital structuring where it genuinely enhances liquidity.",
-    body: "Selective digital structuring and tokenization readiness for suitable assets where additional liquidity mechanisms may enhance marketability. We do not present tokenization as an investment product and we do not operate as a securities platform. We assess fit, structure readiness and prepare assets for compliant downstream partners only where the underlying repositioning thesis already stands on its own merits.",
-    deliverables: ["Fit assessment", "Readiness structuring", "Partner mapping", "Risk framing"],
-  },
-];
-
 function Services() {
+  const { t, l } = useLanguage();
+
   return (
-    <article>
+    <article className="services-flow-background">
+      <svg
+        className="services-wave-flow"
+        viewBox="0 0 2400 1800"
+        preserveAspectRatio="none"
+        aria-hidden
+      >
+        <defs>
+          <linearGradient id="services-wave-cream" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#fbfaf7" stopOpacity="0" />
+            <stop offset="24%" stopColor="#f7f0e7" stopOpacity="0.7" />
+            <stop offset="52%" stopColor="#ecdcca" stopOpacity="0.48" />
+            <stop offset="76%" stopColor="#fbfaf7" stopOpacity="0.18" />
+            <stop offset="100%" stopColor="#fbfaf7" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="services-wave-sand" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#fbfaf7" stopOpacity="0" />
+            <stop offset="28%" stopColor="#f3e8da" stopOpacity="0.5" />
+            <stop offset="56%" stopColor="#e2ccb2" stopOpacity="0.34" />
+            <stop offset="78%" stopColor="#c8a178" stopOpacity="0.16" />
+            <stop offset="100%" stopColor="#fbfaf7" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="services-wave-light" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#fbfaf7" stopOpacity="0" />
+            <stop offset="36%" stopColor="#f7f0e7" stopOpacity="0.52" />
+            <stop offset="64%" stopColor="#f3e8da" stopOpacity="0.32" />
+            <stop offset="100%" stopColor="#fbfaf7" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="services-wave-bronze" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#fbfaf7" stopOpacity="0" />
+            <stop offset="32%" stopColor="#ecdcca" stopOpacity="0.34" />
+            <stop offset="58%" stopColor="#d5b392" stopOpacity="0.22" />
+            <stop offset="100%" stopColor="#fbfaf7" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="services-wave-veil" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#fbfaf7" stopOpacity="0" />
+            <stop offset="44%" stopColor="#f7f0e7" stopOpacity="0.42" />
+            <stop offset="72%" stopColor="#e2ccb2" stopOpacity="0.18" />
+            <stop offset="100%" stopColor="#fbfaf7" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+
+        <g className="services-wave-track services-wave-track-a">
+          <path
+            d="M-620 280 C-270 166 70 402 450 286 C820 174 1100 404 1480 286 C1840 174 2130 406 2500 286 C2860 178 3140 388 3440 292 L3440 560 C3060 656 2780 460 2440 552 C2080 654 1780 450 1430 552 C1070 654 780 456 430 552 C70 656 -260 462 -620 554 Z"
+            fill="url(#services-wave-cream)"
+          />
+        </g>
+        <g className="services-wave-track services-wave-track-d">
+          <path
+            d="M-700 520 C-330 432 10 608 360 528 C740 440 1020 612 1390 524 C1780 430 2030 604 2420 518 C2830 428 3120 594 3480 522 L3480 760 C3100 828 2810 682 2420 760 C2020 842 1750 680 1370 760 C990 842 720 686 350 760 C-10 836 -330 688 -700 762 Z"
+            fill="url(#services-wave-bronze)"
+          />
+        </g>
+        <g className="services-wave-track services-wave-track-b">
+          <path
+            d="M-660 830 C-310 696 20 952 410 824 C790 700 1080 956 1460 824 C1840 694 2140 950 2530 824 C2920 696 3170 934 3440 830 L3440 1115 C3060 1222 2780 1004 2460 1102 C2080 1218 1780 998 1450 1102 C1090 1214 790 1002 420 1102 C60 1206 -280 1004 -660 1104 Z"
+            fill="url(#services-wave-sand)"
+          />
+        </g>
+        <g className="services-wave-track services-wave-track-e">
+          <path
+            d="M-580 1060 C-190 958 130 1136 520 1062 C880 994 1160 1140 1530 1060 C1900 978 2190 1132 2580 1060 C2920 998 3150 1122 3380 1064 L3380 1278 C3040 1344 2820 1230 2560 1290 C2180 1374 1900 1226 1530 1294 C1160 1362 890 1234 520 1292 C150 1352 -190 1230 -580 1296 Z"
+            fill="url(#services-wave-veil)"
+          />
+        </g>
+        <g className="services-wave-track services-wave-track-c">
+          <path
+            d="M-560 1430 C-210 1328 130 1540 520 1434 C880 1334 1160 1538 1530 1432 C1900 1330 2200 1534 2580 1430 C2960 1328 3180 1514 3400 1436 L3400 1635 C3040 1718 2800 1568 2520 1640 C2140 1736 1880 1564 1530 1640 C1160 1718 890 1570 520 1640 C150 1710 -200 1570 -560 1640 Z"
+            fill="url(#services-wave-light)"
+          />
+        </g>
+      </svg>
       <BackToHome />
-      <header className="container-rl pt-8 pb-20">
-        <p className="eyebrow">Services</p>
-        <h1 className="serif text-4xl md:text-6xl mt-6 max-w-3xl leading-[1.05]">
-          Five disciplines of strategic recovery.
-        </h1>
-        <p className="mt-8 max-w-2xl text-muted-foreground text-lg leading-relaxed">
-          Each engagement is scoped against the asset, not against a template.
-          We accept a constrained number of mandates per year.
+      <header className="standard-page-hero standard-page-hero-content container-rl">
+        <p className="eyebrow text-accent page-reveal page-reveal-delay-1">
+          {l(t.services.eyebrow)}
         </p>
+        <h1 className="standard-page-hero-title mobile-safe-text serif mt-6 max-w-4xl text-foreground page-reveal page-reveal-delay-2">
+          {withoutTerminalDots(l(t.services.title))}
+        </h1>
+        <div className="mt-8 max-w-5xl space-y-6 text-lg md:text-xl leading-relaxed text-foreground/75 page-reveal page-reveal-delay-3">
+          {t.services.intro.map((paragraph) => (
+            <p key={paragraph.en}>{l(paragraph)}</p>
+          ))}
+        </div>
       </header>
 
-      <section>
-        <div className="container-rl">
-          <div className="rule" />
-          {services.map((s) => (
-            <div key={s.n} className="grid md:grid-cols-12 gap-10 py-16 border-b border-border">
-              <div className="md:col-span-3">
-                <div className="font-mono text-sm text-muted-foreground">{s.n}</div>
-                <h2 className="serif text-2xl md:text-3xl mt-3">{s.title}</h2>
-                <p className="eyebrow mt-4">{s.short}</p>
+      <section className="services-dossier">
+        <div className="container-rl services-dossier-shell max-w-6xl">
+          {t.services.items.map((service) => (
+            <section
+              key={service.title.en}
+              className="services-dossier-row grid gap-6 py-10 md:grid-cols-12 md:gap-8 md:py-14"
+            >
+              <div className="md:col-span-5">
+                <h2 className="mobile-safe-text serif text-3xl leading-tight text-foreground md:text-4xl">
+                  {l(service.title)}
+                </h2>
               </div>
-              <div className="md:col-span-6 text-muted-foreground leading-relaxed text-base md:text-lg">
-                {s.body}
+              <div className="md:col-span-7">
+                <p className="services-dossier-thesis mobile-safe-text text-xl leading-relaxed text-accent/85 md:text-2xl">
+                  {l(service.support)}
+                </p>
+                <div className="mt-7 max-w-3xl space-y-5 text-base leading-relaxed text-foreground/75 md:text-lg">
+                  <p>{l(service.body)}</p>
+                  <p>{l(service.detail)}</p>
+                </div>
               </div>
-              <div className="md:col-span-3">
-                <p className="eyebrow mb-4">Deliverables</p>
-                <ul className="space-y-2 text-sm">
-                  {s.deliverables.map((d) => (
-                    <li key={d} className="text-foreground/80">— {d}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            </section>
           ))}
+        </div>
+      </section>
+
+      <section className="py-16">
+        <div className="container-rl max-w-6xl">
+          <h2 className="mobile-safe-text serif text-3xl md:text-5xl text-foreground">
+            {l(t.services.valuationTitle)}
+          </h2>
+          <div className="mt-6 max-w-5xl space-y-6 text-lg md:text-xl leading-relaxed text-foreground/75">
+            {t.services.valuation.map((paragraph) => (
+              <p key={paragraph.en}>{l(paragraph)}</p>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16">
+        <div className="container-rl max-w-6xl">
+          <h2 className="mobile-safe-text serif text-3xl md:text-5xl text-foreground">
+            {l(t.services.mandateTitle)}
+          </h2>
+          <div className="mt-6 max-w-5xl space-y-6 text-xl md:text-2xl leading-relaxed text-foreground/75">
+            {t.services.mandate.map((paragraph) => (
+              <p key={paragraph.en}>{l(paragraph)}</p>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="py-24">
         <div className="container-rl text-center">
-          <Link to="/submit" className="px-7 py-3.5 bg-accent text-accent-foreground text-[12px] tracking-[0.18em] uppercase hover:bg-foreground hover:text-background transition-colors">
-            Submit an Asset
+          <Link
+            to="/submit"
+            className="premium-action px-7 py-3.5 text-[12px] tracking-[0.18em] uppercase"
+          >
+            {l(t.common.submitAnAsset)}
           </Link>
         </div>
       </section>

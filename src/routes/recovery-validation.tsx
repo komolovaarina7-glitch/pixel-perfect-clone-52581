@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BackToHome } from "@/components/site/BackToHome";
-import { useLanguage, type LocalizedString } from "@/i18n";
+import { useLanguage, withoutTerminalDots, type LocalizedString } from "@/i18n";
 
 export const Route = createFileRoute("/recovery-validation")({
   head: () => ({
@@ -79,30 +79,32 @@ function RecoveryValidation() {
   const { l } = useLanguage();
 
   return (
-    <article>
+    <article className="validation-page">
       <BackToHome />
 
-      <header className="container-rl pt-8 pb-16">
-        <p className="eyebrow text-accent page-reveal page-reveal-delay-1">{l(page.eyebrow)}</p>
-        <h1 className="mobile-safe-text serif text-4xl md:text-6xl mt-6 max-w-4xl leading-[1.05] text-foreground page-reveal page-reveal-delay-2">
-          {l(page.title)}
-        </h1>
-        <p className="mobile-safe-text mt-6 max-w-2xl text-xl md:text-2xl leading-relaxed text-accent/85 page-reveal page-reveal-delay-3">
-          {l(page.subtitle)}
-        </p>
+      <header className="validation-hero standard-page-hero">
+        <div className="container-rl validation-hero-content">
+          <p className="eyebrow text-accent page-reveal page-reveal-delay-1">{l(page.eyebrow)}</p>
+          <h1 className="standard-page-hero-title mobile-safe-text serif validation-title page-reveal page-reveal-delay-2">
+            {withoutTerminalDots(l(page.title))}
+          </h1>
+          <p className="mobile-safe-text validation-subtitle page-reveal page-reveal-delay-3">
+            {l(page.subtitle)}
+          </p>
+        </div>
       </header>
 
-      <section className="border-t border-rule">
-        <div className="container-rl py-16 max-w-4xl space-y-8 text-lg leading-relaxed text-foreground/80">
-          {paragraphs.map((paragraph) => (
-            <p key={paragraph.en}>{l(paragraph)}</p>
-          ))}
+      <section className="validation-body">
+        <div className="container-rl validation-memo">
+          <div className="validation-copy">
+            {paragraphs.map((paragraph) => (
+              <p key={paragraph.en}>{l(paragraph)}</p>
+            ))}
+          </div>
         </div>
 
-        <div className="container-rl pb-20 max-w-4xl">
-          <p className="mobile-safe-text serif text-2xl md:text-3xl leading-snug text-foreground border-t border-rule pt-10">
-            {l(page.closing)}
-          </p>
+        <div className="container-rl validation-closing-wrap">
+          <p className="mobile-safe-text serif validation-closing">{l(page.closing)}</p>
         </div>
       </section>
     </article>

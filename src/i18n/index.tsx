@@ -7,6 +7,10 @@ export type LocalizedString = {
   readonly ru: string;
 };
 
+export function withoutTerminalDots(value: string) {
+  return value.replace(/[.。]+$/u, "");
+}
+
 const STORAGE_KEY = "reposition-lab-language";
 
 export const copy = {
