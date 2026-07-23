@@ -6,13 +6,6 @@ import slivnicaUpperImg from "@/assets/SLIV7.jpg";
 import slivnicaLowerImg from "@/assets/SLIV8.jpg";
 import slivnicaAtmosphereImg from "@/assets/SLIV9.jpg";
 import industrialImg from "@/assets/case-industrial.jpg";
-import flotesImg from "@/assets/Generated image 2.png";
-import flotesExteriorImg from "@/assets/Generated image 4.png";
-import flotesInteriorImg from "@/assets/Generated image 3.png";
-import flotesDetailImg from "@/assets/Generated image 6.png";
-import flotesUpperImg from "@/assets/Generated image 10.png";
-import flotesLowerImg from "@/assets/Generated image 12.png";
-import flotesAtmosphereImg from "@/assets/Generated image 13.png";
 import kekavaImg from "@/assets/Generated image 1.png";
 import kekavaExteriorImg from "@/assets/photo_2026-07-23_19-00-40.jpg";
 import kekavaInteriorImg from "@/assets/photo_2026-07-23_19-00-32.jpg";
@@ -938,7 +931,7 @@ export const cases: CaseStudy[] = [
       en: "Social Infrastructure Repositioning",
       ru: "Репозиционирование социальной инфраструктуры",
     },
-    img: flotesImg,
+    img: "/Generated image 2.png",
     subtitle: {
       en: "From a fragmented mixed-use property to a coherent community-services asset whose stable public and educational anchors create a credible basis for revaluation.",
       ru: "От фрагментированного mixed-use объекта — к цельному активу общественных сервисов, где устойчивые публичные и образовательные якоря создают убедительное основание для переоценки.",
@@ -957,39 +950,39 @@ export const cases: CaseStudy[] = [
     },
     gallery: [
       {
-        src: flotesExteriorImg,
+        src: "/Generated image 4.png",
         alt: "Flotes 8 historic entrance exterior",
         type: "exterior",
         span: "full",
         objectPosition: "center center",
       },
       {
-        src: flotesInteriorImg,
+        src: "/Generated image 3.png",
         alt: "Flotes 8 courtyard and community-services building",
         type: "interior",
         objectPosition: "center center",
       },
       {
-        src: flotesDetailImg,
+        src: "/Generated image 6.png",
         alt: "Flotes 8 neighbourhood café frontage",
         type: "detail",
         objectPosition: "center center",
       },
       {
-        src: flotesUpperImg,
+        src: "/Generated image 10.png",
         alt: "Flotes 8 landscaped community grounds",
         type: "upper",
         span: "full",
         objectPosition: "center center",
       },
       {
-        src: flotesLowerImg,
+        src: "/Generated image 12.png",
         alt: "Flotes 8 community-services entrance",
         type: "lower",
         objectPosition: "center center",
       },
       {
-        src: flotesAtmosphereImg,
+        src: "/Generated image 13.png",
         alt: "Flotes 8 neighbourhood atmosphere",
         type: "atmosphere",
         objectPosition: "center center",
