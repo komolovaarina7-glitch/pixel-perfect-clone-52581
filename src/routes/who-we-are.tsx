@@ -67,9 +67,11 @@ function WhoWeAre() {
 
       <section className="who-paper-section paper py-24">
         <div className="container-rl">
-          <div className="who-statement-copy max-w-4xl mx-auto space-y-7">
-            {t.who.paragraphs.map((paragraph) => (
-              <p key={paragraph.en}>{l(paragraph)}</p>
+          <div className="who-statement-copy max-w-4xl mx-auto">
+            {t.who.paragraphs.map((paragraph, index) => (
+              <p key={paragraph.en} className={index === 0 ? "who-statement-lead" : undefined}>
+                {l(paragraph)}
+              </p>
             ))}
           </div>
         </div>
@@ -77,7 +79,7 @@ function WhoWeAre() {
 
       <section className="who-principles-section py-24 border-t border-rule">
         <div className="container-rl grid md:grid-cols-2 gap-16">
-          <div>
+          <div className="who-principles-column">
             <p className="eyebrow text-accent">{l(t.who.believeLabel)}</p>
             <ul className="mt-8 text-muted-foreground leading-relaxed">
               {t.who.believe.map((item) => (
@@ -90,7 +92,7 @@ function WhoWeAre() {
               ))}
             </ul>
           </div>
-          <div>
+          <div className="who-principles-column">
             <p className="eyebrow text-accent">{l(t.who.workLabel)}</p>
             <ul className="mt-8 text-muted-foreground leading-relaxed">
               {t.who.work.map((item) => (

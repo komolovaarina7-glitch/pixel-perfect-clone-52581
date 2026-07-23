@@ -106,9 +106,11 @@ function Services() {
         <h1 className="standard-page-hero-title mobile-safe-text serif mt-6 max-w-4xl text-foreground page-reveal page-reveal-delay-2">
           {withoutTerminalDots(l(t.services.title))}
         </h1>
-        <div className="mt-8 max-w-5xl space-y-6 text-lg md:text-xl leading-relaxed text-foreground/75 page-reveal page-reveal-delay-3">
-          {t.services.intro.map((paragraph) => (
-            <p key={paragraph.en}>{l(paragraph)}</p>
+        <div className="services-intro page-reveal page-reveal-delay-3">
+          {t.services.intro.map((paragraph, index) => (
+            <p key={paragraph.en} className={index === 0 ? "services-intro-lead" : undefined}>
+              {l(paragraph)}
+            </p>
           ))}
         </div>
       </header>
@@ -118,18 +120,14 @@ function Services() {
           {t.services.items.map((service) => (
             <section
               key={service.title.en}
-              className="services-dossier-row grid gap-6 py-10 md:grid-cols-12 md:gap-8 md:py-14"
+              className="services-dossier-row grid gap-6 md:grid-cols-12 md:gap-8"
             >
-              <div className="md:col-span-5">
-                <h2 className="mobile-safe-text serif text-3xl leading-tight text-foreground md:text-4xl">
-                  {l(service.title)}
-                </h2>
+              <div className="services-dossier-heading md:col-span-5">
+                <h2 className="mobile-safe-text serif">{l(service.title)}</h2>
               </div>
-              <div className="md:col-span-7">
-                <p className="services-dossier-thesis mobile-safe-text text-xl leading-relaxed text-accent/85 md:text-2xl">
-                  {l(service.support)}
-                </p>
-                <div className="mt-7 max-w-3xl space-y-5 text-base leading-relaxed text-foreground/75 md:text-lg">
+              <div className="services-dossier-copy md:col-span-7">
+                <p className="services-dossier-thesis mobile-safe-text">{l(service.support)}</p>
+                <div className="services-dossier-body">
                   <p>{l(service.body)}</p>
                   <p>{l(service.detail)}</p>
                 </div>
@@ -139,42 +137,44 @@ function Services() {
         </div>
       </section>
 
-      <section className="py-16">
-        <div className="container-rl max-w-6xl">
-          <h2 className="mobile-safe-text serif text-3xl md:text-5xl text-foreground">
-            {l(t.services.valuationTitle)}
-          </h2>
-          <div className="mt-6 max-w-5xl space-y-6 text-lg md:text-xl leading-relaxed text-foreground/75">
-            {t.services.valuation.map((paragraph) => (
-              <p key={paragraph.en}>{l(paragraph)}</p>
-            ))}
+      <div className="services-closing">
+        <section className="services-closing-section">
+          <div className="container-rl max-w-6xl services-closing-grid">
+            <h2 className="mobile-safe-text serif services-closing-title">
+              {l(t.services.valuationTitle)}
+            </h2>
+            <div className="services-closing-copy">
+              {t.services.valuation.map((paragraph) => (
+                <p key={paragraph.en}>{l(paragraph)}</p>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="py-16">
-        <div className="container-rl max-w-6xl">
-          <h2 className="mobile-safe-text serif text-3xl md:text-5xl text-foreground">
-            {l(t.services.mandateTitle)}
-          </h2>
-          <div className="mt-6 max-w-5xl space-y-6 text-xl md:text-2xl leading-relaxed text-foreground/75">
-            {t.services.mandate.map((paragraph) => (
-              <p key={paragraph.en}>{l(paragraph)}</p>
-            ))}
+        <section className="services-closing-section">
+          <div className="container-rl max-w-6xl services-closing-grid">
+            <h2 className="mobile-safe-text serif services-closing-title">
+              {l(t.services.mandateTitle)}
+            </h2>
+            <div className="services-closing-copy services-closing-copy--emphasis">
+              {t.services.mandate.map((paragraph) => (
+                <p key={paragraph.en}>{l(paragraph)}</p>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="py-24">
-        <div className="container-rl text-center">
-          <Link
-            to="/submit"
-            className="premium-action px-7 py-3.5 text-[12px] tracking-[0.18em] uppercase"
-          >
-            {l(t.common.submitAnAsset)}
-          </Link>
-        </div>
-      </section>
+        <section className="services-closing-action">
+          <div className="container-rl text-center">
+            <Link
+              to="/submit"
+              className="premium-action px-7 py-3.5 text-[12px] tracking-[0.18em] uppercase"
+            >
+              {l(t.common.submitAnAsset)}
+            </Link>
+          </div>
+        </section>
+      </div>
     </article>
   );
 }

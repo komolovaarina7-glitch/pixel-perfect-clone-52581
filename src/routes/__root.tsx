@@ -151,6 +151,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
+        <GlobalScrollReveal />
         <SiteHeader />
         <main>
           <Outlet />
@@ -159,4 +160,76 @@ function RootComponent() {
       </LanguageProvider>
     </QueryClientProvider>
   );
+}
+
+function GlobalScrollReveal() {
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    const observed = new WeakSet<Element>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("global-scroll-reveal--visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -7% 0px" },
+    );
+
+    const register = (root: ParentNode = document) => {
+      const textItems = root.querySelectorAll<HTMLElement>(
+        "main h1, main h2, main h3, main h4, main p, main blockquote, main li",
+      );
+      const imageItems = root.querySelectorAll<HTMLImageElement>("main img");
+      const targets = new Set<HTMLElement>();
+
+      textItems.forEach((item) => {
+        if (
+          item.closest(".castle-line-drawing") ||
+          item.closest('[role="slider"]') ||
+          item.classList.contains("page-reveal") ||
+          item.classList.contains("hero-text-reveal")
+        ) {
+          return;
+        }
+        targets.add(item);
+      });
+
+      imageItems.forEach((image) => {
+        if (
+          image.closest(".castle-line-drawing") ||
+          image.closest('[role="slider"]') ||
+          image.closest(".case-photo-reveal")
+        ) {
+          return;
+        }
+        targets.add(image.parentElement ?? image);
+      });
+
+      targets.forEach((target) => {
+        if (observed.has(target)) return;
+        observed.add(target);
+        target.classList.add("global-scroll-reveal");
+        observer.observe(target);
+      });
+    };
+
+    register();
+    const mutationObserver = new MutationObserver(() => register());
+    const main = document.querySelector("main");
+    if (main) {
+      mutationObserver.observe(main, { childList: true, subtree: true });
+    }
+
+    return () => {
+      observer.disconnect();
+      mutationObserver.disconnect();
+    };
+  }, []);
+
+  return null;
 }

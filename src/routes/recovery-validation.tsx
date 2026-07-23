@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import { BackToHome } from "@/components/site/BackToHome";
 import { useLanguage, withoutTerminalDots, type LocalizedString } from "@/i18n";
 
@@ -76,13 +77,72 @@ const paragraphs: LocalizedString[] = [
 ];
 
 function RecoveryValidation() {
-  const { l } = useLanguage();
+  const { t, l } = useLanguage();
+  const heroRef = useRef<HTMLElement>(null);
+  const chapterRefs = useRef<Array<HTMLElement | null>>([]);
+  const closingRef = useRef<HTMLDivElement>(null);
+  const [isPastHero, setIsPastHero] = useState(false);
+  const [activeChapter, setActiveChapter] = useState(0);
+
+  const lead = paragraphs[0];
+  const conclusion = paragraphs[paragraphs.length - 1];
+  const bodyParagraphs = paragraphs.slice(1, -1);
+  const chapters = Array.from({ length: Math.ceil(bodyParagraphs.length / 2) }, (_, index) =>
+    bodyParagraphs.slice(index * 2, index * 2 + 2),
+  );
+
+  useEffect(() => {
+    const hero = heroRef.current;
+    const chapterElements = chapterRefs.current.filter(
+      (chapter): chapter is HTMLElement => chapter !== null,
+    );
+    const closing = closingRef.current;
+
+    if (!hero || chapterElements.length === 0) return;
+
+    const heroObserver = new IntersectionObserver(
+      ([entry]) => setIsPastHero(!entry.isIntersecting),
+      { rootMargin: "-18% 0px -70%", threshold: 0 },
+    );
+
+    const chapterObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const index = Number((entry.target as HTMLElement).dataset.chapterIndex);
+          setActiveChapter(index);
+          entry.target.classList.add("validation-chapter--revealed");
+        });
+      },
+      { rootMargin: "-24% 0px -46%", threshold: 0.12 },
+    );
+
+    const closingObserver = closing
+      ? new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting)
+              entry.target.classList.add("validation-closing-wrap--revealed");
+          },
+          { rootMargin: "0px 0px -18%", threshold: 0.2 },
+        )
+      : null;
+
+    heroObserver.observe(hero);
+    chapterElements.forEach((chapter) => chapterObserver.observe(chapter));
+    if (closing && closingObserver) closingObserver.observe(closing);
+
+    return () => {
+      heroObserver.disconnect();
+      chapterObserver.disconnect();
+      closingObserver?.disconnect();
+    };
+  }, []);
 
   return (
-    <article className="validation-page">
+    <article className={`validation-page ${isPastHero ? "validation-page--reading" : ""}`}>
       <BackToHome />
 
-      <header className="validation-hero standard-page-hero">
+      <header ref={heroRef} className="validation-hero standard-page-hero">
         <div className="container-rl validation-hero-content">
           <p className="eyebrow text-accent page-reveal page-reveal-delay-1">{l(page.eyebrow)}</p>
           <h1 className="standard-page-hero-title mobile-safe-text serif validation-title page-reveal page-reveal-delay-2">
@@ -97,14 +157,34 @@ function RecoveryValidation() {
       <section className="validation-body">
         <div className="container-rl validation-memo">
           <div className="validation-copy">
-            {paragraphs.map((paragraph) => (
-              <p key={paragraph.en}>{l(paragraph)}</p>
-            ))}
+            <p className="validation-copy-lead">{l(lead)}</p>
+
+            <div className="validation-chapters">
+              {chapters.map((chapter, index) => (
+                <section
+                  ref={(element) => {
+                    chapterRefs.current[index] = element;
+                  }}
+                  data-chapter-index={index}
+                  className={`validation-chapter ${activeChapter === index ? "validation-chapter--active" : ""}`}
+                  key={chapter.map((paragraph) => paragraph.en).join("|")}
+                >
+                  {chapter.map((paragraph) => (
+                    <p key={paragraph.en}>{l(paragraph)}</p>
+                  ))}
+                </section>
+              ))}
+            </div>
+
+            <p className="validation-copy-conclusion">{l(conclusion)}</p>
           </div>
         </div>
 
-        <div className="container-rl validation-closing-wrap">
+        <div ref={closingRef} className="container-rl validation-closing-wrap">
           <p className="mobile-safe-text serif validation-closing">{l(page.closing)}</p>
+          <Link to="/submit" className="validation-action premium-action">
+            {l(t.common.submitAnAsset)}
+          </Link>
         </div>
       </section>
     </article>

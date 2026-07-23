@@ -53,18 +53,18 @@ function Approach() {
       </header>
 
       <section className="approach-process-section">
-        <div className="approach-process-shell container-rl py-14 md:py-20">
+        <div className="approach-process-shell container-rl">
           {t.approach.stages.map((s, index) => (
             <div
               key={s.n}
-              className={`approach-stage-block approach-stage-delay-${index + 1} grid gap-7 px-5 py-10 md:grid-cols-12 md:gap-8 md:px-8 md:py-14`}
+              className={`approach-stage-block approach-stage-delay-${index + 1} grid gap-7 md:grid-cols-12 md:gap-8`}
             >
               <div className="approach-stage-title md:col-span-4">
                 <h2 className="approach-stage-heading mobile-safe-text serif text-foreground">
                   {l(s.t)}
                 </h2>
               </div>
-              <div className="approach-stage-content md:col-span-7 md:col-start-6 text-muted-foreground leading-relaxed text-lg md:text-xl">
+              <div className="approach-stage-content md:col-span-7 md:col-start-6">
                 <p>{l(s.d)}</p>
                 <div className="mt-6">
                   <button
@@ -104,15 +104,14 @@ function Approach() {
         </div>
       </section>
 
-      <section className="paper py-24">
-        <div className="container-rl grid md:grid-cols-12 gap-12">
+      <section className="approach-discipline paper">
+        <div className="container-rl approach-discipline-grid">
           <div className="md:col-span-4">
-            <h2 className="mobile-safe-text serif text-2xl md:text-3xl text-ink">
+            <h2 className="approach-discipline-title mobile-safe-text serif text-ink">
               {l(t.approach.disciplineTitle)}
             </h2>
-            <div className="rule mt-4" />
           </div>
-          <div className="md:col-span-8 text-ink/85 leading-relaxed text-lg space-y-5">
+          <div className="approach-discipline-copy md:col-span-8">
             {t.approach.discipline.map((paragraph) => (
               <p key={paragraph.en}>{l(paragraph)}</p>
             ))}

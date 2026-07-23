@@ -26,6 +26,9 @@ export const Route = createFileRoute("/cases")({
 
 function Cases() {
   const { t, l } = useLanguage();
+  const visibleCases = cases.filter(
+    (caseStudy) => caseStudy.slug !== "industrial-heritage-slovenia",
+  );
 
   return (
     <article className="cases-page">
@@ -68,7 +71,7 @@ function Cases() {
 
       <section>
         <div className="container-rl space-y-px">
-          {cases.map((c, i) => (
+          {visibleCases.map((c, i) => (
             <Link
               key={c.slug}
               to="/cases/$slug"
@@ -84,6 +87,7 @@ function Cases() {
                     width={1280}
                     height={960}
                     className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
+                    style={c.imgPosition ? { objectPosition: c.imgPosition } : undefined}
                   />
                 </div>
               </div>

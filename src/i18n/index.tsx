@@ -65,6 +65,39 @@ export const copy = {
       en: "A strategic recovery and real estate intelligence partner for banks, asset holders, special situations investors and institutional owners.",
       ru: "REPOSITION LAB работает с банками, владельцами объектов, инвесторами и институциональными собственниками, которым нужно переосмыслить сложный объект и подготовить его к более сильному рыночному сценарию.",
     },
+    valueProof: {
+      thesis: {
+        en: "Most complex assets are not without prospects. They are misread, mispositioned or trapped in an ineffective market logic",
+        ru: "Большинство сложных объектов не являются бесперспективными. Они неверно поняты, неправильно позиционированы или заблокированы в неэффективной рыночной логике",
+      },
+      explanation: {
+        en: "REPOSITION LAB helps owners, banks and institutional capital redefine the logic of an asset, test possible use scenarios and prepare a more defensible path toward value recovery and liquidity.",
+        ru: "REPOSITION LAB помогает собственникам, банкам и институциональному капиталу заново определить логику объекта, проверить возможные сценарии использования и подготовить более обоснованный путь к восстановлению стоимости и ликвидности.",
+      },
+      directions: [
+        {
+          title: { en: "Re-read the asset", ru: "Переосмыслить объект" },
+          text: {
+            en: "Identify hidden potential and constraints.",
+            ru: "Выявить скрытый потенциал и ограничения.",
+          },
+        },
+        {
+          title: { en: "Shape the scenario", ru: "Сформировать сценарий" },
+          text: {
+            en: "Define a defensible future use and market position.",
+            ru: "Определить обоснованную будущую функцию и рыночную позицию.",
+          },
+        },
+        {
+          title: { en: "Prepare for a decision", ru: "Подготовить к решению" },
+          text: {
+            en: "Structure the asset for holding, partnership, conversion or exit.",
+            ru: "Структурировать объект для удержания, партнёрства, конверсии или выхода.",
+          },
+        },
+      ],
+    },
     directionTitle: {
       en: "Choose a strategic direction.",
       ru: "Перейдите к нужному разделу.",

@@ -7,8 +7,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
-        title:
-          "REPOSITION LAB — Strategic Real Estate Repositioning & Recovery Intelligence",
+        title: "REPOSITION LAB — Strategic Real Estate Repositioning & Recovery Intelligence",
       },
       {
         name: "description",
@@ -29,11 +28,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const previewSlugs = [
-  "slovenia-castle",
-  "industrial-heritage-slovenia",
-  "bauskas-16a-riga",
-];
+const previewSlugs = ["slovenia-castle", "bauskas-16a-riga"];
 
 const directionOrder = [
   "/who-we-are",
@@ -54,15 +49,8 @@ function Home() {
     .filter((caseStudy): caseStudy is CaseStudy => Boolean(caseStudy));
 
   const directions = directionOrder
-    .map((path) =>
-      t.home.directions.find((direction) => direction.to === path),
-    )
-    .filter(
-      (
-        direction,
-      ): direction is (typeof t.home.directions)[number] =>
-        Boolean(direction),
-    );
+    .map((path) => t.home.directions.find((direction) => direction.to === path))
+    .filter((direction): direction is (typeof t.home.directions)[number] => Boolean(direction));
 
   return (
     <div>
@@ -76,14 +64,34 @@ function Home() {
 
           <h1 className="mobile-safe-text serif hero-text-reveal hero-text-reveal-headline page-reveal page-reveal-delay-2 mt-5 max-w-4xl text-3xl leading-[1.05] text-foreground md:text-5xl lg:text-6xl">
             {l(t.home.headlineStart)}{" "}
-            <em className="not-italic text-accent">
-              {l(t.home.headlineEm)}
-            </em>
+            <em className="not-italic text-accent">{l(t.home.headlineEm)}</em>
           </h1>
 
           <p className="hero-text-reveal hero-text-reveal-subtitle page-reveal page-reveal-delay-3 mt-6 max-w-xl text-sm leading-relaxed text-foreground/75 md:text-base">
             {l(t.home.intro)}
           </p>
+        </div>
+      </section>
+
+      <section className="home-value-proof">
+        <div className="container-rl home-value-proof-shell">
+          <div className="home-value-proof-intro">
+            <h2 className="mobile-safe-text serif home-value-proof-thesis">
+              {l(t.home.valueProof.thesis)}
+            </h2>
+            <p className="mobile-safe-text home-value-proof-explanation">
+              {l(t.home.valueProof.explanation)}
+            </p>
+          </div>
+
+          <div className="home-value-proof-directions">
+            {t.home.valueProof.directions.map((direction) => (
+              <div className="home-value-proof-direction" key={direction.title.en}>
+                <h3 className="mobile-safe-text serif">{l(direction.title)}</h3>
+                <p className="mobile-safe-text">{l(direction.text)}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -135,9 +143,7 @@ function Home() {
 
       <section className="paper py-16">
         <div className="container-rl max-w-3xl">
-          <p className="serif text-xl leading-snug text-ink md:text-2xl">
-            {l(t.home.position)}
-          </p>
+          <p className="serif text-xl leading-snug text-ink md:text-2xl">{l(t.home.position)}</p>
         </div>
       </section>
 
@@ -145,9 +151,7 @@ function Home() {
         <div className="container-rl">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="eyebrow text-accent">
-                {l(t.home.selectedCasesLabel)}
-              </p>
+              <p className="eyebrow text-accent">{l(t.home.selectedCasesLabel)}</p>
 
               <h2 className="mobile-safe-text serif mt-3 text-2xl text-foreground md:text-3xl">
                 {l(t.home.selectedCasesTitle)}

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import { BackToHome } from "@/components/site/BackToHome";
 import { useLanguage, withoutTerminalDots, type LocalizedString } from "@/i18n";
 
@@ -116,6 +117,31 @@ const pieces: Array<{ title: LocalizedString; excerpt: LocalizedString }> = [
 
 function Thinking() {
   const { l } = useLanguage();
+  const entryRefs = useRef<Array<HTMLElement | null>>([]);
+  const [activeEntry, setActiveEntry] = useState(0);
+  const [effectsReady, setEffectsReady] = useState(false);
+
+  useEffect(() => {
+    const entries = entryRefs.current.filter((entry): entry is HTMLElement => entry !== null);
+    if (entries.length === 0) return;
+
+    setEffectsReady(true);
+
+    const observer = new IntersectionObserver(
+      (observedEntries) => {
+        observedEntries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const index = Number((entry.target as HTMLElement).dataset.thinkingIndex);
+          setActiveEntry(index);
+          entry.target.classList.add("thinking-entry--revealed");
+        });
+      },
+      { rootMargin: "-22% 0px -48%", threshold: 0.08 },
+    );
+
+    entries.forEach((entry) => observer.observe(entry));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <article className="thinking-page">
@@ -125,22 +151,33 @@ function Thinking() {
         <h1 className="standard-page-hero-title mobile-safe-text serif mt-6 max-w-4xl text-foreground page-reveal page-reveal-delay-2">
           {withoutTerminalDots(l(page.title))}
         </h1>
-        <p className="mt-8 max-w-2xl text-foreground/75 text-lg leading-relaxed page-reveal page-reveal-delay-3">
-          {l(page.intro)}
-        </p>
+        <p className="thinking-hero-intro page-reveal page-reveal-delay-3">{l(page.intro)}</p>
       </header>
 
       <section>
         <div className="container-rl">
-          <article className="thinking-essay">
-            <div className="thinking-essay-opening">
+          <article className={`thinking-essay ${effectsReady ? "thinking-essay--ready" : ""}`}>
+            <div
+              ref={(element) => {
+                entryRefs.current[0] = element;
+              }}
+              data-thinking-index="0"
+              className={`thinking-essay-opening thinking-entry ${activeEntry === 0 ? "thinking-entry--active" : ""}`}
+            >
               <h2 className="mobile-safe-text serif thinking-essay-title">{l(pieces[0].title)}</h2>
               <p className="thinking-essay-opening-copy">{l(pieces[0].excerpt)}</p>
             </div>
 
             <div className="thinking-essay-flow">
-              {pieces.slice(1).map((piece) => (
-                <p className="thinking-essay-paragraph" key={piece.title.en}>
+              {pieces.slice(1).map((piece, index) => (
+                <p
+                  ref={(element) => {
+                    entryRefs.current[index + 1] = element;
+                  }}
+                  data-thinking-index={index + 1}
+                  className={`thinking-essay-paragraph thinking-entry ${activeEntry === index + 1 ? "thinking-entry--active" : ""}`}
+                  key={piece.title.en}
+                >
                   <span className="serif thinking-essay-lead">{l(piece.title)}</span>{" "}
                   {l(piece.excerpt)}
                 </p>

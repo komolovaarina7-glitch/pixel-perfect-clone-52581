@@ -1,7 +1,39 @@
-import castleImg from "@/assets/case-castle.jpg";
+import slivnicaHeroImg from "@/assets/sliv0.jpg";
+import slivnicaDetailImg from "@/assets/sliv4.jpg";
+import slivnicaInteriorImg from "@/assets/SLIV5.jpg";
+import slivnicaSecondDetailImg from "@/assets/SLIV6.jpg";
+import slivnicaUpperImg from "@/assets/SLIV7.jpg";
+import slivnicaLowerImg from "@/assets/SLIV8.jpg";
+import slivnicaAtmosphereImg from "@/assets/SLIV9.jpg";
 import industrialImg from "@/assets/case-industrial.jpg";
-import apartmentsImg from "@/assets/case-apartments.jpg";
-import turkeyImg from "@/assets/case-turkey.jpg";
+import flotesImg from "@/assets/Generated image 2.png";
+import flotesExteriorImg from "@/assets/Generated image 4.png";
+import flotesInteriorImg from "@/assets/Generated image 3.png";
+import flotesDetailImg from "@/assets/Generated image 6.png";
+import flotesUpperImg from "@/assets/Generated image 10.png";
+import flotesLowerImg from "@/assets/Generated image 12.png";
+import flotesAtmosphereImg from "@/assets/Generated image 13.png";
+import kekavaImg from "@/assets/Generated image 1.png";
+import kekavaExteriorImg from "@/assets/photo_2026-07-23_19-00-40.jpg";
+import kekavaInteriorImg from "@/assets/photo_2026-07-23_19-00-32.jpg";
+import kekavaDetailImg from "@/assets/photo_2026-07-23_19-00-36.jpg";
+import kekavaUpperImg from "@/assets/photo_2026-07-23_19-01-21.jpg";
+import kekavaLowerImg from "@/assets/photo_2026-07-23_19-00-44.jpg";
+import kekavaAtmosphereImg from "@/assets/photo_2026-07-23_19-00-49.jpg";
+import apartmentsImg from "@/assets/entrance1.jpg";
+import apartmentsExteriorImg from "@/assets/ins1.jpg";
+import apartmentsInteriorImg from "@/assets/in2.jpg";
+import apartmentsDetailImg from "@/assets/in3.jpg";
+import apartmentsUpperImg from "@/assets/ins4.jpg";
+import apartmentsLowerImg from "@/assets/ins6.jpg";
+import apartmentsAtmosphereImg from "@/assets/ins7.jpg";
+import turkeyImg from "@/assets/karag.jpg";
+import turkeyInteriorImg from "@/assets/karag1.jpg";
+import turkeyDetailImg from "@/assets/karag2.jpg";
+import turkeyExteriorImg from "@/assets/karag3.jpg";
+import turkeyUpperImg from "@/assets/karag5.jpg";
+import turkeyLowerImg from "@/assets/karag6.jpg";
+import turkeyAtmosphereImg from "@/assets/karag7.jpg";
 import type { LocalizedString } from "@/i18n";
 
 export interface CaseSection {
@@ -30,6 +62,7 @@ export interface CaseStudy {
   title: LocalizedString;
   theme: LocalizedString;
   img: string;
+  imgPosition?: string;
   challenge: LocalizedString;
   logic: LocalizedString;
   direction: LocalizedString;
@@ -44,19 +77,177 @@ export const cases: CaseStudy[] = [
     slug: "slovenia-castle",
     title: { en: "Slovenia Castle", ru: "Замок в Словении" },
     theme: { en: "Heritage Repositioning", ru: "Репозиционирование наследия" },
-    img: castleImg,
+    img: slivnicaHeroImg,
     challenge: {
-      en: "A forgotten heritage structure carrying cultural weight but no defensible commercial thesis.",
-      ru: "Забытый объект наследия с культурной ценностью, но без убедительной коммерческой логики.",
+      en: "A historic castle trapped between the cost of total restoration and a market with neither an obvious buyer nor a convincing reason to acquire it.",
+      ru: "Исторический замок оказался между стоимостью тотальной реставрации и рынком, на котором не было ни очевидного покупателя, ни убедительной причины для приобретения.",
     },
     logic: {
-      en: "Cultural destination positioning combining boutique hospitality, educational integration and recreation zoning under a single recovery narrative.",
-      ru: "Позиционирование культурного объекта, объединяющее камерное гостеприимство, образовательную функцию и рекреационное зонирование в единую рыночную историю.",
+      en: "The project moved from a property-sale thesis to a multi-scenario platform where cinematic production, photography, education, cultural exchange and selective hospitality reinforce one another.",
+      ru: "Проект перешёл от логики продажи недвижимости к мультисценарной платформе, где кино- и фотопроизводство, образование, культурный обмен и камерное гостеприимство усиливают друг друга.",
     },
     direction: {
-      en: "Adaptive reuse · cultural destination · qualified hospitality capital.",
-      ru: "Адаптивное использование · культурное направление · квалифицированный гостиничный капитал.",
+      en: "Preserve the cinematic patina · activate before over-restoring · build an international creative and educational destination.",
+      ru: "Сохранить кинематографичную патину · активировать объект без избыточной реставрации · создать международную творческую и образовательную платформу.",
     },
+    subtitle: {
+      en: "From an unmarketable restoration liability to an international platform whose unfinished character became its strongest asset.",
+      ru: "От непродаваемого объекта с тяжёлым реставрационным бюджетом — к международной платформе, где незавершённость стала главным активом.",
+    },
+    sections: [
+      {
+        eyebrow: { en: "Starting Point — A Castle Without a Market", ru: "Отправная точка — замок без рынка" },
+        body: [
+          {
+            en: "At the beginning, the asset was read in the most literal way: an old castle that had to be fully restored and then sold. That sequence looked logical on paper, but collapsed under scrutiny. Restoration required substantial capital before the project had a clear audience, operating model or buyer. The local market could not justify the scale of the investment, while an international buyer had no compelling reason to take on the risk.",
+            ru: "В начале объект воспринимался буквально: старый замок, который нужно полностью отреставрировать, а затем продать. На бумаге такая последовательность выглядела логично, но не выдерживала проверки. Реставрация требовала значительного капитала ещё до появления понятной аудитории, операционной модели или покупателя. Локальный рынок не мог оправдать такой объём вложений, а у международного покупателя не было убедительной причины принимать на себя этот риск.",
+          },
+          {
+            en: "The problem was therefore larger than the physical condition of the building. The castle was culturally valuable but commercially mute: expensive to recover, difficult to compare, and impossible to explain through the language of conventional residential or hospitality real estate.",
+            ru: "Проблема заключалась не только в физическом состоянии здания. Замок обладал культурной ценностью, но коммерчески оставался «немым»: дорогим в восстановлении, сложным для сравнения и практически необъяснимым на языке обычной жилой или гостиничной недвижимости.",
+          },
+        ],
+      },
+      {
+        eyebrow: { en: "First Reframe — From Sale to Use", ru: "Первый поворот — от продажи к использованию" },
+        body: [
+          {
+            en: "The first strategic shift was to stop asking who might buy the castle and ask who could use it. This changed the object from a static property into infrastructure for activity. Instead of depending on one hypothetical purchaser, the project could address filmmakers, photographers, artists, educators, researchers, cultural institutions and small-format event operators.",
+            ru: "Первый стратегический сдвиг состоял в том, чтобы перестать спрашивать, кто может купить замок, и спросить, кто может им пользоваться. Так статичная недвижимость превратилась в инфраструктуру для деятельности. Вместо зависимости от одного гипотетического покупателя проект получил сразу несколько реальных аудиторий: кинематографистов, фотографов, художников, преподавателей, исследователей, культурные институции и операторов камерных событий.",
+          },
+          {
+            en: "Value no longer depended only on a future transaction. It could be produced gradually through access, programming, temporary occupation, partnerships and international visibility.",
+            ru: "Ценность перестала зависеть только от будущей сделки: её стало возможно наращивать постепенно — через доступ к объекту, программирование, временное использование, партнёрства и международную видимость.",
+          },
+        ],
+      },
+      {
+        eyebrow: { en: "Cinematic Platform", ru: "Кинематографическая платформа" },
+        body: [
+          {
+            en: "The castle's worn surfaces, deep shadows, irregular rooms and traces of time were initially treated as evidence of work still to be done. Re-read through the lens of visual production, those same qualities became production value. The building already contained what set designers spend significant budgets trying to recreate: believable age, layered texture and an atmosphere that changes from room to room.",
+            ru: "Потёртые поверхности, глубокие тени, нерегулярные помещения и следы времени сначала воспринимались как свидетельства незавершённых работ. Но в оптике визуального производства те же качества превратились в готовую художественную ценность. В здании уже было то, что художники-постановщики создают за значительные бюджеты: убедительный возраст, многослойная фактура и атмосфера, меняющаяся от комнаты к комнате.",
+          },
+          {
+            en: "This opened practical scenarios for feature and period films, fashion editorials, music videos, advertising shoots, portfolio sessions and location-based creative residencies. Each activates the castle without requiring it to imitate a newly finished luxury property.",
+            ru: "Отсюда возникли практические сценарии для полнометражного и исторического кино, fashion-съёмок, музыкальных клипов, рекламных кампаний, портфолио-сессий и творческих резиденций. Каждый из них активирует замок, не заставляя его имитировать новодельный люксовый объект.",
+          },
+        ],
+      },
+      {
+        eyebrow: { en: "Educational and Cultural Layer", ru: "Образовательный и культурный слой" },
+        body: [
+          {
+            en: "The second layer transformed the castle from a rentable backdrop into a place where knowledge is produced. Workshops in filmmaking, photography, restoration, architecture, heritage management and visual storytelling can use the building itself as a living case study. International summer schools, artist residencies, lectures and small conferences create longer stays and a reason for institutions to return.",
+            ru: "Второй слой превращает замок из арендуемой декорации в место, где создаётся знание. Воркшопы по кино, фотографии, реставрации, архитектуре, работе с наследием и визуальному сторителлингу могут использовать само здание как живой учебный кейс. Международные летние школы, арт-резиденции, лекции и небольшие конференции формируют более длительное пребывание и дают институциям причину возвращаться.",
+          },
+          {
+            en: "Education also gives the project continuity. A film crew may arrive for several days, while an academic or residency programme can build a seasonal rhythm. Together they create a platform that works across different calendars rather than relying on a single tourism peak.",
+            ru: "Образование также даёт проекту непрерывность. Съёмочная группа может приехать на несколько дней, тогда как академическая программа или резиденция формирует сезонный ритм. Вместе эти форматы создают платформу, работающую по разным календарям и не зависящую от единственного туристического пика.",
+          },
+        ],
+      },
+      {
+        eyebrow: { en: "The Critical Insight — Do Not Erase the Asset", ru: "Ключевой вывод — не стереть сам актив" },
+        body: [
+          {
+            en: "The decisive insight was that total reconstruction could destroy the very quality that made the new scenarios credible. If every wall were perfected, every surface replaced and every irregularity corrected, the castle would become more conventional precisely when the strategy required it to remain singular.",
+            ru: "Решающим стал вывод о том, что тотальная реконструкция способна уничтожить именно то качество, которое делает новые сценарии убедительными. Если выровнять каждую стену, заменить каждую поверхность и исправить каждую нерегулярность, замок станет более стандартным именно в тот момент, когда стратегии нужна его исключительность.",
+          },
+          {
+            en: "The approach therefore changed from total restoration to selective stabilization and adaptive activation: secure the structure, provide safety and essential services, improve access and production logistics, but preserve the patina, spatial ambiguity and visible evidence of time. Intervention becomes precise and reversible where possible; authenticity remains visible rather than being polished away.",
+            ru: "Поэтому вместо тотальной реставрации был выбран подход выборочной стабилизации и адаптивной активации: обеспечить конструктивную надёжность, безопасность, базовые инженерные системы, доступ и производственную логистику, но сохранить патину, пространственную неоднозначность и видимые следы времени. Вмешательство должно быть точным и по возможности обратимым, а подлинность — оставаться видимой, а не исчезать под новой отделкой.",
+          },
+        ],
+      },
+      {
+        eyebrow: { en: "Final Position — An International Working Castle", ru: "Итоговая позиция — международный работающий замок" },
+        body: [
+          {
+            en: "The final concept is not a museum frozen in one historical period, not a conventional hotel and not a property waiting passively for a buyer. It is an international working castle: a place for productions, creative residencies, learning, cultural exchange, curated events and selective hospitality.",
+            ru: "Итоговая концепция — не музей, застывший в одном историческом периоде, не обычный отель и не недвижимость, пассивно ожидающая покупателя. Это международный работающий замок: место для съёмок, творческих резиденций, обучения, культурного обмена, кураторских событий и камерного гостеприимства.",
+          },
+          {
+            en: "Its repositioning reverses the original equation. What first appeared to be a liability — age, incompleteness and the cost of reconstruction — becomes the source of differentiation. The project no longer needs to erase its past before it can have a future. It creates its future by making that past usable.",
+            ru: "Сила репозиционирования в том, что оно разворачивает исходное уравнение. То, что сначала казалось обременением — возраст, незавершённость и стоимость реконструкции, — становится источником отличия. Проекту больше не нужно стирать прошлое, чтобы получить будущее. Он создаёт будущее, делая прошлое пригодным к использованию.",
+          },
+        ],
+      },
+    ],
+    advantages: [
+      {
+        title: { en: "Lower capital pressure", ru: "Снижение капитальной нагрузки" },
+        body: {
+          en: "Selective stabilization replaces speculative total reconstruction and connects investment to real operating needs.",
+          ru: "Выборочная стабилизация заменяет спекулятивную тотальную реконструкцию и связывает инвестиции с реальными операционными задачами.",
+        },
+      },
+      {
+        title: { en: "Multiple audiences", ru: "Несколько аудиторий" },
+        body: {
+          en: "Film, photography, education, culture and hospitality create complementary demand instead of dependence on one buyer.",
+          ru: "Кино, фотография, образование, культура и гостеприимство создают взаимодополняющий спрос вместо зависимости от одного покупателя.",
+        },
+      },
+      {
+        title: { en: "Authenticity as production value", ru: "Подлинность как производственная ценность" },
+        body: {
+          en: "Age, patina and spatial irregularity become marketable qualities that new construction cannot reproduce.",
+          ru: "Возраст, патина и пространственная нерегулярность становятся рыночными качествами, которые невозможно воспроизвести новым строительством.",
+        },
+      },
+      {
+        title: { en: "Phased activation", ru: "Поэтапная активация" },
+        body: {
+          en: "The castle can begin hosting selected uses while improvements continue, generating visibility, partnerships and evidence of demand.",
+          ru: "Замок может принимать отдельные форматы параллельно с улучшениями, создавая видимость, партнёрства и подтверждённый спрос.",
+        },
+      },
+    ],
+    gallery: [
+      {
+        src: slivnicaDetailImg,
+        alt: "Slivnica Castle architectural view",
+        caption: "Architectural view",
+        type: "exterior",
+        objectPosition: "center center",
+      },
+      {
+        src: slivnicaInteriorImg,
+        alt: "Slivnica Castle interior",
+        caption: "Castle interior",
+        type: "interior",
+        objectPosition: "center center",
+      },
+      {
+        src: slivnicaSecondDetailImg,
+        alt: "Slivnica Castle architectural detail",
+        caption: "Architectural detail",
+        type: "detail",
+        objectPosition: "center center",
+      },
+      {
+        src: slivnicaUpperImg,
+        alt: "Slivnica Castle wide architectural view",
+        caption: "Castle architectural view",
+        type: "upper",
+        objectPosition: "center center",
+      },
+      {
+        src: slivnicaLowerImg,
+        alt: "Slivnica Castle lower-level view",
+        caption: "Lower-level view",
+        type: "lower",
+        objectPosition: "center center",
+      },
+      {
+        src: slivnicaAtmosphereImg,
+        alt: "Slivnica Castle atmosphere",
+        caption: "Castle atmosphere",
+        type: "atmosphere",
+        objectPosition: "center center",
+      },
+    ],
   },
   {
     slug: "industrial-heritage-slovenia",
@@ -188,7 +379,7 @@ export const cases: CaseStudy[] = [
     ],
     gallery: [
       {
-        src: "/images/cases/bauskas-16a/case12.jpg",
+        src: "/images/cases/bauskas-16a/bau1.jpg",
         alt: "Bauskas 16A exterior architectural view",
         caption: "Exterior architectural identity",
         type: "exterior",
@@ -207,19 +398,19 @@ export const cases: CaseStudy[] = [
         type: "detail",
       },
       {
-        src: "/images/cases/bauskas-16a/image3.jpg",
+        src: "/images/cases/bauskas-16a/baus2.jpg",
         alt: "Bauskas 16A upper representative interior space",
         type: "upper",
         span: "full",
       },
       {
-        src: "/images/cases/bauskas-16a/page12.jpg",
+        src: "/images/cases/bauskas-16a/baus4.jpg",
         alt: "Bauskas 16A residential floor interior",
         type: "lower",
         objectPosition: "center 70%",
       },
       {
-        src: "/images/cases/bauskas-16a/page123.jpg",
+        src: "/images/cases/bauskas-16a/baus5.jpg",
         alt: "Bauskas 16A lower level hospitality and wellness space",
         type: "atmosphere",
       },
@@ -227,21 +418,186 @@ export const cases: CaseStudy[] = [
   },
   {
     slug: "distressed-prime-apartments",
-    title: { en: "Distressed Prime Apartments", ru: "Проблемные апартаменты в сильных локациях" },
-    theme: { en: "Premium Conversion", ru: "Премиальная конверсия" },
+    title: { en: "Two Apartments — One Address", ru: "Две квартиры — один адрес" },
+    theme: { en: "Private Residence Repositioning", ru: "Репозиционирование частной резиденции" },
     img: apartmentsImg,
+    subtitle: {
+      en: "Re-reading two former communal apartments as one rare multi-level private residence in a prime urban location.",
+      ru: "Переосмысление двух бывших коммунальных квартир как единой редкой многоуровневой резиденции в престижной городской локации.",
+    },
     challenge: {
-      en: "Communal apartment layouts in distressed condition, embedded in genuinely premium urban locations.",
-      ru: "Коммунальные квартирные планировки в проблемном состоянии, расположенные в действительно сильных городских локациях.",
+      en: "Two former communal apartments at one address were read by the market as separate distressed properties, despite their shared entrance, connecting staircase and prime location.",
+      ru: "Две бывшие коммунальные квартиры по одному адресу воспринимались рынком как отдельные проблемные объекты, несмотря на общий подъезд, связывающую их лестницу и престижную локацию.",
     },
     logic: {
-      en: "Conversion thesis toward high-yield premium residential product — value driven by location release, not cosmetic finish.",
-      ru: "Тезис конверсии в премиальный жилой продукт с высоким доходным потенциалом — ценность создаётся раскрытием локации, а не косметической отделкой.",
+      en: "The two properties were repositioned as one vertically organised private residence, with public and private life distributed across separate but connected levels.",
+      ru: "Два объекта были перепозиционированы как единая вертикально организованная частная резиденция, где общественные и приватные функции распределены между отдельными, но связанными уровнями.",
     },
     direction: {
-      en: "Distressed location plays · communal-to-premium conversion · residential repositioning.",
-      ru: "Проблемные объекты в сильных локациях · конверсия из коммунального формата в премиальный · жилое перепозиционирование.",
+      en: "Category shift · one prestigious address · vertical privacy · discreet access to qualified private buyers.",
+      ru: "Смена категории · единый престижный адрес · вертикальная приватность · конфиденциальный доступ к квалифицированным частным покупателям.",
     },
+    sections: [
+      {
+        eyebrow: { en: "Two Apartments — One Address", ru: "Две квартиры — один адрес" },
+        body: [
+          {
+            en: "The original asset consisted of two former communal apartments located within the same entrance and connected by a common staircase. Sold separately, the market would have read them in familiar terms: two large apartments, each constrained by its condition, layout and historic use.",
+            ru: "Исходный объект состоял из двух бывших коммунальных квартир, расположенных в одном подъезде и связанных общей лестницей. При раздельной продаже рынок воспринимал бы их привычно: как две большие квартиры, каждая из которых ограничена своим состоянием, планировкой и историей использования.",
+          },
+          {
+            en: "Read together, they represented something materially rarer: the foundation for a private multi-level residence at a single address in a prime urban location.",
+            ru: "Вместе они представляли значительно более редкую возможность: основу для частной многоуровневой резиденции по одному адресу в престижной городской локации.",
+          },
+        ],
+      },
+      {
+        eyebrow: { en: "Before Repositioning", ru: "До перепозиционирования" },
+        body: [
+          {
+            en: "The principal constraint was not the building itself, nor even the apartments' communal past. It was the way the asset was read. Each unit was judged separately through its floor area, physical condition, existing plan and the prevailing price per square metre in the district.",
+            ru: "Главным ограничением было не само здание и даже не коммунальное прошлое квартир. Проблемой было то, как объект воспринимался рынком. Каждая квартира оценивалась отдельно — через площадь, физическое состояние, существующую планировку и среднюю стоимость квадратного метра в районе.",
+          },
+          {
+            en: "That approach overlooked the most important asset: the ability to organise both properties as one coherent vertical home. The location already carried value, but the existing category prevented the market from recognising its full potential.",
+            ru: "Такой подход не учитывал главный актив — возможность организовать обе квартиры как единый вертикальный дом. Локация уже создавала ценность, но существующая категория объекта не позволяла рынку увидеть его полный потенциал.",
+          },
+        ],
+      },
+      {
+        eyebrow: { en: "The Hidden Opportunity", ru: "Скрытая возможность" },
+        body: [
+          {
+            en: "The shared entrance and connecting staircase made it possible to create more than an enlarged apartment. They enabled a genuine multi-level residence in which each floor could carry a distinct role while remaining part of one private address.",
+            ru: "Общий подъезд и связывающая лестница позволили создать не просто увеличенную квартиру, а полноценную многоуровневую резиденцию, в которой каждый этаж получает собственную функцию, оставаясь частью единого частного адреса.",
+          },
+          {
+            en: "One level can accommodate reception rooms, dining, kitchen and entertaining. Another can be reserved for bedrooms, dressing rooms, a study and family life. Additional rooms may support guests, children or staff without compromising the owners' privacy.",
+            ru: "Один уровень может быть отведён под гостиную, столовую, кухню и приём гостей. Другой — под спальни, гардеробные, кабинет и семейную жизнь. Дополнительные помещения могут использоваться для гостей, детей или персонала, не нарушая приватность владельцев.",
+          },
+        ],
+      },
+      {
+        eyebrow: { en: "After Repositioning", ru: "После перепозиционирования" },
+        body: [
+          {
+            en: "The former communal apartments are no longer presented as two compromised properties. They become one rare urban residence offering scale, functional separation and a degree of privacy usually associated with a private house.",
+            ru: "Бывшие коммунальные квартиры больше не представлены как два сложных объекта. Они становятся единой редкой городской резиденцией, предлагающей масштаб, функциональное разделение и уровень приватности, обычно связанный с частным домом.",
+          },
+          {
+            en: "The residence can support a large family, several generations, visiting guests or live-in staff. Its levels may operate as one continuous home while retaining enough autonomy to accommodate different patterns of daily life.",
+            ru: "Резиденция может поддерживать сценарии жизни большой семьи, нескольких поколений, приезжающих гостей или персонала. Её уровни работают как единый дом, сохраняя достаточную автономность для разных ритмов повседневной жизни.",
+          },
+        ],
+      },
+      {
+        eyebrow: {
+          en: "Renovation Improved the Space — Repositioning Changed Its Value",
+          ru: "Реконструкция улучшила пространство — репозиционирование изменило его ценность",
+        },
+        body: [
+          {
+            en: "The value uplift is not explained by finish quality alone. The decisive move is a category shift: from two former communal apartments into one differentiated premium residence that is difficult to compare with standard stock and difficult to reproduce in an established prime district.",
+            ru: "Рост ценности объясняется не только качеством реконструкции. Решающим шагом стала смена категории: две бывшие коммунальные квартиры превратились в дифференцированную премиальную резиденцию, которую сложно сравнивать со стандартным предложением и практически невозможно воспроизвести в сформированном престижном районе.",
+          },
+          {
+            en: "If sold separately, each apartment remains anchored to local comparables. Presented as one residence, the buyer is assessing a scarce configuration: substantial scale, vertical privacy and a single prestigious address. That scarcity can support a stronger perceived value than the simple sum of two conventional units.",
+            ru: "При раздельной продаже каждая квартира остаётся привязана к локальным аналогам. В формате единой резиденции покупатель оценивает редкую конфигурацию: значительный масштаб, вертикальную приватность и единый престижный адрес. Эта редкость может поддерживать более высокую воспринимаемую ценность, чем простая сумма двух стандартных квартир.",
+          },
+        ],
+      },
+      {
+        eyebrow: { en: "Not a Mass-Market Proposition", ru: "Не для массового рынка" },
+        body: [
+          {
+            en: "An asset of this kind does not require broad public exposure. Its premium character can be reinforced through discreet, targeted presentation to qualified private buyers whose requirements include scale, privacy, family flexibility and a central location.",
+            ru: "Такой объект не требует широкой публичной рекламы. Его премиальный характер может быть усилен конфиденциальной адресной подачей квалифицированным частным покупателям, для которых важны масштаб, приватность, семейная гибкость и центральная локация.",
+          },
+          {
+            en: "The mass market prices square metres. The right private buyer recognises an opportunity that cannot easily be recreated.",
+            ru: "Массовый рынок оценивает квадратные метры. Подходящий частный покупатель видит возможность, которую невозможно легко повторить.",
+          },
+        ],
+      },
+    ],
+    advantages: [
+      {
+        title: { en: "Category shift", ru: "Смена категории" },
+        body: {
+          en: "Two separate apartments are re-read as one rare multi-level private residence.",
+          ru: "Две отдельные квартиры переосмыслены как единая редкая многоуровневая резиденция.",
+        },
+      },
+      {
+        title: { en: "One prestigious address", ru: "Единый престижный адрес" },
+        body: {
+          en: "Both levels form one coherent private holding rather than two unrelated units.",
+          ru: "Оба уровня образуют единое частное владение, а не два несвязанных объекта.",
+        },
+      },
+      {
+        title: { en: "Vertical privacy", ru: "Вертикальная приватность" },
+        body: {
+          en: "Reception, family, guest and staff functions can be separated across connected floors.",
+          ru: "Общественные, семейные, гостевые и служебные функции можно разделить между связанными этажами.",
+        },
+      },
+      {
+        title: { en: "Rare urban scale", ru: "Редкий городской масштаб" },
+        body: {
+          en: "The residence delivers substantial space without sacrificing an established prime location.",
+          ru: "Резиденция предлагает значительную площадь без отказа от сформированной престижной локации.",
+        },
+      },
+      {
+        title: { en: "Flexible living", ru: "Гибкие сценарии жизни" },
+        body: {
+          en: "The configuration can support a large family, several generations, guests or live-in staff.",
+          ru: "Конфигурация подходит для большой семьи, нескольких поколений, гостей или проживания с персоналом.",
+        },
+      },
+      {
+        title: { en: "Scarcity premium", ru: "Премия за редкость" },
+        body: {
+          en: "A comparable residence is difficult to assemble or reproduce within a mature central district.",
+          ru: "Сопоставимую резиденцию сложно собрать или воспроизвести в сформированном центральном районе.",
+        },
+      },
+    ],
+    gallery: [
+      {
+        src: apartmentsExteriorImg,
+        alt: "Two Apartments — One Address entrance",
+        type: "exterior",
+        span: "full",
+      },
+      {
+        src: apartmentsInteriorImg,
+        alt: "Two Apartments — One Address interior atmosphere",
+        type: "interior",
+      },
+      {
+        src: apartmentsDetailImg,
+        alt: "Two Apartments — One Address architectural detail",
+        type: "detail",
+      },
+      {
+        src: apartmentsUpperImg,
+        alt: "Two Apartments — One Address upper representative space",
+        type: "upper",
+        span: "full",
+      },
+      {
+        src: apartmentsLowerImg,
+        alt: "Two Apartments — One Address residential floor interior",
+        type: "lower",
+      },
+      {
+        src: apartmentsAtmosphereImg,
+        alt: "Two Apartments — One Address lower level atmosphere",
+        type: "atmosphere",
+      },
+    ],
   },
   {
     slug: "turkey-lifestyle-repositioning",
@@ -251,6 +607,7 @@ export const cases: CaseStudy[] = [
     },
     theme: { en: "Asset Category Shift", ru: "СМЕНА КАТЕГОРИИ АКТИВА" },
     img: turkeyImg,
+    imgPosition: "center 72%",
     challenge: {
       en: "Two separate apartments carried uneven market logic: one lower unit was constrained by light, outlook and spatial limitations, while the upper unit was stronger but still conventional within the local market.",
       ru: "Две отдельные квартиры имели разную рыночную логику: нижний блок был ограничен светом, видом и пространственной конфигурацией, а верхний был сильнее, но всё ещё оставался обычным объектом для локального рынка.",
@@ -333,6 +690,50 @@ export const cases: CaseStudy[] = [
         ],
       },
     ],
+    gallery: [
+      {
+        src: turkeyExteriorImg,
+        alt: "Fethiye residence panoramic terrace",
+        caption: "Panoramic terrace and bay view",
+        type: "exterior",
+        objectPosition: "center 68%",
+      },
+      {
+        src: turkeyInteriorImg,
+        alt: "Fethiye residence interior atmosphere",
+        caption: "Interior atmosphere",
+        type: "interior",
+        objectPosition: "center center",
+      },
+      {
+        src: turkeyDetailImg,
+        alt: "Fethiye residence architectural detail",
+        caption: "Architectural detail",
+        type: "detail",
+        objectPosition: "center center",
+      },
+      {
+        src: turkeyUpperImg,
+        alt: "Fethiye two-level residence and terrace",
+        caption: "Two-level residence and terrace",
+        type: "upper",
+        objectPosition: "center 68%",
+      },
+      {
+        src: turkeyLowerImg,
+        alt: "Fethiye residence lower-level dining area",
+        caption: "Lower-level dining area",
+        type: "lower",
+        objectPosition: "center 68%",
+      },
+      {
+        src: turkeyAtmosphereImg,
+        alt: "Fethiye residence dining room atmosphere",
+        caption: "Dining room atmosphere",
+        type: "atmosphere",
+        objectPosition: "center 68%",
+      },
+    ],
     advantages: [
       {
         title: { en: "Category shift", ru: "Смена категории" },
@@ -381,6 +782,320 @@ export const cases: CaseStudy[] = [
         body: {
           en: "The repositioning may support stronger market perception than the two apartments sold separately.",
           ru: "Репозиционирование может поддержать более сильное рыночное восприятие, чем продажа двух апартаментов по отдельности.",
+        },
+      },
+    ],
+  },
+  {
+    slug: "kekava-production-campus",
+    title: { en: "Ķekava Production Campus", ru: "Производственный кампус Ķekava" },
+    theme: {
+      en: "Industrial Asset Repositioning",
+      ru: "Репозиционирование индустриального актива",
+    },
+    img: kekavaImg,
+    subtitle: {
+      en: "From a former factory competing as secondary industrial space to a flexible production, studio and event infrastructure.",
+      ru: "От бывшей фабрики, конкурирующей в категории вторичной индустриальной недвижимости, — к гибкой производственной, студийной и событийной инфраструктуре.",
+    },
+    challenge: {
+      en: "The former factory had substantial buildings, engineering capacity and an extensive yard, but the market could read it only as ageing warehouse and production space.",
+      ru: "Бывшая фабрика обладала крупными корпусами, инженерным ресурсом и большой территорией, но рынок воспринимал её лишь как устаревающие складские и производственные площади.",
+    },
+    logic: {
+      en: "Repositioning keeps the industrial character but changes the product: the buildings and yard become a multi-scenario campus for production, workshops, filming, fabrication, storage and temporary events.",
+      ru: "Репозиционирование сохраняет индустриальную природу объекта, но меняет сам продукт: корпуса и территория становятся многосценарным кампусом для производства, мастерских, съёмок, изготовления декораций, хранения и временных событий.",
+    },
+    direction: {
+      en: "Legacy industrial · production campus · project-based occupation · diversified income.",
+      ru: "Индустриальное наследие · производственный кампус · проектное использование · диверсифицированный доход.",
+    },
+    gallery: [
+      {
+        src: kekavaExteriorImg,
+        alt: "Ķekava industrial campus exterior",
+        type: "exterior",
+        span: "full",
+        objectPosition: "center center",
+      },
+      {
+        src: kekavaInteriorImg,
+        alt: "Ķekava industrial campus interior",
+        type: "interior",
+        objectPosition: "center center",
+      },
+      {
+        src: kekavaDetailImg,
+        alt: "Ķekava industrial campus architectural detail",
+        type: "detail",
+        objectPosition: "center top",
+      },
+      {
+        src: kekavaUpperImg,
+        alt: "Ķekava industrial campus production space",
+        type: "upper",
+        span: "full",
+        objectPosition: "center center",
+      },
+      {
+        src: kekavaLowerImg,
+        alt: "Ķekava industrial campus working environment",
+        type: "lower",
+        objectPosition: "center center",
+      },
+      {
+        src: kekavaAtmosphereImg,
+        alt: "Ķekava industrial campus atmosphere",
+        type: "atmosphere",
+        objectPosition: "center center",
+      },
+    ],
+    sections: [
+      {
+        eyebrow: {
+          en: "Starting Point — An Asset Defined by Its Past",
+          ru: "Исходная точка — объект, определённый своим прошлым",
+        },
+        body: [
+          {
+            en: "The property entered the market as a former factory: useful in scale, but difficult to distinguish from other secondary industrial stock. Its value was reduced to condition, access and a conventional price per square metre.",
+            ru: "Объект вышел на рынок как бывшая фабрика: масштабная и функционально пригодная, но почти неотличимая от другой вторичной индустриальной недвижимости. Её ценность сводилась к состоянию, доступу и стандартной цене квадратного метра.",
+          },
+        ],
+      },
+      {
+        eyebrow: {
+          en: "The Reframe — From Space to Infrastructure",
+          ru: "Переоценка — от площади к инфраструктуре",
+        },
+        body: [
+          {
+            en: "The key shift was to stop treating the site as one undifferentiated volume. Large shells, service areas, loading access, power and open ground were re-read as a system capable of supporting different users and different occupation periods.",
+            ru: "Ключевым изменением стал отказ от восприятия площадки как одного недифференцированного объёма. Большие корпуса, вспомогательные зоны, погрузочный доступ, инженерные мощности и открытая территория были переосмыслены как единая система для разных пользователей и сроков размещения.",
+          },
+        ],
+      },
+      {
+        eyebrow: {
+          en: "A Multi-Scenario Production Model",
+          ru: "Многосценарная производственная модель",
+        },
+        body: [
+          {
+            en: "Longer workshop and storage leases create a stable base, while filming, installations, fabrication and events activate the property project by project. The yard becomes part of the commercial product rather than unused space around the buildings.",
+            ru: "Долгосрочная аренда мастерских и складов формирует стабильную основу, а съёмки, инсталляции, изготовление конструкций и события активируют объект проект за проектом. Территория становится частью коммерческого продукта, а не неиспользуемым пространством вокруг корпусов.",
+          },
+        ],
+      },
+      {
+        eyebrow: {
+          en: "The New Investment Identity",
+          ru: "Новая инвестиционная идентичность",
+        },
+        body: [
+          {
+            en: "After repositioning, the asset is no longer judged only against modern warehouses it cannot imitate. It is understood as specialised production infrastructure whose value comes from flexibility, intensity of use and several complementary income streams.",
+            ru: "После репозиционирования объект больше не оценивается только в сравнении с современными складами, которым он не должен подражать. Он становится специализированной производственной инфраструктурой, ценность которой создают гибкость, интенсивность использования и несколько взаимодополняющих источников дохода.",
+          },
+        ],
+      },
+    ],
+    advantages: [
+      {
+        title: { en: "Category shift", ru: "Смена категории" },
+        body: {
+          en: "From secondary industrial property to a specialised production campus.",
+          ru: "От вторичной индустриальной недвижимости — к специализированному производственному кампусу.",
+        },
+      },
+      {
+        title: { en: "Multiple use cycles", ru: "Несколько циклов использования" },
+        body: {
+          en: "Long-term tenants and short project occupations can work alongside one another.",
+          ru: "Долгосрочные арендаторы и краткосрочные проектные пользователи могут работать параллельно.",
+        },
+      },
+      {
+        title: { en: "The yard becomes productive", ru: "Территория начинает работать" },
+        body: {
+          en: "Open ground supports logistics, staging, outdoor production and temporary formats.",
+          ru: "Открытая площадка поддерживает логистику, монтаж, наружное производство и временные форматы.",
+        },
+      },
+      {
+        title: { en: "Stronger income logic", ru: "Более сильная доходная модель" },
+        body: {
+          en: "Rent, project use and supporting services create a more resilient commercial structure.",
+          ru: "Аренда, проектное использование и сопутствующие сервисы формируют более устойчивую коммерческую структуру.",
+        },
+      },
+    ],
+  },
+  {
+    slug: "flotes-8-community-infrastructure",
+    title: { en: "Flotes 8, Riga", ru: "Flotes 8, Рига" },
+    theme: {
+      en: "Social Infrastructure Repositioning",
+      ru: "Репозиционирование социальной инфраструктуры",
+    },
+    img: flotesImg,
+    subtitle: {
+      en: "From a fragmented mixed-use property to a coherent community-services asset whose stable public and educational anchors create a credible basis for revaluation.",
+      ru: "От фрагментированного mixed-use объекта — к цельному активу общественных сервисов, где устойчивые публичные и образовательные якоря создают убедительное основание для переоценки.",
+    },
+    challenge: {
+      en: "The building already generated activity and income, but its apartments, offices, education, everyday services and auxiliary spaces formed a tenant mix without a clear hierarchy or investment identity.",
+      ru: "Здание уже создавало активность и доход, однако квартиры, офисы, образовательные, бытовые и вспомогательные функции образовывали набор арендаторов без ясной иерархии и инвестиционной идентичности.",
+    },
+    logic: {
+      en: "The repositioning identifies education, health and public-facing services as anchors, then curates supporting uses around them. This changes the valuation logic: income is no longer read as a collection of unrelated leases, but as cash flow generated by a coherent, locally relevant and harder-to-replace community-services asset.",
+      ru: "Репозиционирование выделяет образование, здоровье и публичные сервисы в качестве якорей, а затем формирует вокруг них поддерживающие функции. Это меняет логику оценки: доход воспринимается уже не как сумма разрозненных договоров аренды, а как денежный поток цельного, востребованного районом и труднозаменимого объекта общественных сервисов.",
+    },
+    direction: {
+      en: "Anchor-led tenancy · education and public services · community relevance · durable income.",
+      ru: "Якорные арендаторы · образование и публичные сервисы · районная значимость · устойчивый доход.",
+    },
+    gallery: [
+      {
+        src: flotesExteriorImg,
+        alt: "Flotes 8 historic entrance exterior",
+        type: "exterior",
+        span: "full",
+        objectPosition: "center center",
+      },
+      {
+        src: flotesInteriorImg,
+        alt: "Flotes 8 courtyard and community-services building",
+        type: "interior",
+        objectPosition: "center center",
+      },
+      {
+        src: flotesDetailImg,
+        alt: "Flotes 8 neighbourhood café frontage",
+        type: "detail",
+        objectPosition: "center center",
+      },
+      {
+        src: flotesUpperImg,
+        alt: "Flotes 8 landscaped community grounds",
+        type: "upper",
+        span: "full",
+        objectPosition: "center center",
+      },
+      {
+        src: flotesLowerImg,
+        alt: "Flotes 8 community-services entrance",
+        type: "lower",
+        objectPosition: "center center",
+      },
+      {
+        src: flotesAtmosphereImg,
+        alt: "Flotes 8 neighbourhood atmosphere",
+        type: "atmosphere",
+        objectPosition: "center center",
+      },
+    ],
+    sections: [
+      {
+        eyebrow: {
+          en: "Starting Point — Mixed Use Without a Centre",
+          ru: "Исходная точка — mixed-use без смыслового центра",
+        },
+        body: [
+          {
+            en: "Flotes 8 was not an empty or obsolete building. It already contained residential, office, educational and everyday-service functions. The weakness was not a lack of use, but the absence of a clear relationship between those uses.",
+            ru: "Flotes 8 не был пустующим или утратившим функцию зданием. В нём уже сосуществовали жильё, офисы, образование и повседневные сервисы. Слабостью было не отсутствие использования, а отсутствие понятной связи между этими функциями.",
+          },
+        ],
+      },
+      {
+        eyebrow: {
+          en: "The Existing Strength — Public-Service Activity",
+          ru: "Существующая сила — публично-сервисная функция",
+        },
+        body: [
+          {
+            en: "Educational and public-service activity already gave the address a role in the neighbourhood. Instead of treating it as one more line in the rent roll, the strategy makes this embedded social use the foundation of the asset's identity.",
+            ru: "Образовательная и публично-сервисная деятельность уже придавала адресу реальную роль в районе. Вместо того чтобы считать её ещё одной строкой в арендной ведомости, стратегия превращает существующую социальную функцию в основу идентичности объекта.",
+          },
+        ],
+      },
+      {
+        eyebrow: {
+          en: "Tenant Curation — Anchors and Supporting Uses",
+          ru: "Кураторский подбор арендаторов — якоря и поддерживающие функции",
+        },
+        body: [
+          {
+            en: "Education, health, youth and community operators become the anchors. Café, wellbeing, counselling and other convenience services remain valuable when they support the daily life of the hub rather than compete to define it.",
+            ru: "Образовательные, медицинские, молодёжные и общественные операторы становятся якорями. Кафе, wellbeing-сервисы, консультационные и другие повседневные функции сохраняют ценность, когда поддерживают жизнь центра, а не конкурируют за определение его характера.",
+          },
+        ],
+      },
+      {
+        eyebrow: {
+          en: "Revaluation Logic — From Rent Roll to Durable Cash Flow",
+          ru: "Логика переоценки — от арендной ведомости к устойчивому денежному потоку",
+        },
+        body: [
+          {
+            en: "Before repositioning, the asset is likely to be valued as a heterogeneous rent roll: every unit carries its own reletting risk, the tenant mix offers little strategic protection, and current occupancy does not automatically prove durable demand. This uncertainty limits the confidence that an investor can place in future NOI.",
+            ru: "До репозиционирования объект, скорее всего, оценивается как неоднородная арендная ведомость: каждое помещение несёт отдельный риск повторной сдачи, состав арендаторов не создаёт стратегической защиты, а текущая заполняемость ещё не доказывает устойчивость спроса. Такая неопределённость ограничивает уверенность инвестора в будущем NOI.",
+          },
+          {
+            en: "A clear social-infrastructure profile makes the same income more legible. Anchor operators generate regular footfall and longer occupation, supporting services benefit from that demand, and the building acquires a role that cannot be replicated simply by offering another generic office or apartment nearby.",
+            ru: "Чёткий профиль социальной инфраструктуры делает тот же доход более понятным и качественным. Якорные операторы создают регулярный поток посетителей и склонны занимать помещения дольше, поддерживающие сервисы получают спрос от их аудитории, а здание приобретает роль, которую нельзя воспроизвести простым предложением ещё одного офиса или квартиры поблизости.",
+          },
+          {
+            en: "The revaluation case therefore rests on a change in income quality rather than an assumed increase in rent alone. Lower expected vacancy, reduced tenant turnover, longer operating relationships and a clearer leasing proposition can improve the market's view of risk. If these effects are evidenced in leases and operating performance, they can support more stable NOI and a stronger valuation yield.",
+            ru: "Поэтому основание для переоценки возникает не только из предполагаемого роста ставки аренды, а прежде всего из изменения качества дохода. Снижение ожидаемой вакантности, меньшая ротация арендаторов, более длинные операционные отношения и понятное предложение для новых пользователей способны улучшить восприятие риска рынком. Если эти эффекты подтверждены договорами и операционными показателями, они поддерживают более устойчивый NOI и более сильную ставку капитализации.",
+          },
+        ],
+      },
+      {
+        eyebrow: {
+          en: "Evidence Required for Revaluation",
+          ru: "Что должно подтвердить переоценку",
+        },
+        body: [
+          {
+            en: "The new narrative should be verified through measurable evidence: lease duration and break options, renewal rates, arrears, occupancy by anchor and supporting uses, tenant acquisition costs, downtime between leases, operating costs and the stability of net income. The stronger these indicators become, the less the valuation depends on a conceptual story alone.",
+            ru: "Новый инвестиционный нарратив необходимо подтвердить измеримыми данными: сроками аренды и условиями выхода, долей продлений, задолженностью, заполняемостью якорных и поддерживающих функций, стоимостью привлечения арендаторов, простоем между договорами, операционными расходами и стабильностью чистого дохода. Чем сильнее эти показатели, тем меньше переоценка зависит только от концептуальной истории.",
+          },
+          {
+            en: "This creates a disciplined path to value: first establish the anchor-led operating model, then demonstrate retention and cash-flow resilience, and only then translate the reduced risk into a valuation premium. Repositioning becomes not a cosmetic relabelling of mixed use, but an evidence-based transition to a distinct social-infrastructure asset class.",
+            ru: "Так формируется последовательный путь к росту стоимости: сначала выстроить операционную модель вокруг якорей, затем доказать удержание арендаторов и устойчивость денежного потока и только после этого переводить снижение риска в премию к оценке. Репозиционирование становится не косметическим переименованием mixed-use объекта, а подтверждённым данными переходом в отдельный класс актива социальной инфраструктуры.",
+          },
+        ],
+      },
+    ],
+    advantages: [
+      {
+        title: { en: "Clear hierarchy", ru: "Понятная иерархия" },
+        body: {
+          en: "Public, educational and community uses form the core; other tenants support it.",
+          ru: "Публичные, образовательные и общественные функции образуют ядро, остальные арендаторы его поддерживают.",
+        },
+      },
+      {
+        title: { en: "Lower vacancy risk", ru: "Снижение риска вакантности" },
+        body: {
+          en: "Relevant anchor tenants make the asset less dependent on constant reletting.",
+          ru: "Значимые якорные арендаторы снижают зависимость объекта от постоянной смены пользователей.",
+        },
+      },
+      {
+        title: { en: "Neighbourhood relevance", ru: "Значимость для района" },
+        body: {
+          en: "The building becomes a recognisable place for services used in everyday life.",
+          ru: "Здание становится узнаваемым местом для сервисов, востребованных в повседневной жизни.",
+        },
+      },
+      {
+        title: { en: "Durable investment story", ru: "Устойчивая инвестиционная история" },
+        body: {
+          en: "Tenant quality, social utility and longer operating relationships provide evidence for lower risk, more resilient NOI and asset revaluation.",
+          ru: "Качество арендаторов, общественная полезность и более длительные операционные отношения подтверждают снижение риска, устойчивость NOI и основания для переоценки актива.",
         },
       },
     ],

@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { BackToHome } from "@/components/site/BackToHome";
 import { useLanguage, withoutTerminalDots, type LocalizedString } from "@/i18n";
 
@@ -45,60 +45,63 @@ const page = {
 } satisfies Record<string, LocalizedString>;
 
 function Contact() {
-  const { l } = useLanguage();
+  const { t, l } = useLanguage();
 
   return (
-    <article>
+    <article className="contact-page">
       <BackToHome />
-      <header className="standard-page-hero standard-page-hero-content container-rl">
+      <header className="contact-hero standard-page-hero standard-page-hero-content container-rl">
         <p className="eyebrow text-accent page-reveal page-reveal-delay-1">{l(page.eyebrow)}</p>
         <h1 className="standard-page-hero-title mobile-safe-text serif mt-6 max-w-4xl text-foreground page-reveal page-reveal-delay-2">
           {withoutTerminalDots(l(page.title))}
         </h1>
       </header>
 
-      <section className="border-t border-rule">
-        <div className="container-rl py-20 grid md:grid-cols-12 gap-12">
-          <div className="md:col-span-4">
-            <p className="eyebrow mb-3 text-accent">{l(page.practice)}</p>
-            <p className="serif text-2xl text-foreground">RANTA LIMITED</p>
-            <p className="text-muted-foreground mt-1">{l(page.location)}</p>
+      <section className="contact-details">
+        <div className="container-rl contact-details-grid">
+          <div className="contact-detail contact-detail--practice">
+            <p className="eyebrow text-accent">{l(page.practice)}</p>
+            <p className="contact-practice-name serif">RANTA LIMITED</p>
+            <p className="contact-secondary">{l(page.location)}</p>
           </div>
-          <div className="md:col-span-4">
-            <p className="eyebrow mb-3 text-accent">{l(page.operations)}</p>
-            <ul className="space-y-1 text-muted-foreground">
+          <div className="contact-detail">
+            <p className="eyebrow text-accent">{l(page.operations)}</p>
+            <ul className="contact-locations">
               <li>Latvia</li>
               <li>Slovenia</li>
               <li>Turkey</li>
             </ul>
           </div>
-          <div className="md:col-span-4">
-            <p className="eyebrow mb-3 text-accent">{l(page.channels)}</p>
-            <ul className="space-y-2">
+          <div className="contact-detail contact-detail--channel">
+            <p className="eyebrow text-accent">{l(page.channels)}</p>
+            <ul className="contact-channels">
               <li>
                 <a
                   href="mailto:office@repositionlab.com"
-                  className="mobile-safe-text break-all text-foreground hover:text-accent transition-colors"
+                  className="contact-email mobile-safe-text"
                 >
                   office@repositionlab.com
                 </a>
-                <p className="text-xs text-muted-foreground mt-1">{l(page.primaryChannel)}</p>
+                <p className="contact-channel-caption">{l(page.primaryChannel)}</p>
               </li>
-              <li className="pt-4">
-                <p className="text-foreground">{l(page.secure)}</p>
-                <p className="text-xs text-muted-foreground mt-1">{l(page.secureText)}</p>
+              <li className="contact-secure">
+                <p className="contact-secure-title">{l(page.secure)}</p>
+                <p className="contact-channel-caption">{l(page.secureText)}</p>
               </li>
             </ul>
           </div>
         </div>
       </section>
 
-      <section className="paper py-20">
-        <div className="container-rl max-w-3xl">
+      <section className="contact-note paper">
+        <div className="container-rl contact-note-grid">
           <p className="eyebrow text-accent">{l(page.note)}</p>
-          <p className="mobile-safe-text serif text-2xl md:text-3xl mt-4 leading-snug text-ink">
-            {l(page.noteText)}
-          </p>
+          <div className="contact-note-content">
+            <p className="mobile-safe-text serif contact-note-text">{l(page.noteText)}</p>
+            <Link to="/submit" className="contact-submit premium-action">
+              {l(t.common.submitAnAsset)}
+            </Link>
+          </div>
         </div>
       </section>
     </article>

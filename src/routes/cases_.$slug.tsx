@@ -1,5 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useRef } from "react";
 import { BackToHome } from "@/components/site/BackToHome";
+import { BeforeAfterReveal } from "@/components/site/BeforeAfterReveal";
+import { CastleLineDrawing } from "@/components/site/CastleLineDrawing";
+import { FallingLeaves } from "@/components/site/FallingLeaves";
+import { MountainLineDrawing } from "@/components/site/MountainLineDrawing";
 import { cases } from "@/data/cases";
 import { useLanguage } from "@/i18n";
 
@@ -8,9 +13,50 @@ export const Route = createFileRoute("/cases_/$slug")({
 });
 
 function CaseDetail() {
+  const articleRef = useRef<HTMLElement | null>(null);
   const { slug } = Route.useParams();
   const { t, l } = useLanguage();
   const caseStudy = cases.find((item) => item.slug === slug);
+  const hasArchitecturalDrawing =
+    slug === "slovenia-castle" || slug === "bauskas-16a-riga";
+  const hasMountainDrawing = slug === "turkey-lifestyle-repositioning";
+  const hasFallingLeaves = slug === "distressed-prime-apartments";
+  const hasEditorialGallery =
+    slug === "slovenia-castle" ||
+    slug === "bauskas-16a-riga" ||
+    slug === "turkey-lifestyle-repositioning" ||
+    slug === "distressed-prime-apartments" ||
+    slug === "kekava-production-campus" ||
+    slug === "flotes-8-community-infrastructure";
+
+  useEffect(() => {
+    const article = articleRef.current;
+    if (!article) {
+      return;
+    }
+
+    const items = Array.from(article.querySelectorAll<HTMLElement>(".case-photo-reveal"));
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      items.forEach((item) => item.classList.add("is-visible"));
+      return;
+    }
+
+    article.classList.add("case-photo-reveal-ready");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -4% 0px" },
+    );
+
+    items.forEach((item) => observer.observe(item));
+    return () => observer.disconnect();
+  }, [slug]);
 
   if (!caseStudy) {
     return (
@@ -36,9 +82,20 @@ function CaseDetail() {
   }
 
   return (
-    <article>
+    <article ref={articleRef}>
       <BackToHome />
-      <header className="container-rl pt-8 pb-16">
+      <header
+        className={`container-rl pt-8 pb-16 ${
+          hasArchitecturalDrawing || hasMountainDrawing || hasFallingLeaves
+            ? "line-art-case-hero"
+            : ""
+        }`}
+      >
+        {caseStudy.slug === "slovenia-castle" && <CastleLineDrawing variant="slivnica" />}
+        {caseStudy.slug === "bauskas-16a-riga" && <CastleLineDrawing variant="bauskas" />}
+        {hasMountainDrawing && <MountainLineDrawing />}
+        {hasFallingLeaves && <FallingLeaves />}
+        <div className="relative z-10">
         <Link
           to="/cases"
           className="page-reveal page-reveal-delay-1 mobile-safe-text inline-flex max-w-full items-center gap-2 text-[11px] tracking-[0.16em] uppercase text-muted-foreground hover:text-accent transition-colors border-b border-transparent hover:border-accent/40 pb-1 sm:tracking-[0.22em]"
@@ -57,12 +114,13 @@ function CaseDetail() {
             {l(caseStudy.subtitle)}
           </p>
         )}
+        </div>
       </header>
 
       <section className="case-file-intro border-t border-rule">
         <div className="container-rl py-12 grid gap-10 items-start lg:grid-cols-12 lg:gap-14 lg:py-16">
           <div className="case-file-visual lg:col-span-5">
-            <div className="case-file-image aspect-[4/3] overflow-hidden bg-muted border border-rule">
+            <div className="case-file-image case-photo-reveal case-photo-reveal-light case-photo-reveal-zoom aspect-[4/3] overflow-hidden bg-muted border border-rule">
               <img
                 src={caseStudy.img}
                 alt={l(caseStudy.title)}
@@ -70,6 +128,9 @@ function CaseDetail() {
                 width={1280}
                 height={960}
                 className="w-full h-full object-cover"
+                style={
+                  caseStudy.imgPosition ? { objectPosition: caseStudy.imgPosition } : undefined
+                }
               />
             </div>
           </div>
@@ -119,10 +180,10 @@ function CaseDetail() {
                   </div>
 
                   {/* After "Repositioning Thesis" — wide exterior slot */}
-                  {slug === "bauskas-16a-riga" && i === 0 && (
+                  {hasEditorialGallery && i === 0 && (
                     <div className="case-file-evidence-zone mt-12">
                       {extItem ? (
-                        <div className="case-file-evidence-plate case-file-evidence-plate-wide aspect-[16/9] overflow-hidden border border-rule">
+                        <div className="case-file-evidence-plate case-file-evidence-plate-wide case-photo-reveal case-photo-reveal-panorama aspect-[16/9] overflow-hidden border border-rule">
                           <img
                             src={extItem.src}
                             alt={extItem.alt}
@@ -138,7 +199,7 @@ function CaseDetail() {
                           />
                         </div>
                       ) : (
-                        <div className="aspect-[16/9] border border-rule bg-background flex items-end p-5">
+                        <div className="case-file-photo-slot aspect-[16/9]">
                           <span className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground/50">
                             Image slot — exterior
                           </span>
@@ -148,10 +209,10 @@ function CaseDetail() {
                   )}
 
                   {/* After "Spatial Identity as Value Driver" — 2-col interior row */}
-                  {slug === "bauskas-16a-riga" && i === 1 && (
+                  {hasEditorialGallery && i === 1 && (
                     <div className="case-file-evidence-zone mt-12 grid sm:grid-cols-2 gap-5">
                       {intItem ? (
-                        <div className="case-file-evidence-plate aspect-[4/3] overflow-hidden border border-rule">
+                        <div className="case-file-evidence-plate case-photo-reveal case-photo-reveal-light case-photo-reveal-zoom aspect-[4/3] overflow-hidden border border-rule">
                           <img
                             src={intItem.src}
                             alt={intItem.alt}
@@ -167,14 +228,14 @@ function CaseDetail() {
                           />
                         </div>
                       ) : (
-                        <div className="aspect-[4/3] border border-rule bg-background flex items-end p-4">
+                        <div className="case-file-photo-slot aspect-[4/3]">
                           <span className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground/50">
                             Image slot — interior atmosphere
                           </span>
                         </div>
                       )}
                       {detailItem ? (
-                        <div className="case-file-evidence-plate aspect-[4/3] overflow-hidden border border-rule">
+                        <div className="case-file-evidence-plate case-photo-reveal case-photo-reveal-light case-photo-reveal-zoom aspect-[4/3] overflow-hidden border border-rule">
                           <img
                             src={detailItem.src}
                             alt={detailItem.alt}
@@ -190,7 +251,7 @@ function CaseDetail() {
                           />
                         </div>
                       ) : (
-                        <div className="aspect-[4/3] border border-rule bg-background flex items-end p-4">
+                        <div className="case-file-photo-slot aspect-[4/3]">
                           <span className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground/50">
                             Image slot — architectural detail
                           </span>
@@ -200,10 +261,10 @@ function CaseDetail() {
                   )}
 
                   {/* After "Cinematic Upper Environment" — wide upper space slot */}
-                  {slug === "bauskas-16a-riga" && i === 2 && (
+                  {hasEditorialGallery && i === 2 && (
                     <div className="case-file-evidence-zone mt-12">
                       {upperItem ? (
-                        <div className="case-file-evidence-plate case-file-evidence-plate-wide aspect-[16/9] overflow-hidden border border-rule">
+                        <div className="case-file-evidence-plate case-file-evidence-plate-wide case-photo-reveal case-photo-reveal-panorama aspect-[16/9] overflow-hidden border border-rule">
                           <img
                             src={upperItem.src}
                             alt={upperItem.alt}
@@ -219,7 +280,7 @@ function CaseDetail() {
                           />
                         </div>
                       ) : (
-                        <div className="aspect-[16/9] border border-rule bg-background flex items-end p-5">
+                        <div className="case-file-photo-slot aspect-[16/9]">
                           <span className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground/50">
                             Image slot — upper representative space
                           </span>
@@ -229,10 +290,10 @@ function CaseDetail() {
                   )}
 
                   {/* After "Residential Flexibility" — 2-col lower level row */}
-                  {slug === "bauskas-16a-riga" && i === 3 && (
+                  {hasEditorialGallery && i === 3 && (
                     <div className="case-file-evidence-zone mt-12 grid sm:grid-cols-2 gap-5">
                       {lowerItem ? (
-                        <div className="case-file-evidence-plate aspect-[4/3] overflow-hidden border border-rule">
+                        <div className="case-file-evidence-plate case-photo-reveal case-photo-reveal-light case-photo-reveal-zoom aspect-[4/3] overflow-hidden border border-rule">
                           <img
                             src={lowerItem.src}
                             alt={lowerItem.alt}
@@ -248,14 +309,14 @@ function CaseDetail() {
                           />
                         </div>
                       ) : (
-                        <div className="aspect-[4/3] border border-rule bg-background flex items-end p-4">
+                        <div className="case-file-photo-slot aspect-[4/3]">
                           <span className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground/50">
                             Image slot — residential floor
                           </span>
                         </div>
                       )}
                       {atmItem ? (
-                        <div className="case-file-evidence-plate aspect-[4/3] overflow-hidden border border-rule">
+                        <div className="case-file-evidence-plate case-photo-reveal case-photo-reveal-light case-photo-reveal-zoom aspect-[4/3] overflow-hidden border border-rule">
                           <img
                             src={atmItem.src}
                             alt={atmItem.alt}
@@ -271,7 +332,7 @@ function CaseDetail() {
                           />
                         </div>
                       ) : (
-                        <div className="aspect-[4/3] border border-rule bg-background flex items-end p-4">
+                        <div className="case-file-photo-slot aspect-[4/3]">
                           <span className="text-[11px] tracking-[0.18em] uppercase text-muted-foreground/50">
                             Image slot — lower level
                           </span>
@@ -304,7 +365,54 @@ function CaseDetail() {
         </section>
       )}
 
-      {slug !== "bauskas-16a-riga" && (
+      {caseStudy.slug === "slovenia-castle" && (
+        <section className="case-file-chapter border-t border-rule py-16 md:py-20">
+          <div className="container-rl max-w-5xl">
+            <p className="eyebrow text-accent">
+              {l({ en: "Repositioning in Motion", ru: "Репозиционирование в движении" })}
+            </p>
+            <div className="mt-8">
+              <BeforeAfterReveal
+                beforeSrc="/sliv1.jpg"
+                afterSrc="/sliv2.jpg"
+                beforeAlt={l({
+                  en: "Slivnica Castle before repositioning — underutilized heritage structure",
+                  ru: "Замок Сливница до перепозиционирования — недоиспользуемый объект наследия",
+                })}
+                afterAlt={l({
+                  en: "Slivnica Castle after repositioning — cultural destination",
+                  ru: "Замок Сливница после перепозиционирования — культурное направление",
+                })}
+                beforeLabel={{
+                  eyebrow: l({ en: "Before", ru: "До" }),
+                  caption: l({ en: "Underutilized Heritage", ru: "Недоиспользуемое наследие" }),
+                }}
+                afterLabel={{
+                  eyebrow: l({ en: "After", ru: "После" }),
+                  caption: l({ en: "Cultural Destination", ru: "Культурное направление" }),
+                }}
+                replayLabel={l({ en: "Replay transformation", ru: "Повторить трансформацию" })}
+                replayLabelShort={l({ en: "Replay", ru: "Повтор" })}
+                conceptEyebrow={l({
+                  en: "Repositioning strategy",
+                  ru: "Стратегия репозиционирования",
+                })}
+                conceptTitle={l({
+                  en: "From a static heritage asset to an international working platform",
+                  ru: "От статичного объекта наследия к международной работающей платформе",
+                })}
+                conceptItems={[
+                  l({ en: "Creative production", ru: "Креативное производство" }),
+                  l({ en: "Education & exchange", ru: "Образование и обмен" }),
+                  l({ en: "Selective hospitality", ru: "Камерное гостеприимство" }),
+                ]}
+              />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {!hasEditorialGallery && (
         <section className="paper py-20">
           <div className="container-rl">
             <p className="case-file-evidence-label eyebrow text-accent">
@@ -329,6 +437,7 @@ function CaseDetail() {
           </Link>
         </div>
       </section>
+
     </article>
   );
 }
