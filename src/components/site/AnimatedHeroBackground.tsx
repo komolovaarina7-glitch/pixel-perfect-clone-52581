@@ -87,27 +87,27 @@ vec3 render(vec2 fc) {
   right *= 1.0 - calmTextZone * 0.46;
   lower *= 1.0 - calmTextZone * 0.30;
 
-  float edgeDepth = smoothstep(0.38, 1.0, uv.x) * 0.58;
-  edgeDepth += smoothstep(0.72, 1.0, uv.y) * 0.16;
+  float edgeDepth = smoothstep(0.38, 1.0, uv.x) * 0.46;
+  edgeDepth += smoothstep(0.72, 1.0, uv.y) * 0.13;
   edgeDepth *= 1.0 - calmTextZone * 0.82;
 
   vec3 col = mix(CREAM, IVORY, 0.46 + 0.24 * broadWarp);
   col = mix(col, WARM_SHADOW, edgeDepth);
-  col = mix(col, CHAMPAGNE, upper * 0.72 * uEnergy);
-  col = mix(col, ROSE, right * 0.58 * uEnergy);
-  col = mix(col, COPPER, lower * 0.50 * uEnergy);
+  col = mix(col, CHAMPAGNE, upper * 0.58 * uEnergy);
+  col = mix(col, ROSE, right * 0.46 * uEnergy);
+  col = mix(col, COPPER, lower * 0.40 * uEnergy);
 
   float pearl = pow(max(0.0, 1.0 - abs(upperCurve) / 0.30), 3.0);
   pearl += pow(max(0.0, 1.0 - abs(rightCurve) / 0.34), 3.0) * 0.82;
-  col += mix(vec3(1.0), CHAMPAGNE, 0.18) * pearl * 0.28 * uEnergy;
+  col += mix(vec3(1.0), CHAMPAGNE, 0.18) * pearl * 0.22 * uEnergy;
 
   float foldShadow = smoothstep(0.11, 0.38, abs(upperCurve)) * upper;
   foldShadow += smoothstep(0.12, 0.44, abs(rightCurve)) * right * 0.84;
   foldShadow += smoothstep(0.10, 0.34, abs(lowerCurve)) * lower * 0.48;
-  col = mix(col, mix(WARM_SHADOW, COPPER, 0.42), foldShadow * 0.34 * uEnergy);
+  col = mix(col, mix(WARM_SHADOW, COPPER, 0.42), foldShadow * 0.27 * uEnergy);
 
   float roseGlow = exp(-pow(rightCurve / 0.24, 2.0)) * smoothstep(0.42, 0.98, uv.x);
-  col = mix(col, ROSE, roseGlow * 0.34 * uEnergy);
+  col = mix(col, ROSE, roseGlow * 0.27 * uEnergy);
 
   vec2 lightPosition = uLight / uRes;
   float light = exp(-dot(uv - lightPosition, uv - lightPosition) * 3.6);
