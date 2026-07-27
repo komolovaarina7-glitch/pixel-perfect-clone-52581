@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import { AnimatedHeroBackground } from "@/components/site/AnimatedHeroBackground";
 import {
   Accordion,
@@ -135,6 +136,30 @@ const faqItems = [
 
 function Home() {
   const { t, l } = useLanguage();
+  const valueProofRef = useRef<HTMLElement>(null);
+  const [valueProofLinesVisible, setValueProofLinesVisible] = useState(false);
+
+  useEffect(() => {
+    const section = valueProofRef.current;
+    if (!section) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setValueProofLinesVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        setValueProofLinesVisible(true);
+        observer.disconnect();
+      },
+      { threshold: 0.22, rootMargin: "0px 0px -8% 0px" },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   const previewCases = previewSlugs
     .map((slug) => cases.find((caseStudy) => caseStudy.slug === slug))
@@ -165,7 +190,11 @@ function Home() {
         </div>
       </section>
 
-      <section className="home-value-proof">
+      <section
+        ref={valueProofRef}
+        className="home-value-proof"
+        data-lines-visible={valueProofLinesVisible}
+      >
         <div className="container-rl home-value-proof-shell">
           <div className="home-value-proof-intro">
             <h2 className="mobile-safe-text serif home-value-proof-thesis">
