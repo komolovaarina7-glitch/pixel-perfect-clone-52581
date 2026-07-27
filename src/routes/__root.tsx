@@ -173,7 +173,24 @@ function GlobalScrollReveal() {
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          entry.target.classList.add("global-scroll-reveal--visible");
+          entry.target.animate(
+            [
+              {
+                opacity: 0,
+                filter: "blur(10px)",
+                transform: "translate3d(0, 32px, 0)",
+              },
+              {
+                opacity: 1,
+                filter: "blur(0)",
+                transform: "translate3d(0, 0, 0)",
+              },
+            ],
+            {
+              duration: 1050,
+              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+            },
+          );
           observer.unobserve(entry.target);
         });
       },
@@ -213,7 +230,6 @@ function GlobalScrollReveal() {
       targets.forEach((target) => {
         if (observed.has(target)) return;
         observed.add(target);
-        target.classList.add("global-scroll-reveal");
         observer.observe(target);
       });
     };
