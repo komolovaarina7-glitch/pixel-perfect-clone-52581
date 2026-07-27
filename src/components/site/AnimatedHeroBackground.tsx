@@ -13,21 +13,17 @@ precision highp float;
 
 uniform vec2 uRes;
 uniform float uTime;
-uniform vec2 uMouse;
-uniform float uHover;
-uniform vec4 uRipples[8];
+uniform vec2 uLight;
 uniform float uEnergy;
 uniform float uGrain;
-uniform float uDark;
-uniform float uPatina;
 
-const vec3 PAPER = vec3(0.985, 0.976, 0.949);
-const vec3 PAPER_DEEP = vec3(0.957, 0.937, 0.890);
-const vec3 SAND = vec3(0.906, 0.855, 0.769);
-const vec3 BRONZE3 = vec3(0.650, 0.470, 0.310);
-const vec3 BRONZE5 = vec3(0.470, 0.310, 0.205);
-const vec3 INK = vec3(0.184, 0.149, 0.122);
-const vec3 OLIVE = vec3(0.369, 0.420, 0.271);
+const vec3 IVORY = vec3(0.965, 0.945, 0.910);
+const vec3 CREAM = vec3(0.933, 0.890, 0.827);
+const vec3 SAND = vec3(0.843, 0.753, 0.647);
+const vec3 CHAMPAGNE = vec3(0.788, 0.682, 0.545);
+const vec3 COPPER = vec3(0.651, 0.435, 0.298);
+const vec3 ROSE = vec3(0.788, 0.643, 0.608);
+const vec3 WARM_SHADOW = vec3(0.361, 0.275, 0.231);
 
 mat2 rot(float a) {
   float c = cos(a);
@@ -55,7 +51,7 @@ float noise(vec2 p) {
 float fbm(vec2 p) {
   float v = 0.0;
   float a = 0.5;
-  for (int i = 0; i < 6; i++) {
+  for (int i = 0; i < 4; i++) {
     v += a * noise(p);
     p = rot(0.5) * p * 2.02 + 11.3;
     a *= 0.5;
@@ -63,47 +59,50 @@ float fbm(vec2 p) {
   return v;
 }
 
-float ripplePulse(vec2 px, float speed, float width) {
-  float w = 0.0;
-  for (int i = 0; i < 8; i++) {
-    vec4 r = uRipples[i];
-    if (r.w <= 0.001) continue;
-    float radius = r.z * speed;
-    float d = distance(px, r.xy);
-    float ring = exp(-pow((d - radius) / width, 2.0));
-    w += ring * exp(-r.z * 1.9) * r.w;
-  }
-  return w;
+float silkRibbon(float distanceToCurve, float width) {
+  float body = exp(-pow(distanceToCurve / width, 2.0));
+  float edge = exp(-pow((abs(distanceToCurve) - width * 0.48) / (width * 0.22), 2.0));
+  return body * 0.72 + edge * 0.28;
 }
 
 vec3 render(vec2 fc) {
+  vec2 uv = fc / uRes;
   vec2 p = (fc - 0.5 * uRes) / uRes.y;
-  vec2 m = (uMouse - 0.5 * uRes) / uRes.y;
   float t = uTime;
 
-  float f = 0.0;
-  for (int i = 0; i < 4; i++) {
-    float fi = float(i);
-    vec2 src = 0.78 * vec2(sin(t * 0.31 + fi * 1.7), cos(t * 0.26 + fi * 2.3));
-    f += sin(distance(p, src) * 13.0 - t * 2.6 + fi * 1.3);
-  }
+  float broadWarp = fbm(p * 0.82 + vec2(t * 0.035, -t * 0.024)) - 0.5;
+  float fineWarp = fbm(p * 1.42 - vec2(t * 0.018, t * 0.028)) - 0.5;
+  float warp = broadWarp * 0.22 + fineWarp * 0.07;
 
-  float ptrAmp = 1.4 * (0.5 + 0.9 * uHover);
-  f += ptrAmp * sin(distance(p, m) * 16.0 - t * 4.0);
-  f /= 5.0;
-  f += 0.18 * fbm(p * 1.6 + t * 0.05);
+  float upperCurve = p.y - (0.48 + 0.16 * sin(p.x * 1.45 + t * 0.78) + warp);
+  float rightCurve = p.y - (-0.08 + 0.24 * sin(p.x * 1.18 - t * 0.62 + 1.8) - warp);
+  float lowerCurve = p.y - (-0.62 + 0.15 * sin(p.x * 1.72 + t * 0.54 + 3.4) + warp * 0.7);
 
-  float caust = pow(clamp(f, 0.0, 1.0), 2.6) + 0.5 * pow(clamp(-f, 0.0, 1.0), 3.0);
-  caust = clamp(caust * 1.4 * uEnergy + ripplePulse(fc, 560.0, 55.0) * 1.1, 0.0, 1.0);
+  float upper = silkRibbon(upperCurve, 0.32);
+  float right = silkRibbon(rightCurve, 0.38) * smoothstep(0.28, 0.96, uv.x);
+  float lower = silkRibbon(lowerCurve, 0.29) * smoothstep(0.34, 0.98, uv.x);
 
-  float dm = distance(p, m);
-  float lamp = (0.28 + 0.7 * uHover) * exp(-dm * dm * 0.9);
+  float calmTextZone = 1.0 - smoothstep(0.14, 0.76, distance(uv, vec2(0.28, 0.68)));
+  upper *= 1.0 - calmTextZone * 0.62;
+  right *= 1.0 - calmTextZone * 0.76;
+  lower *= 1.0 - calmTextZone * 0.52;
 
-  vec3 base = mix(PAPER_DEEP, PAPER, 0.5 + 0.5 * lamp);
-  vec3 col = mix(base, SAND, caust * 0.72);
-  col = mix(col, BRONZE3, pow(caust, 1.4) * 0.48);
-  col += BRONZE5 * pow(caust, 2.4) * (0.20 + lamp * 0.28);
-  col = mix(col, INK, smoothstep(1.2, 1.75, length(p)) * 0.08);
+  vec3 col = mix(CREAM, IVORY, 0.56 + 0.17 * broadWarp);
+  col = mix(col, CHAMPAGNE, upper * 0.20 * uEnergy);
+  col = mix(col, ROSE, right * 0.12 * uEnergy);
+  col = mix(col, SAND, lower * 0.16 * uEnergy);
+
+  float pearl = pow(max(0.0, 1.0 - abs(upperCurve) / 0.24), 3.0);
+  pearl += pow(max(0.0, 1.0 - abs(rightCurve) / 0.28), 3.0) * 0.7;
+  col += mix(vec3(1.0), CHAMPAGNE, 0.3) * pearl * 0.055 * uEnergy;
+
+  float foldShadow = smoothstep(0.10, 0.34, abs(upperCurve)) * upper;
+  foldShadow += smoothstep(0.12, 0.38, abs(rightCurve)) * right * 0.6;
+  col = mix(col, mix(WARM_SHADOW, COPPER, 0.48), foldShadow * 0.045 * uEnergy);
+
+  vec2 lightPosition = uLight / uRes;
+  float light = exp(-dot(uv - lightPosition, uv - lightPosition) * 3.6);
+  col = mix(col, IVORY, light * 0.12);
   return col;
 }
 
@@ -111,51 +110,31 @@ void main() {
   vec2 fc = gl_FragCoord.xy;
   vec3 col = render(fc);
 
-  if (uPatina > 0.001) {
-    float lum = dot(col, vec3(0.299, 0.587, 0.114));
-    vec3 verd = mix(INK, OLIVE, smoothstep(0.05, 0.55, lum));
-    verd = mix(verd, mix(OLIVE, SAND, 0.5), smoothstep(0.55, 1.0, lum));
-    col = mix(col, verd, uPatina * 0.7);
-  }
-
-  if (uDark > 0.001) {
-    float lum = dot(col, vec3(0.299, 0.587, 0.114));
-    vec3 night = mix(BRONZE3, vec3(0.075, 0.063, 0.052), smoothstep(0.18, 0.92, lum));
-    night += BRONZE5 * smoothstep(0.55, 0.95, lum) * 0.10;
-    col = mix(col, night, uDark * 0.92);
-  }
-
   float g = hash21(fc + fract(uTime) * 97.0) - 0.5;
-  col += g * 0.035 * uGrain;
+  col += g * 0.018 * uGrain;
 
   vec2 q = fc / uRes;
   float vig = smoothstep(1.18, 0.18, distance(q, vec2(0.5)));
-  col *= mix(0.94, 1.0, vig);
+  col *= mix(0.965, 1.0, vig);
 
   col = clamp(col, 0.0, 1.0);
-  col = pow(col, vec3(0.92));
+  col = pow(col, vec3(0.96));
   gl_FragColor = vec4(col, 1.0);
 }
 `;
 
 const CONFIG = {
-  motion: 0.075,
-  energy: 0.68,
-  grain: 0.18,
-  dark: 0,
-  patina: 0,
+  motion: 0.22,
+  energy: 0.82,
+  grain: 0.12,
 };
 
 type Uniforms = {
   res: WebGLUniformLocation;
   time: WebGLUniformLocation;
-  mouse: WebGLUniformLocation;
-  hover: WebGLUniformLocation;
-  ripples: WebGLUniformLocation;
+  light: WebGLUniformLocation;
   energy: WebGLUniformLocation;
   grain: WebGLUniformLocation;
-  dark: WebGLUniformLocation;
-  patina: WebGLUniformLocation;
 };
 
 function compileShader(gl: WebGLRenderingContext, type: number, source: string) {
@@ -212,13 +191,9 @@ function getUniforms(gl: WebGLRenderingContext, program: WebGLProgram): Uniforms
   const uniformNames = {
     res: "uRes",
     time: "uTime",
-    mouse: "uMouse",
-    hover: "uHover",
-    ripples: "uRipples[0]",
+    light: "uLight",
     energy: "uEnergy",
     grain: "uGrain",
-    dark: "uDark",
-    patina: "uPatina",
   } as const;
 
   const entries = Object.entries(uniformNames).map(([key, name]) => {
@@ -293,12 +268,12 @@ export function AnimatedHeroBackground() {
     let mouseY = 0.52;
     let targetX = 0.62;
     let targetY = 0.52;
-    const ripples = new Float32Array(32);
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const isMobile = window.matchMedia("(max-width: 767px), (pointer: coarse)").matches;
 
     const resize = () => {
       const rect = container.getBoundingClientRect();
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 1.5);
       width = Math.max(1, Math.floor(rect.width * dpr));
       height = Math.max(1, Math.floor(rect.height * dpr));
       canvas.width = width;
@@ -328,13 +303,9 @@ export function AnimatedHeroBackground() {
       gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
       gl.uniform2f(uniforms.res, width, height);
       gl.uniform1f(uniforms.time, shaderTime);
-      gl.uniform2f(uniforms.mouse, mouseX * width, (1 - mouseY) * height);
-      gl.uniform1f(uniforms.hover, 0.16);
-      gl.uniform4fv(uniforms.ripples, ripples);
-      gl.uniform1f(uniforms.energy, CONFIG.energy);
-      gl.uniform1f(uniforms.grain, CONFIG.grain);
-      gl.uniform1f(uniforms.dark, CONFIG.dark);
-      gl.uniform1f(uniforms.patina, CONFIG.patina);
+      gl.uniform2f(uniforms.light, mouseX * width, (1 - mouseY) * height);
+      gl.uniform1f(uniforms.energy, isMobile ? CONFIG.energy * 0.82 : CONFIG.energy);
+      gl.uniform1f(uniforms.grain, isMobile ? CONFIG.grain * 0.5 : CONFIG.grain);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
 
@@ -374,7 +345,7 @@ export function AnimatedHeroBackground() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 76% 88% at 7% 58%, rgba(251, 250, 247, 0.98), rgba(251, 250, 247, 0.72) 39%, rgba(251, 250, 247, 0.18) 76%, rgba(251, 250, 247, 0) 100%), radial-gradient(ellipse 88% 62% at 42% 100%, rgba(251, 250, 247, 0.74), rgba(251, 250, 247, 0.28) 58%, rgba(251, 250, 247, 0) 100%), linear-gradient(90deg, rgba(251, 250, 247, 0.44), rgba(251, 250, 247, 0.08) 58%, rgba(251, 250, 247, 0.18))",
+            "radial-gradient(ellipse 70% 76% at 21% 67%, rgba(246, 241, 232, 0.88), rgba(246, 241, 232, 0.54) 43%, rgba(246, 241, 232, 0.08) 78%, transparent 100%), linear-gradient(90deg, rgba(246, 241, 232, 0.22), transparent 58%, rgba(238, 227, 211, 0.08))",
         }}
       />
     </div>
