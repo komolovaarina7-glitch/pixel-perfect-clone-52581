@@ -142,6 +142,30 @@ test("cases hero remains complete when reduced motion is enabled", async ({ page
   await expect(page.locator(".cases-hero-letter").first()).toHaveCSS("animation-name", "none");
 });
 
+test("cases hero finishes its title before revealing the supporting copy", async ({ page }) => {
+  await page.goto("/cases");
+  await waitForHydration(page);
+
+  const timing = await page.evaluate(() => {
+    const letters = Array.from(document.querySelectorAll<HTMLElement>(".cases-hero-letter"));
+    const lastLetter = letters.at(-1);
+    const intro = document.querySelector<HTMLElement>(".cases-hero-intro");
+    if (!lastLetter || !intro) return null;
+
+    const letterStyle = getComputedStyle(lastLetter);
+    const introStyle = getComputedStyle(intro);
+    return {
+      titleEnd:
+        Number.parseFloat(letterStyle.animationDelay) +
+        Number.parseFloat(letterStyle.animationDuration),
+      introStart: Number.parseFloat(introStyle.animationDelay),
+    };
+  });
+
+  expect(timing).not.toBeNull();
+  expect(timing!.introStart).toBeGreaterThan(timing!.titleEnd);
+});
+
 test("case image reveals its edge-color glow on hover without decorating the case container", async ({
   page,
 }) => {

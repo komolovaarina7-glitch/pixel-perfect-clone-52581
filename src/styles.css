@@ -5657,7 +5657,7 @@
   color: rgba(61, 48, 40, 0.72);
   font-size: clamp(1rem, 1.35vw, 1.24rem);
   line-height: 1.65;
-  animation-delay: 1180ms;
+  animation-delay: var(--cases-intro-delay);
 }
 
 .cases-hero-light {

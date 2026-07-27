@@ -59,6 +59,7 @@ function CasesHeadline({ children }: { children: string }) {
 
 function Cases() {
   const { t, l } = useLanguage();
+  const heroTitle = withoutTerminalDots(l(t.cases.title));
   const visibleCases = cases.filter(
     (caseStudy) => caseStudy.slug !== "industrial-heritage-slovenia",
   );
@@ -79,9 +80,21 @@ function Cases() {
         <header className="container-rl cases-hero-content">
           <p className="cases-hero-eyebrow eyebrow">{l(t.cases.eyebrow)}</p>
           <h1 className="cases-hero-title mobile-safe-text serif">
-            <CasesHeadline>{withoutTerminalDots(l(t.cases.title))}</CasesHeadline>
+            <CasesHeadline>{heroTitle}</CasesHeadline>
           </h1>
-          <p className="cases-hero-intro">{l(t.cases.intro)}</p>
+          <p
+            className="cases-hero-intro"
+            style={
+              {
+                "--cases-intro-delay": `${Math.min(
+                  4400,
+                  1320 + Array.from(heroTitle).length * 25,
+                )}ms`,
+              } as CSSProperties
+            }
+          >
+            {l(t.cases.intro)}
+          </p>
         </header>
       </section>
 
