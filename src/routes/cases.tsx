@@ -111,13 +111,11 @@ function Cases() {
                 </div>
               </div>
               <div className="md:col-span-6 space-y-6">
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-                  <h2 className="mobile-safe-text serif text-2xl md:text-3xl text-foreground group-hover:text-accent transition-colors">
+                <div className="space-y-2">
+                  <h2 className="case-card-title mobile-safe-text serif text-2xl md:text-3xl text-foreground group-hover:text-accent transition-colors">
                     {l(c.title)}
                   </h2>
-                  <span className="eyebrow mobile-safe-text text-accent sm:whitespace-nowrap">
-                    {l(c.theme)}
-                  </span>
+                  <span className="eyebrow mobile-safe-text block text-accent">{l(c.theme)}</span>
                 </div>
                 <div>
                   <p className="eyebrow text-accent">{l(t.cases.assetChallenge)}</p>

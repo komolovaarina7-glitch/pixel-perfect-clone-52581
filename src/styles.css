@@ -173,6 +173,12 @@
     border-color: rgba(255, 255, 255, 0.72);
   }
 
+  .case-card-title {
+    width: max-content;
+    max-width: none;
+    white-space: nowrap;
+  }
+
   .home-value-proof {
     position: relative;
     border-top: 0;
@@ -5242,6 +5248,12 @@
 }
 
 @media (max-width: 767px) {
+  .case-card-title {
+    width: auto;
+    max-width: 100%;
+    white-space: normal;
+  }
+
   .home-hero {
     min-height: 72vh;
   }
