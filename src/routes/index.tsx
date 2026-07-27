@@ -9,12 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import { cases, type CaseStudy } from "@/data/cases";
 import { useLanguage, type LocalizedString } from "@/i18n";
-import {
-  blurCaseSpotlight,
-  clearCaseSpotlight,
-  focusCaseSpotlight,
-  updateCaseSpotlight,
-} from "@/lib/caseSpotlight";
+import { useCaseSpotlightProximity } from "@/lib/caseSpotlight";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -183,6 +178,7 @@ function AnimatedHeadline({ primary, accent }: { primary: string; accent: string
 
 function Home() {
   const { t, l } = useLanguage();
+  useCaseSpotlightProximity();
   const valueProofRef = useRef<HTMLElement>(null);
   const [valueProofLinesVisible, setValueProofLinesVisible] = useState(false);
 
@@ -349,11 +345,6 @@ function Home() {
                 to="/cases/$slug"
                 params={{ slug: caseStudy.slug }}
                 className="case-spotlight case-spotlight--compact group block"
-                onPointerEnter={updateCaseSpotlight}
-                onPointerMove={updateCaseSpotlight}
-                onPointerLeave={clearCaseSpotlight}
-                onFocus={focusCaseSpotlight}
-                onBlur={blurCaseSpotlight}
               >
                 <div className="aspect-[4/3] overflow-hidden border border-rule bg-muted">
                   <img

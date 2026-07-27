@@ -2,12 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { BackToHome } from "@/components/site/BackToHome";
 import { cases } from "@/data/cases";
 import { useLanguage, withoutTerminalDots } from "@/i18n";
-import {
-  blurCaseSpotlight,
-  clearCaseSpotlight,
-  focusCaseSpotlight,
-  updateCaseSpotlight,
-} from "@/lib/caseSpotlight";
+import { useCaseSpotlightProximity } from "@/lib/caseSpotlight";
 
 export const Route = createFileRoute("/cases")({
   head: () => ({
@@ -32,6 +27,7 @@ export const Route = createFileRoute("/cases")({
 
 function Cases() {
   const { t, l } = useLanguage();
+  useCaseSpotlightProximity();
   const visibleCases = cases.filter(
     (caseStudy) => caseStudy.slug !== "industrial-heritage-slovenia",
   );
@@ -83,11 +79,6 @@ function Cases() {
               to="/cases/$slug"
               params={{ slug: c.slug }}
               className="case-spotlight case-spotlight--feature group grid gap-10 border-t border-rule py-12 transition-colors hover:border-accent md:grid-cols-12"
-              onPointerEnter={updateCaseSpotlight}
-              onPointerMove={updateCaseSpotlight}
-              onPointerLeave={clearCaseSpotlight}
-              onFocus={focusCaseSpotlight}
-              onBlur={blurCaseSpotlight}
             >
               <div className={`md:col-span-6 ${i % 2 ? "md:order-2" : ""}`}>
                 <div className="aspect-[4/3] overflow-hidden border border-rule transition-colors group-hover:border-accent">
