@@ -102,6 +102,18 @@ test("homepage FAQ switches language and opens an answer", async ({ page }) => {
   expect(runtimeErrors).toEqual([]);
 });
 
+test("value-proof divider animation activates when the section enters view", async ({ page }) => {
+  const runtimeErrors = captureRuntimeErrors(page);
+  await page.goto("/");
+  await waitForHydration(page);
+
+  const valueProof = page.locator(".home-value-proof");
+  await valueProof.scrollIntoViewIfNeeded();
+
+  await expect(valueProof).toHaveAttribute("data-lines-visible", "true");
+  expect(runtimeErrors).toEqual([]);
+});
+
 test("case cards open a detail page and an unknown case returns 404", async ({ page }) => {
   const runtimeErrors = captureRuntimeErrors(page);
   await page.goto("/cases");

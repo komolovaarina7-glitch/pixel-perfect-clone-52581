@@ -186,14 +186,28 @@
   }
 
   .home-value-proof-directions {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     margin-top: clamp(4rem, 7vw, 7rem);
     padding-top: clamp(2.5rem, 4vw, 4rem);
-    border-top: 1px solid rgba(138, 85, 54, 0.2);
+  }
+
+  .home-value-proof-directions::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 1px;
+    background: rgba(138, 85, 54, 0.2);
+    content: "";
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 1200ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .home-value-proof-direction {
+    position: relative;
     min-width: 0;
     padding: 0 clamp(1.75rem, 3.5vw, 4rem);
   }
@@ -206,8 +220,31 @@
     padding-right: 0;
   }
 
-  .home-value-proof-direction + .home-value-proof-direction {
-    border-left: 1px solid rgba(138, 85, 54, 0.38);
+  .home-value-proof-direction + .home-value-proof-direction::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    background: rgba(138, 85, 54, 0.38);
+    content: "";
+    transform: scaleY(0);
+    transform-origin: center top;
+    transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1) 320ms;
+  }
+
+  .home-value-proof-direction:nth-child(3)::before {
+    transition-delay: 500ms;
+  }
+
+  .home-value-proof[data-lines-visible="true"] .home-value-proof-directions::before {
+    transform: scaleX(1);
+  }
+
+  .home-value-proof[data-lines-visible="true"]
+    .home-value-proof-direction
+    + .home-value-proof-direction::before {
+    transform: scaleY(1);
   }
 
   .home-value-proof-direction h3 {
@@ -5048,8 +5085,25 @@
   }
 
   .home-value-proof-direction + .home-value-proof-direction {
-    border-top: 1px solid rgba(138, 85, 54, 0.25);
     border-left: 0;
+  }
+
+  .home-value-proof-direction + .home-value-proof-direction::before {
+    top: 0;
+    right: 0;
+    bottom: auto;
+    left: 0;
+    width: auto;
+    height: 1px;
+    background: rgba(138, 85, 54, 0.25);
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  .home-value-proof[data-lines-visible="true"]
+    .home-value-proof-direction
+    + .home-value-proof-direction::before {
+    transform: scaleX(1);
   }
 
   .standard-page-hero,
@@ -5230,6 +5284,11 @@
     transform: none;
     transition: none;
     will-change: auto;
+  }
+
+  .home-value-proof-directions::before,
+  .home-value-proof-direction + .home-value-proof-direction::before {
+    transition: none;
   }
 
   .approach-stage-block {
