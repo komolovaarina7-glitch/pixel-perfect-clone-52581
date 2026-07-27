@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import { BackToHome } from "@/components/site/BackToHome";
 import { BeforeAfterReveal } from "@/components/site/BeforeAfterReveal";
@@ -9,16 +9,30 @@ import { cases } from "@/data/cases";
 import { useLanguage } from "@/i18n";
 
 export const Route = createFileRoute("/cases_/$slug")({
+  loader: ({ params }) => {
+    const caseStudy = cases.find((item) => item.slug === params.slug);
+    if (!caseStudy) throw notFound();
+    return caseStudy;
+  },
+  head: ({ loaderData }) => ({
+    meta: loaderData
+      ? [
+          { title: `${loaderData.title.en} — REPOSITION LAB` },
+          { name: "description", content: loaderData.challenge.en },
+          { property: "og:title", content: `${loaderData.title.en} — REPOSITION LAB` },
+          { property: "og:description", content: loaderData.challenge.en },
+        ]
+      : [],
+  }),
   component: CaseDetail,
 });
 
 function CaseDetail() {
   const articleRef = useRef<HTMLElement | null>(null);
   const { slug } = Route.useParams();
+  const caseStudy = Route.useLoaderData();
   const { t, l } = useLanguage();
-  const caseStudy = cases.find((item) => item.slug === slug);
-  const hasArchitecturalDrawing =
-    slug === "slovenia-castle" || slug === "bauskas-16a-riga";
+  const hasArchitecturalDrawing = slug === "slovenia-castle" || slug === "bauskas-16a-riga";
   const hasMountainDrawing = slug === "turkey-lifestyle-repositioning";
   const hasFallingLeaves = slug === "distressed-prime-apartments";
   const hasEditorialGallery =
@@ -58,29 +72,6 @@ function CaseDetail() {
     return () => observer.disconnect();
   }, [slug]);
 
-  if (!caseStudy) {
-    return (
-      <article>
-        <BackToHome />
-        <header className="container-rl pt-8 pb-16">
-          <Link
-            to="/cases"
-            className="page-reveal page-reveal-delay-1 mobile-safe-text inline-flex max-w-full items-center gap-2 text-[11px] tracking-[0.16em] uppercase text-muted-foreground hover:text-accent transition-colors border-b border-transparent hover:border-accent/40 pb-1 sm:tracking-[0.22em]"
-          >
-            <span aria-hidden>←</span>
-            <span>{l(t.common.backToCases)}</span>
-          </Link>
-          <p className="eyebrow mt-10 text-accent page-reveal page-reveal-delay-1">
-            {l(t.cases.notFoundLabel)}
-          </p>
-          <h1 className="mobile-safe-text serif text-4xl md:text-6xl mt-6 max-w-3xl leading-[1.05] text-foreground page-reveal page-reveal-delay-2">
-            {l(t.cases.notFoundTitle)}
-          </h1>
-        </header>
-      </article>
-    );
-  }
-
   return (
     <article ref={articleRef}>
       <BackToHome />
@@ -96,24 +87,24 @@ function CaseDetail() {
         {hasMountainDrawing && <MountainLineDrawing />}
         {hasFallingLeaves && <FallingLeaves />}
         <div className="relative z-10">
-        <Link
-          to="/cases"
-          className="page-reveal page-reveal-delay-1 mobile-safe-text inline-flex max-w-full items-center gap-2 text-[11px] tracking-[0.16em] uppercase text-muted-foreground hover:text-accent transition-colors border-b border-transparent hover:border-accent/40 pb-1 sm:tracking-[0.22em]"
-        >
-          <span aria-hidden>←</span>
-          <span>{l(t.common.backToCases)}</span>
-        </Link>
-        <p className="eyebrow mt-10 text-accent page-reveal page-reveal-delay-1">
-          {l(caseStudy.theme)}
-        </p>
-        <h1 className="mobile-safe-text serif text-4xl md:text-6xl mt-6 max-w-4xl leading-[1.05] text-foreground page-reveal page-reveal-delay-2">
-          {l(caseStudy.title)}
-        </h1>
-        {caseStudy.subtitle && (
-          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground page-reveal page-reveal-delay-3">
-            {l(caseStudy.subtitle)}
+          <Link
+            to="/cases"
+            className="page-reveal page-reveal-delay-1 mobile-safe-text inline-flex max-w-full items-center gap-2 text-[11px] tracking-[0.16em] uppercase text-muted-foreground hover:text-accent transition-colors border-b border-transparent hover:border-accent/40 pb-1 sm:tracking-[0.22em]"
+          >
+            <span aria-hidden>←</span>
+            <span>{l(t.common.backToCases)}</span>
+          </Link>
+          <p className="eyebrow mt-10 text-accent page-reveal page-reveal-delay-1">
+            {l(caseStudy.theme)}
           </p>
-        )}
+          <h1 className="mobile-safe-text serif text-4xl md:text-6xl mt-6 max-w-4xl leading-[1.05] text-foreground page-reveal page-reveal-delay-2">
+            {l(caseStudy.title)}
+          </h1>
+          {caseStudy.subtitle && (
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground page-reveal page-reveal-delay-3">
+              {l(caseStudy.subtitle)}
+            </p>
+          )}
         </div>
       </header>
 
@@ -437,7 +428,6 @@ function CaseDetail() {
           </Link>
         </div>
       </section>
-
     </article>
   );
 }

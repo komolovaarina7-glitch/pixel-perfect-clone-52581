@@ -28,7 +28,7 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-const previewSlugs = ["slovenia-castle", "bauskas-16a-riga"];
+const previewSlugs = ["slovenia-castle", "bauskas-16a-riga", "turkey-lifestyle-repositioning"];
 
 const directionOrder = [
   "/who-we-are",
@@ -37,8 +37,6 @@ const directionOrder = [
   "/approach",
   "/recovery-validation",
   "/selected-thinking",
-  "/contact",
-  "/submit",
 ] as const;
 
 function Home() {
@@ -126,7 +124,7 @@ function Home() {
                       {l(title)}
                     </h3>
 
-                    <span className="shrink-0 pt-1 text-[10px] uppercase tracking-[0.18em] text-accent/80 transition-colors group-hover:text-accent">
+                    <span className="shrink-0 pt-1 text-[10px] uppercase tracking-[0.18em] text-accent transition-colors group-hover:text-accent">
                       {l(t.common.open)}
                     </span>
                   </div>

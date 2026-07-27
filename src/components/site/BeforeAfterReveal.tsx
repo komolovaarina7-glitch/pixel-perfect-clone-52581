@@ -353,14 +353,15 @@ export function BeforeAfterReveal({
             <p className="text-[9px] tracking-[0.28em] uppercase text-[#d4ad89] sm:text-[10px]">
               {conceptEyebrow}
             </p>
-            <p className="serif mt-3 max-w-2xl text-xl leading-tight sm:text-3xl">
-              {conceptTitle}
-            </p>
+            <p className="serif mt-3 max-w-2xl text-xl leading-tight sm:text-3xl">{conceptTitle}</p>
 
             <div className="relative mt-6 grid gap-2 sm:mt-8 sm:grid-cols-3 sm:gap-4">
               <div className="absolute left-[12%] right-[12%] top-[13px] hidden h-px bg-white/20 sm:block" />
               {conceptItems.slice(0, 3).map((item, index) => (
-                <div key={item} className="relative flex items-center gap-3 sm:block sm:text-center">
+                <div
+                  key={item}
+                  className="relative flex items-center gap-3 sm:block sm:text-center"
+                >
                   <span className="relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[#d4ad89]/70 bg-[#17130f] text-[9px] text-[#d4ad89]">
                     0{index + 1}
                   </span>
@@ -381,8 +382,10 @@ export function BeforeAfterReveal({
             left: prefersReducedMotion ? "50%" : "0%",
             width: "2px",
             marginLeft: "-1px",
-            background: "linear-gradient(180deg, rgba(191,153,118,0), rgba(191,153,118,0.95) 12%, rgba(191,153,118,0.95) 88%, rgba(191,153,118,0))",
-            boxShadow: "0 0 18px 4px rgba(191, 153, 118, 0.55), 0 0 48px 12px rgba(191, 153, 118, 0.22)",
+            background:
+              "linear-gradient(180deg, rgba(191,153,118,0), rgba(191,153,118,0.95) 12%, rgba(191,153,118,0.95) 88%, rgba(191,153,118,0))",
+            boxShadow:
+              "0 0 18px 4px rgba(191, 153, 118, 0.55), 0 0 48px 12px rgba(191, 153, 118, 0.22)",
           }}
         />
 

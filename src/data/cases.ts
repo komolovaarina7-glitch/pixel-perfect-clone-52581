@@ -89,7 +89,10 @@ export const cases: CaseStudy[] = [
     },
     sections: [
       {
-        eyebrow: { en: "Starting Point — A Castle Without a Market", ru: "Отправная точка — замок без рынка" },
+        eyebrow: {
+          en: "Starting Point — A Castle Without a Market",
+          ru: "Отправная точка — замок без рынка",
+        },
         body: [
           {
             en: "At the beginning, the asset was read in the most literal way: an old castle that had to be fully restored and then sold. That sequence looked logical on paper, but collapsed under scrutiny. Restoration required substantial capital before the project had a clear audience, operating model or buyer. The local market could not justify the scale of the investment, while an international buyer had no compelling reason to take on the risk.",
@@ -102,7 +105,10 @@ export const cases: CaseStudy[] = [
         ],
       },
       {
-        eyebrow: { en: "First Reframe — From Sale to Use", ru: "Первый поворот — от продажи к использованию" },
+        eyebrow: {
+          en: "First Reframe — From Sale to Use",
+          ru: "Первый поворот — от продажи к использованию",
+        },
         body: [
           {
             en: "The first strategic shift was to stop asking who might buy the castle and ask who could use it. This changed the object from a static property into infrastructure for activity. Instead of depending on one hypothetical purchaser, the project could address filmmakers, photographers, artists, educators, researchers, cultural institutions and small-format event operators.",
@@ -141,7 +147,10 @@ export const cases: CaseStudy[] = [
         ],
       },
       {
-        eyebrow: { en: "The Critical Insight — Do Not Erase the Asset", ru: "Ключевой вывод — не стереть сам актив" },
+        eyebrow: {
+          en: "The Critical Insight — Do Not Erase the Asset",
+          ru: "Ключевой вывод — не стереть сам актив",
+        },
         body: [
           {
             en: "The decisive insight was that total reconstruction could destroy the very quality that made the new scenarios credible. If every wall were perfected, every surface replaced and every irregularity corrected, the castle would become more conventional precisely when the strategy required it to remain singular.",
@@ -154,7 +163,10 @@ export const cases: CaseStudy[] = [
         ],
       },
       {
-        eyebrow: { en: "Final Position — An International Working Castle", ru: "Итоговая позиция — международный работающий замок" },
+        eyebrow: {
+          en: "Final Position — An International Working Castle",
+          ru: "Итоговая позиция — международный работающий замок",
+        },
         body: [
           {
             en: "The final concept is not a museum frozen in one historical period, not a conventional hotel and not a property waiting passively for a buyer. It is an international working castle: a place for productions, creative residencies, learning, cultural exchange, curated events and selective hospitality.",
@@ -183,7 +195,10 @@ export const cases: CaseStudy[] = [
         },
       },
       {
-        title: { en: "Authenticity as production value", ru: "Подлинность как производственная ценность" },
+        title: {
+          en: "Authenticity as production value",
+          ru: "Подлинность как производственная ценность",
+        },
         body: {
           en: "Age, patina and spatial irregularity become marketable qualities that new construction cannot reproduce.",
           ru: "Возраст, патина и пространственная нерегулярность становятся рыночными качествами, которые невозможно воспроизвести новым строительством.",
