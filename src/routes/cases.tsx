@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import type { CSSProperties } from "react";
 import { BackToHome } from "@/components/site/BackToHome";
 import { cases } from "@/data/cases";
 import { useLanguage, withoutTerminalDots } from "@/i18n";
@@ -25,6 +26,37 @@ export const Route = createFileRoute("/cases")({
   component: Cases,
 });
 
+function CasesHeadline({ children }: { children: string }) {
+  let letterIndex = 0;
+
+  return (
+    <span aria-label={children}>
+      {children.split(/(\s+)/).map((part, partIndex) => {
+        if (/^\s+$/.test(part)) {
+          return <span key={`space-${partIndex}`}> </span>;
+        }
+
+        return (
+          <span aria-hidden="true" className="cases-hero-word" key={`${part}-${partIndex}`}>
+            {Array.from(part).map((character) => {
+              const currentIndex = letterIndex++;
+              return (
+                <span
+                  className="cases-hero-letter"
+                  key={`${character}-${currentIndex}`}
+                  style={{ "--letter-index": currentIndex } as CSSProperties}
+                >
+                  {character}
+                </span>
+              );
+            })}
+          </span>
+        );
+      })}
+    </span>
+  );
+}
+
 function Cases() {
   const { t, l } = useLanguage();
   const visibleCases = cases.filter(
@@ -35,38 +67,21 @@ function Cases() {
     <article className="cases-page">
       <section className="cases-hero standard-page-hero">
         <div className="cases-hero-bg" aria-hidden="true">
-          <span className="cases-hero-orb cases-hero-orb--1" />
-          <span className="cases-hero-orb cases-hero-orb--2" />
-          <span className="cases-hero-ribbon cases-hero-ribbon--1" />
-          <span className="cases-hero-ribbon cases-hero-ribbon--2" />
-          <span className="cases-hero-ribbon cases-hero-ribbon--3" />
-          <span className="cases-hero-flare cases-hero-flare--1" />
-          <span className="cases-hero-flare cases-hero-flare--2" />
-          <div className="cases-hero-linework">
-            <svg viewBox="0 0 760 520" role="presentation" focusable="false">
-              <circle cx="560" cy="260" r="214" />
-              <circle cx="560" cy="260" r="122" />
-              <path d="M560 46 A214 214 0 0 1 744 151" />
-              <path d="M68 462 C246 270 386 178 724 64" />
-              <path d="M106 94 C270 210 430 286 756 306" />
-              <path d="M362 518 L714 26" />
-              <line x1="560" y1="0" x2="560" y2="520" />
-              <line x1="104" y1="260" x2="760" y2="260" />
-            </svg>
-          </div>
+          <span className="cases-hero-light cases-hero-light--1" />
+          <span className="cases-hero-light cases-hero-light--2" />
+          <span className="cases-hero-light cases-hero-light--3" />
+          <span className="cases-hero-light cases-hero-light--4" />
+          <span className="cases-hero-light cases-hero-light--5" />
+          <span className="cases-hero-light cases-hero-light--6" />
         </div>
 
         <BackToHome />
         <header className="container-rl cases-hero-content">
-          <p className="eyebrow text-accent page-reveal page-reveal-delay-1">
-            {l(t.cases.eyebrow)}
-          </p>
-          <h1 className="standard-page-hero-title mobile-safe-text serif mt-6 max-w-4xl text-foreground page-reveal page-reveal-delay-2">
-            {withoutTerminalDots(l(t.cases.title))}
+          <p className="cases-hero-eyebrow eyebrow">{l(t.cases.eyebrow)}</p>
+          <h1 className="cases-hero-title mobile-safe-text serif">
+            <CasesHeadline>{withoutTerminalDots(l(t.cases.title))}</CasesHeadline>
           </h1>
-          <p className="mt-8 max-w-2xl text-foreground/75 text-lg leading-relaxed page-reveal page-reveal-delay-3">
-            {l(t.cases.intro)}
-          </p>
+          <p className="cases-hero-intro">{l(t.cases.intro)}</p>
         </header>
       </section>
 

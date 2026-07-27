@@ -133,6 +133,15 @@ test("case cards open a detail page and an unknown case returns 404", async ({ p
   await expect(page.locator("main")).toContainText("Page not found");
 });
 
+test("cases hero remains complete when reduced motion is enabled", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/cases");
+
+  await expect(page.locator(".cases-hero-title")).toBeVisible();
+  await expect(page.locator(".cases-hero-bg")).toHaveCSS("opacity", "1");
+  await expect(page.locator(".cases-hero-letter").first()).toHaveCSS("animation-name", "none");
+});
+
 test("case image reveals its edge-color glow on hover without decorating the case container", async ({
   page,
 }) => {
