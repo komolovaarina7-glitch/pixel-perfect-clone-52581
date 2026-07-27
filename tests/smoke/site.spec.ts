@@ -76,6 +76,32 @@ test("language switch updates the document and survives reload", async ({ page }
   expect(runtimeErrors).toEqual([]);
 });
 
+test("homepage FAQ switches language and opens an answer", async ({ page }) => {
+  const runtimeErrors = captureRuntimeErrors(page);
+  await page.goto("/");
+  await waitForHydration(page);
+
+  const faq = page.getByTestId("home-faq");
+  await expect(
+    faq.getByRole("button", { name: "What types of assets do you work with?" }),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "RU" }).first().click();
+
+  const question = faq.getByRole("button", { name: "С какими объектами вы работаете?" });
+  await expect(question).toBeVisible();
+  await question.click();
+
+  await expect(question).toHaveAttribute("aria-expanded", "true");
+  await expect(
+    faq.getByText(
+      "Мы рассматриваем сложные, недооценённые, проблемные и недоиспользуемые объекты недвижимости",
+      { exact: false },
+    ),
+  ).toBeVisible();
+  expect(runtimeErrors).toEqual([]);
+});
+
 test("case cards open a detail page and an unknown case returns 404", async ({ page }) => {
   const runtimeErrors = captureRuntimeErrors(page);
   await page.goto("/cases");
