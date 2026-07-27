@@ -74,31 +74,32 @@ vec3 render(vec2 fc) {
   float fineWarp = fbm(p * 1.42 - vec2(t * 0.018, t * 0.028)) - 0.5;
   float warp = broadWarp * 0.22 + fineWarp * 0.07;
 
-  float upperCurve = p.y - (0.48 + 0.16 * sin(p.x * 1.45 + t * 0.78) + warp);
-  float rightCurve = p.y - (-0.08 + 0.24 * sin(p.x * 1.18 - t * 0.62 + 1.8) - warp);
-  float lowerCurve = p.y - (-0.62 + 0.15 * sin(p.x * 1.72 + t * 0.54 + 3.4) + warp * 0.7);
+  float upperCurve = p.y - (0.42 + 0.22 * sin(p.x * 1.45 + t * 0.78) + warp);
+  float rightCurve = p.y - (-0.04 + 0.30 * sin(p.x * 1.18 - t * 0.62 + 1.8) - warp);
+  float lowerCurve = p.y - (-0.56 + 0.20 * sin(p.x * 1.72 + t * 0.54 + 3.4) + warp * 0.7);
 
-  float upper = silkRibbon(upperCurve, 0.32);
-  float right = silkRibbon(rightCurve, 0.38) * smoothstep(0.28, 0.96, uv.x);
-  float lower = silkRibbon(lowerCurve, 0.29) * smoothstep(0.34, 0.98, uv.x);
+  float upper = silkRibbon(upperCurve, 0.42);
+  float right = silkRibbon(rightCurve, 0.48) * smoothstep(0.18, 0.88, uv.x);
+  float lower = silkRibbon(lowerCurve, 0.38) * smoothstep(0.24, 0.90, uv.x);
 
   float calmTextZone = 1.0 - smoothstep(0.14, 0.76, distance(uv, vec2(0.28, 0.68)));
-  upper *= 1.0 - calmTextZone * 0.62;
-  right *= 1.0 - calmTextZone * 0.76;
-  lower *= 1.0 - calmTextZone * 0.52;
+  upper *= 1.0 - calmTextZone * 0.28;
+  right *= 1.0 - calmTextZone * 0.46;
+  lower *= 1.0 - calmTextZone * 0.30;
 
-  vec3 col = mix(CREAM, IVORY, 0.56 + 0.17 * broadWarp);
-  col = mix(col, CHAMPAGNE, upper * 0.20 * uEnergy);
-  col = mix(col, ROSE, right * 0.12 * uEnergy);
-  col = mix(col, SAND, lower * 0.16 * uEnergy);
+  vec3 col = mix(CREAM, IVORY, 0.48 + 0.22 * broadWarp);
+  col = mix(col, CHAMPAGNE, upper * 0.48 * uEnergy);
+  col = mix(col, ROSE, right * 0.30 * uEnergy);
+  col = mix(col, SAND, lower * 0.40 * uEnergy);
 
-  float pearl = pow(max(0.0, 1.0 - abs(upperCurve) / 0.24), 3.0);
-  pearl += pow(max(0.0, 1.0 - abs(rightCurve) / 0.28), 3.0) * 0.7;
-  col += mix(vec3(1.0), CHAMPAGNE, 0.3) * pearl * 0.055 * uEnergy;
+  float pearl = pow(max(0.0, 1.0 - abs(upperCurve) / 0.30), 3.0);
+  pearl += pow(max(0.0, 1.0 - abs(rightCurve) / 0.34), 3.0) * 0.82;
+  col += mix(vec3(1.0), CHAMPAGNE, 0.24) * pearl * 0.14 * uEnergy;
 
-  float foldShadow = smoothstep(0.10, 0.34, abs(upperCurve)) * upper;
-  foldShadow += smoothstep(0.12, 0.38, abs(rightCurve)) * right * 0.6;
-  col = mix(col, mix(WARM_SHADOW, COPPER, 0.48), foldShadow * 0.045 * uEnergy);
+  float foldShadow = smoothstep(0.11, 0.38, abs(upperCurve)) * upper;
+  foldShadow += smoothstep(0.12, 0.44, abs(rightCurve)) * right * 0.84;
+  foldShadow += smoothstep(0.10, 0.34, abs(lowerCurve)) * lower * 0.48;
+  col = mix(col, mix(WARM_SHADOW, COPPER, 0.52), foldShadow * 0.18 * uEnergy);
 
   vec2 lightPosition = uLight / uRes;
   float light = exp(-dot(uv - lightPosition, uv - lightPosition) * 3.6);
@@ -124,9 +125,9 @@ void main() {
 `;
 
 const CONFIG = {
-  motion: 0.22,
-  energy: 0.82,
-  grain: 0.12,
+  motion: 0.26,
+  energy: 1.08,
+  grain: 0.14,
 };
 
 type Uniforms = {
@@ -345,7 +346,7 @@ export function AnimatedHeroBackground() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 70% 76% at 21% 67%, rgba(246, 241, 232, 0.88), rgba(246, 241, 232, 0.54) 43%, rgba(246, 241, 232, 0.08) 78%, transparent 100%), linear-gradient(90deg, rgba(246, 241, 232, 0.22), transparent 58%, rgba(238, 227, 211, 0.08))",
+            "radial-gradient(ellipse 52% 58% at 22% 69%, rgba(246, 241, 232, 0.58), rgba(246, 241, 232, 0.24) 48%, transparent 82%), linear-gradient(90deg, rgba(246, 241, 232, 0.08), transparent 48%, rgba(201, 164, 155, 0.04))",
         }}
       />
     </div>
