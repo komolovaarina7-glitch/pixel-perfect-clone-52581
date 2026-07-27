@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { cases } from "@/data/cases";
 
 const BASE_URL = "https://repositionlab.com";
 
@@ -23,6 +24,11 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/selected-thinking", changefreq: "monthly", priority: "0.7" },
           { path: "/submit", changefreq: "yearly", priority: "0.8" },
           { path: "/contact", changefreq: "yearly", priority: "0.6" },
+          ...cases.map((caseStudy) => ({
+            path: `/cases/${caseStudy.slug}`,
+            changefreq: "monthly",
+            priority: "0.7",
+          })),
         ];
         const urls = entries.map(
           (e) =>

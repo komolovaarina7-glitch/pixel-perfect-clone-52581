@@ -382,7 +382,12 @@ function Submit() {
                 </label>
 
                 <fieldset className="submission-group">
-                  <legend className="submission-group-title serif">{l(page.assetSection)}</legend>
+                  <legend className="submission-group-title serif">
+                    <span className="submission-group-index" aria-hidden="true">
+                      01
+                    </span>
+                    {l(page.assetSection)}
+                  </legend>
                   <div className="submission-fields-grid">
                     <Field
                       label={l(fields.assetType)}
@@ -423,10 +428,20 @@ function Submit() {
 
                 <fieldset className="submission-group">
                   <legend className="submission-group-title serif">
+                    <span className="submission-group-index" aria-hidden="true">
+                      02
+                    </span>
                     {l(page.materialsSection)}
                   </legend>
                   <label className="submission-upload" htmlFor="submission-files">
-                    <span className="submission-label eyebrow text-accent">{l(fields.files)}</span>
+                    <span className="submission-upload-label">
+                      <span className="submission-upload-icon" aria-hidden="true">
+                        ↑
+                      </span>
+                      <span className="submission-label eyebrow text-accent">
+                        {l(fields.files)}
+                      </span>
+                    </span>
                     <span className="submission-upload-help">{l(page.fileError)}</span>
                     <input
                       id="submission-files"
@@ -458,7 +473,12 @@ function Submit() {
                 </fieldset>
 
                 <fieldset className="submission-group">
-                  <legend className="submission-group-title serif">{l(page.contactSection)}</legend>
+                  <legend className="submission-group-title serif">
+                    <span className="submission-group-index" aria-hidden="true">
+                      03
+                    </span>
+                    {l(page.contactSection)}
+                  </legend>
                   <div className="submission-fields-grid">
                     <Field label={l(fields.name)} name="name" required error={fieldErrors.name} />
                     <Field

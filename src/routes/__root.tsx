@@ -173,7 +173,24 @@ function GlobalScrollReveal() {
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
-          entry.target.classList.add("global-scroll-reveal--visible");
+          entry.target.animate(
+            [
+              {
+                opacity: 0,
+                filter: "blur(10px)",
+                transform: "translate3d(0, 32px, 0)",
+              },
+              {
+                opacity: 1,
+                filter: "blur(0)",
+                transform: "translate3d(0, 0, 0)",
+              },
+            ],
+            {
+              duration: 1050,
+              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+            },
+          );
           observer.unobserve(entry.target);
         });
       },
@@ -182,7 +199,7 @@ function GlobalScrollReveal() {
 
     const register = (root: ParentNode = document) => {
       const textItems = root.querySelectorAll<HTMLElement>(
-        "main h1, main h2, main h3, main h4, main p, main blockquote, main li",
+        "main h1, main h2, main h3, main h4, main p, main blockquote, main li, main fieldset",
       );
       const imageItems = root.querySelectorAll<HTMLImageElement>("main img");
       const targets = new Set<HTMLElement>();
@@ -213,19 +230,28 @@ function GlobalScrollReveal() {
       targets.forEach((target) => {
         if (observed.has(target)) return;
         observed.add(target);
-        target.classList.add("global-scroll-reveal");
         observer.observe(target);
       });
     };
 
-    register();
     const mutationObserver = new MutationObserver(() => register());
-    const main = document.querySelector("main");
-    if (main) {
-      mutationObserver.observe(main, { childList: true, subtree: true });
-    }
+    let secondFrame = 0;
+    const firstFrame = window.requestAnimationFrame(() => {
+      secondFrame = window.requestAnimationFrame(() => {
+        register();
+        document.documentElement.dataset.hydrated = "true";
+
+        const main = document.querySelector("main");
+        if (main) {
+          mutationObserver.observe(main, { childList: true, subtree: true });
+        }
+      });
+    });
 
     return () => {
+      window.cancelAnimationFrame(firstFrame);
+      window.cancelAnimationFrame(secondFrame);
+      delete document.documentElement.dataset.hydrated;
       observer.disconnect();
       mutationObserver.disconnect();
     };
