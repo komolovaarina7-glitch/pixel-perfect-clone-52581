@@ -87,19 +87,27 @@ vec3 render(vec2 fc) {
   right *= 1.0 - calmTextZone * 0.46;
   lower *= 1.0 - calmTextZone * 0.30;
 
-  vec3 col = mix(CREAM, IVORY, 0.48 + 0.22 * broadWarp);
-  col = mix(col, CHAMPAGNE, upper * 0.48 * uEnergy);
-  col = mix(col, ROSE, right * 0.30 * uEnergy);
-  col = mix(col, SAND, lower * 0.40 * uEnergy);
+  float edgeDepth = smoothstep(0.38, 1.0, uv.x) * 0.58;
+  edgeDepth += smoothstep(0.72, 1.0, uv.y) * 0.16;
+  edgeDepth *= 1.0 - calmTextZone * 0.82;
+
+  vec3 col = mix(CREAM, IVORY, 0.46 + 0.24 * broadWarp);
+  col = mix(col, WARM_SHADOW, edgeDepth);
+  col = mix(col, CHAMPAGNE, upper * 0.72 * uEnergy);
+  col = mix(col, ROSE, right * 0.58 * uEnergy);
+  col = mix(col, COPPER, lower * 0.50 * uEnergy);
 
   float pearl = pow(max(0.0, 1.0 - abs(upperCurve) / 0.30), 3.0);
   pearl += pow(max(0.0, 1.0 - abs(rightCurve) / 0.34), 3.0) * 0.82;
-  col += mix(vec3(1.0), CHAMPAGNE, 0.24) * pearl * 0.14 * uEnergy;
+  col += mix(vec3(1.0), CHAMPAGNE, 0.18) * pearl * 0.28 * uEnergy;
 
   float foldShadow = smoothstep(0.11, 0.38, abs(upperCurve)) * upper;
   foldShadow += smoothstep(0.12, 0.44, abs(rightCurve)) * right * 0.84;
   foldShadow += smoothstep(0.10, 0.34, abs(lowerCurve)) * lower * 0.48;
-  col = mix(col, mix(WARM_SHADOW, COPPER, 0.52), foldShadow * 0.18 * uEnergy);
+  col = mix(col, mix(WARM_SHADOW, COPPER, 0.42), foldShadow * 0.34 * uEnergy);
+
+  float roseGlow = exp(-pow(rightCurve / 0.24, 2.0)) * smoothstep(0.42, 0.98, uv.x);
+  col = mix(col, ROSE, roseGlow * 0.34 * uEnergy);
 
   vec2 lightPosition = uLight / uRes;
   float light = exp(-dot(uv - lightPosition, uv - lightPosition) * 3.6);
@@ -125,9 +133,9 @@ void main() {
 `;
 
 const CONFIG = {
-  motion: 0.26,
-  energy: 1.08,
-  grain: 0.14,
+  motion: 0.28,
+  energy: 1.22,
+  grain: 0.16,
 };
 
 type Uniforms = {
@@ -149,6 +157,7 @@ function compileShader(gl: WebGLRenderingContext, type: number, source: string) 
   gl.compileShader(shader);
 
   if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    console.error("Hero background shader compilation failed:", gl.getShaderInfoLog(shader));
     gl.deleteShader(shader);
     return null;
   }
@@ -181,6 +190,7 @@ function createProgram(gl: WebGLRenderingContext) {
   gl.deleteShader(fragment);
 
   if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    console.error("Hero background shader linking failed:", gl.getProgramInfoLog(program));
     gl.deleteProgram(program);
     return null;
   }
@@ -340,13 +350,17 @@ export function AnimatedHeroBackground() {
       ref={containerRef}
       className="pointer-events-none absolute inset-0 overflow-hidden"
       aria-hidden="true"
+      style={{
+        background:
+          "radial-gradient(ellipse 75% 62% at 74% 42%, rgba(201, 164, 155, 0.92), transparent 54%), radial-gradient(ellipse 68% 70% at 88% 78%, rgba(166, 111, 76, 0.82), transparent 58%), linear-gradient(118deg, #f6f1e8 4%, #eee3d3 42%, #c9ae8b 70%, #5c463b 100%)",
+      }}
     >
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 52% 58% at 22% 69%, rgba(246, 241, 232, 0.58), rgba(246, 241, 232, 0.24) 48%, transparent 82%), linear-gradient(90deg, rgba(246, 241, 232, 0.08), transparent 48%, rgba(201, 164, 155, 0.04))",
+            "radial-gradient(ellipse 44% 52% at 22% 69%, rgba(246, 241, 232, 0.48), rgba(246, 241, 232, 0.16) 50%, transparent 84%)",
         }}
       />
     </div>
