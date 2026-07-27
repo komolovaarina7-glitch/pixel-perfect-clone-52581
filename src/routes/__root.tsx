@@ -177,12 +177,10 @@ function GlobalScrollReveal() {
             [
               {
                 opacity: 0,
-                filter: "blur(10px)",
-                transform: "translate3d(0, 32px, 0)",
+                transform: "translate3d(0, 22px, 0)",
               },
               {
                 opacity: 1,
-                filter: "blur(0)",
                 transform: "translate3d(0, 0, 0)",
               },
             ],
@@ -208,6 +206,7 @@ function GlobalScrollReveal() {
         if (
           item.closest(".castle-line-drawing") ||
           item.closest(".home-hero") ||
+          item.closest(".approach-hero") ||
           item.closest('[role="slider"]') ||
           item.classList.contains("page-reveal") ||
           item.classList.contains("hero-text-reveal")
