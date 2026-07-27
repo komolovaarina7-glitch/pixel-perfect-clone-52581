@@ -133,6 +133,29 @@ test("case cards open a detail page and an unknown case returns 404", async ({ p
   await expect(page.locator("main")).toContainText("Page not found");
 });
 
+test("case spotlight follows the pointer entry side and clears on leave", async ({ page }) => {
+  await page.goto("/cases");
+  await waitForHydration(page);
+
+  const card = page.locator(".case-spotlight--feature").first();
+  await card.scrollIntoViewIfNeeded();
+  const bounds = await card.boundingBox();
+  expect(bounds).not.toBeNull();
+
+  if (!bounds) return;
+
+  await page.mouse.move(bounds.x + bounds.width - 4, bounds.y + bounds.height / 2);
+  await expect(card).toHaveAttribute("data-spotlight-active", "true");
+
+  const spotlightX = await card.evaluate((element) =>
+    Number.parseFloat(getComputedStyle(element).getPropertyValue("--case-spotlight-x")),
+  );
+  expect(spotlightX).toBeGreaterThan(90);
+
+  await page.mouse.move(1, 1);
+  await expect(card).toHaveAttribute("data-spotlight-active", "false");
+});
+
 test("asset form blocks an empty submission and focuses the first invalid field", async ({
   page,
 }) => {
