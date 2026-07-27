@@ -133,7 +133,7 @@ test("case cards open a detail page and an unknown case returns 404", async ({ p
   await expect(page.locator("main")).toContainText("Page not found");
 });
 
-test("case image receives a white glow on hover without decorating the case container", async ({
+test("case image reveals its edge-color glow on hover without decorating the case container", async ({
   page,
 }) => {
   await page.goto("/cases");
@@ -143,11 +143,13 @@ test("case image receives a white glow on hover without decorating the case cont
   await card.scrollIntoViewIfNeeded();
   const image = card.locator(".case-image-glow");
 
-  await card.hover();
+  await image.hover();
 
   await expect
-    .poll(() => image.evaluate((element) => getComputedStyle(element).boxShadow))
-    .not.toBe("none");
+    .poll(() =>
+      image.evaluate((element) => Number.parseFloat(getComputedStyle(element, "::before").opacity)),
+    )
+    .toBeGreaterThan(0.2);
   await expect(card).not.toHaveClass(/case-spotlight/);
 });
 

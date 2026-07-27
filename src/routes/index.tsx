@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/accordion";
 import { cases, type CaseStudy } from "@/data/cases";
 import { useLanguage, type LocalizedString } from "@/i18n";
+import { setImageEdgeGlow } from "@/lib/imageEdgeGlow";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -344,15 +345,18 @@ function Home() {
                 params={{ slug: caseStudy.slug }}
                 className="group block"
               >
-                <div className="case-image-glow aspect-[4/3] overflow-hidden border border-rule bg-muted">
-                  <img
-                    src={caseStudy.img}
-                    alt={l(caseStudy.title)}
-                    loading="lazy"
-                    width={1280}
-                    height={960}
-                    className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
-                  />
+                <div className="case-image-glow">
+                  <div className="case-image-frame aspect-[4/3] overflow-hidden border border-rule bg-muted">
+                    <img
+                      src={caseStudy.img}
+                      alt={l(caseStudy.title)}
+                      loading="lazy"
+                      width={1280}
+                      height={960}
+                      className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
+                      onLoad={setImageEdgeGlow}
+                    />
+                  </div>
                 </div>
 
                 <div className="mt-4 flex items-baseline justify-between gap-3">

@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { BackToHome } from "@/components/site/BackToHome";
 import { cases } from "@/data/cases";
 import { useLanguage, withoutTerminalDots } from "@/i18n";
+import { setImageEdgeGlow } from "@/lib/imageEdgeGlow";
 
 export const Route = createFileRoute("/cases")({
   head: () => ({
@@ -79,16 +80,19 @@ function Cases() {
               className="group grid gap-10 border-t border-rule py-12 transition-colors hover:border-accent md:grid-cols-12"
             >
               <div className={`md:col-span-6 ${i % 2 ? "md:order-2" : ""}`}>
-                <div className="case-image-glow aspect-[4/3] overflow-hidden border border-rule transition-colors group-hover:border-white">
-                  <img
-                    src={c.img}
-                    alt={l(c.title)}
-                    loading="lazy"
-                    width={1280}
-                    height={960}
-                    className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
-                    style={c.imgPosition ? { objectPosition: c.imgPosition } : undefined}
-                  />
+                <div className="case-image-glow">
+                  <div className="case-image-frame aspect-[4/3] overflow-hidden border border-rule transition-colors">
+                    <img
+                      src={c.img}
+                      alt={l(c.title)}
+                      loading="lazy"
+                      width={1280}
+                      height={960}
+                      className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
+                      style={c.imgPosition ? { objectPosition: c.imgPosition } : undefined}
+                      onLoad={setImageEdgeGlow}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="md:col-span-6 space-y-6">

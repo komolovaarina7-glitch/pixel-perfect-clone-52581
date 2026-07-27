@@ -151,18 +151,44 @@
   }
 
   .case-image-glow {
-    transition:
-      border-color 420ms ease,
-      box-shadow 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    --image-glow-top: rgb(238 227 211);
+    --image-glow-right: rgb(215 192 165);
+    --image-glow-bottom: rgb(201 174 139);
+    --image-glow-left: rgb(238 227 211);
+    position: relative;
+    isolation: isolate;
   }
 
-  .group:hover .case-image-glow,
-  .group:focus-visible .case-image-glow {
-    border-color: rgba(255, 255, 255, 0.96);
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.82),
-      0 0 1.8rem rgba(255, 255, 255, 0.92),
-      0 0 4rem rgba(255, 255, 255, 0.58);
+  .case-image-glow::before {
+    position: absolute;
+    z-index: -1;
+    inset: -0.45rem;
+    background: conic-gradient(
+      from 45deg,
+      var(--image-glow-top) 0deg 90deg,
+      var(--image-glow-right) 90deg 180deg,
+      var(--image-glow-bottom) 180deg 270deg,
+      var(--image-glow-left) 270deg 360deg
+    );
+    content: "";
+    opacity: 0;
+    filter: blur(16px);
+    pointer-events: none;
+    transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .case-image-frame {
+    transition: border-color 420ms ease;
+  }
+
+  .case-image-glow:hover::before,
+  .group:focus-visible .case-image-glow::before {
+    opacity: 0.3;
+  }
+
+  .case-image-glow:hover .case-image-frame,
+  .group:focus-visible .case-image-frame {
+    border-color: rgba(255, 255, 255, 0.72);
   }
 
   .home-value-proof {
