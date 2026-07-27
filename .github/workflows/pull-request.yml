@@ -36,6 +36,9 @@ jobs:
       - name: Run typecheck, lint, and production build
         run: npm run check
 
+      - name: Run unit tests
+        run: npm run test:unit
+
       - name: Run browser smoke tests
         run: npm run test:smoke
 

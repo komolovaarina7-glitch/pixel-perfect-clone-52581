@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 import { BackToHome } from "@/components/site/BackToHome";
 import { useLanguage, withoutTerminalDots, type LocalizedString } from "@/i18n";
 import { submitAsset } from "@/lib/api/submission.functions";
@@ -72,9 +72,13 @@ const page = {
     en: "The submission could not be sent. Please try again later or contact office@repositionlab.com.",
     ru: "Не удалось отправить заявку. Повторите попытку позже или напишите на office@repositionlab.com.",
   },
+  rateLimitError: {
+    en: "Too many requests were sent. Please wait an hour before trying again.",
+    ru: "Отправлено слишком много запросов. Подождите час перед повторной попыткой.",
+  },
   fileError: {
-    en: "Attach up to 3 PDF, JPG, PNG, WEBP or TXT files, no larger than 2 MB each.",
-    ru: "Приложите не более 3 файлов PDF, JPG, PNG, WEBP или TXT размером до 2 МБ каждый.",
+    en: "Supporting materials will be requested through a secure channel after the initial review.",
+    ru: "Дополнительные материалы будут запрошены через защищённый канал после первичного рассмотрения.",
   },
   select: { en: "Select", ru: "Выбрать" },
   assetSection: { en: "Asset information", ru: "Информация об объекте" },
@@ -86,7 +90,6 @@ const page = {
     en: "Provide at least 10 characters so the challenge can be understood.",
     ru: "Опишите проблему минимум в 10 символах.",
   },
-  removeFile: { en: "Remove", ru: "Удалить" },
 } satisfies Record<string, LocalizedString>;
 
 const fields = {
@@ -124,8 +127,6 @@ const contactOptions: LocalizedString[] = [
   { en: "Secure communication", ru: "Защищённая связь" },
   { en: "Introduced by counterparty", ru: "Через представление контрагента" },
 ];
-
-type AllowedFileType = "application/pdf" | "image/jpeg" | "image/png" | "image/webp" | "text/plain";
 
 function Field({
   label,
@@ -210,31 +211,8 @@ function Submit() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const resultRef = useRef<HTMLDivElement>(null);
-  const { l } = useLanguage();
-
-  function onFilesSelected(event: ChangeEvent<HTMLInputElement>) {
-    const files = Array.from(event.target.files ?? []);
-    const allowedTypes = new Set<string>([
-      "application/pdf",
-      "image/jpeg",
-      "image/png",
-      "image/webp",
-      "text/plain",
-    ]);
-    if (
-      files.length > 3 ||
-      files.some((file) => file.size > 2_000_000 || !allowedTypes.has(file.type))
-    ) {
-      setSelectedFiles([]);
-      setError(l(page.fileError));
-      event.target.value = "";
-      return;
-    }
-    setError(null);
-    setSelectedFiles(files);
-  }
+  const { l, language } = useLanguage();
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -263,44 +241,6 @@ function Submit() {
         return;
       }
 
-      const files = selectedFiles;
-      const allowedTypes = new Set<string>([
-        "application/pdf",
-        "image/jpeg",
-        "image/png",
-        "image/webp",
-        "text/plain",
-      ]);
-
-      if (
-        files.length > 3 ||
-        files.some((file) => file.size > 2_000_000 || !allowedTypes.has(file.type))
-      ) {
-        setError(l(page.fileError));
-        return;
-      }
-
-      const attachments = await Promise.all(
-        files.map(
-          (file) =>
-            new Promise<{ filename: string; content: string; contentType: AllowedFileType }>(
-              (resolve, reject) => {
-                const reader = new FileReader();
-                reader.onerror = () => reject(new Error("File could not be read"));
-                reader.onload = () => {
-                  const result = String(reader.result);
-                  resolve({
-                    filename: file.name,
-                    content: result.slice(result.indexOf(",") + 1),
-                    contentType: file.type as AllowedFileType,
-                  });
-                };
-                reader.readAsDataURL(file);
-              },
-            ),
-        ),
-      );
-
       const result = await submitAsset({
         data: {
           assetType: value("asset_type"),
@@ -312,18 +252,17 @@ function Submit() {
           email: value("email"),
           organization: value("organization"),
           contactMethod: value("contact_method"),
+          locale: language,
           website: value("website"),
-          attachments,
         },
       });
 
       if (!result.ok) {
-        setError(l(page.error));
+        setError(result.code === "rate_limited" ? l(page.rateLimitError) : l(page.error));
         return;
       }
 
       form.reset();
-      setSelectedFiles([]);
       setSent(true);
       requestAnimationFrame(() => resultRef.current?.scrollIntoView({ behavior: "smooth" }));
     } catch {
@@ -443,33 +382,8 @@ function Submit() {
                       </span>
                     </span>
                     <span className="submission-upload-help">{l(page.fileError)}</span>
-                    <input
-                      id="submission-files"
-                      name="files"
-                      type="file"
-                      multiple
-                      onChange={onFilesSelected}
-                      accept=".pdf,.jpg,.jpeg,.png,.webp,.txt,application/pdf,image/jpeg,image/png,image/webp,text/plain"
-                    />
+                    <input id="submission-files" name="files" type="file" disabled />
                   </label>
-                  {selectedFiles.length > 0 ? (
-                    <ul className="submission-file-list" aria-live="polite">
-                      {selectedFiles.map((file, index) => (
-                        <li key={`${file.name}-${file.lastModified}`}>
-                          <span>{file.name}</span>
-                          <span>{(file.size / 1_000_000).toFixed(2)} MB</span>
-                          <button
-                            type="button"
-                            onClick={() =>
-                              setSelectedFiles((files) => files.filter((_, i) => i !== index))
-                            }
-                          >
-                            {l(page.removeFile)}
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : null}
                 </fieldset>
 
                 <fieldset className="submission-group">
