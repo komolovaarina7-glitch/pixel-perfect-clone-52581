@@ -196,14 +196,12 @@
   .home-value-proof-directions::before {
     position: absolute;
     top: 0;
-    right: 0;
     left: 0;
+    width: 0;
     height: 1px;
     background: rgba(138, 85, 54, 0.2);
     content: "";
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 1200ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: width 1500ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .home-value-proof-direction {
@@ -223,28 +221,26 @@
   .home-value-proof-direction + .home-value-proof-direction::before {
     position: absolute;
     top: 0;
-    bottom: 0;
     left: 0;
     width: 1px;
+    height: 0;
     background: rgba(138, 85, 54, 0.38);
     content: "";
-    transform: scaleY(0);
-    transform-origin: center top;
-    transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1) 320ms;
+    transition: height 1100ms cubic-bezier(0.22, 1, 0.36, 1) 520ms;
   }
 
   .home-value-proof-direction:nth-child(3)::before {
-    transition-delay: 500ms;
+    transition-delay: 720ms;
   }
 
   .home-value-proof[data-lines-visible="true"] .home-value-proof-directions::before {
-    transform: scaleX(1);
+    width: 100%;
   }
 
   .home-value-proof[data-lines-visible="true"]
     .home-value-proof-direction
     + .home-value-proof-direction::before {
-    transform: scaleY(1);
+    height: 100%;
   }
 
   .home-value-proof-direction h3 {
@@ -5090,20 +5086,19 @@
 
   .home-value-proof-direction + .home-value-proof-direction::before {
     top: 0;
-    right: 0;
     bottom: auto;
     left: 0;
-    width: auto;
+    width: 0;
     height: 1px;
     background: rgba(138, 85, 54, 0.25);
-    transform: scaleX(0);
-    transform-origin: left center;
+    transition-property: width;
   }
 
   .home-value-proof[data-lines-visible="true"]
     .home-value-proof-direction
     + .home-value-proof-direction::before {
-    transform: scaleX(1);
+    width: 100%;
+    height: 1px;
   }
 
   .standard-page-hero,

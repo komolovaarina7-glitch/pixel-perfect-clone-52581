@@ -154,7 +154,7 @@ function Home() {
         setValueProofLinesVisible(true);
         observer.disconnect();
       },
-      { threshold: 0.22, rootMargin: "0px 0px -8% 0px" },
+      { threshold: 0.3, rootMargin: "0px 0px -15% 0px" },
     );
 
     observer.observe(section);
