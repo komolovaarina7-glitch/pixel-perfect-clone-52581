@@ -207,6 +207,7 @@ function GlobalScrollReveal() {
       textItems.forEach((item) => {
         if (
           item.closest(".castle-line-drawing") ||
+          item.closest(".home-hero") ||
           item.closest('[role="slider"]') ||
           item.classList.contains("page-reveal") ||
           item.classList.contains("hero-text-reveal")
