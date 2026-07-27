@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { BackToHome } from "@/components/site/BackToHome";
 import { cases } from "@/data/cases";
 import { useLanguage, withoutTerminalDots } from "@/i18n";
-import { useCaseSpotlightProximity } from "@/lib/caseSpotlight";
 
 export const Route = createFileRoute("/cases")({
   head: () => ({
@@ -27,7 +26,6 @@ export const Route = createFileRoute("/cases")({
 
 function Cases() {
   const { t, l } = useLanguage();
-  useCaseSpotlightProximity();
   const visibleCases = cases.filter(
     (caseStudy) => caseStudy.slug !== "industrial-heritage-slovenia",
   );
@@ -78,10 +76,10 @@ function Cases() {
               key={c.slug}
               to="/cases/$slug"
               params={{ slug: c.slug }}
-              className="case-spotlight case-spotlight--feature group grid gap-10 border-t border-rule py-12 transition-colors hover:border-accent md:grid-cols-12"
+              className="group grid gap-10 border-t border-rule py-12 transition-colors hover:border-accent md:grid-cols-12"
             >
               <div className={`md:col-span-6 ${i % 2 ? "md:order-2" : ""}`}>
-                <div className="aspect-[4/3] overflow-hidden border border-rule transition-colors group-hover:border-accent">
+                <div className="case-image-glow aspect-[4/3] overflow-hidden border border-rule transition-colors group-hover:border-white">
                   <img
                     src={c.img}
                     alt={l(c.title)}

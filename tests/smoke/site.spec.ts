@@ -118,7 +118,6 @@ test("case cards open a detail page and an unknown case returns 404", async ({ p
   const runtimeErrors = captureRuntimeErrors(page);
   await page.goto("/cases");
   await waitForHydration(page);
-  await expect(page.locator("html")).toHaveAttribute("data-case-spotlight-ready", "true");
 
   const firstCase = page.locator('a[href="/cases/slovenia-castle"]').first();
   await expect(firstCase).toBeVisible();
@@ -134,29 +133,22 @@ test("case cards open a detail page and an unknown case returns 404", async ({ p
   await expect(page.locator("main")).toContainText("Page not found");
 });
 
-test("case spotlight strengthens as the pointer approaches and clears at distance", async ({
+test("case image receives a white glow on hover without decorating the case container", async ({
   page,
 }) => {
   await page.goto("/cases");
   await waitForHydration(page);
 
-  const card = page.locator(".case-spotlight--feature").first();
+  const card = page.locator('a[href^="/cases/"]').first();
   await card.scrollIntoViewIfNeeded();
-  const bounds = await card.boundingBox();
-  expect(bounds).not.toBeNull();
+  const image = card.locator(".case-image-glow");
 
-  if (!bounds) return;
+  await card.hover();
 
-  await page.mouse.move(Math.max(1, bounds.x - 60), bounds.y + bounds.height / 2);
-  await expect(card).toHaveAttribute("data-spotlight-active", "true");
-
-  const proximity = await card.evaluate((element) =>
-    Number.parseFloat(getComputedStyle(element).getPropertyValue("--case-proximity")),
-  );
-  expect(proximity).toBeGreaterThan(0.6);
-
-  await page.mouse.move(1, 1);
-  await expect(card).toHaveAttribute("data-spotlight-active", "false");
+  await expect
+    .poll(() => image.evaluate((element) => getComputedStyle(element).boxShadow))
+    .not.toBe("none");
+  await expect(card).not.toHaveClass(/case-spotlight/);
 });
 
 test("asset form blocks an empty submission and focuses the first invalid field", async ({
