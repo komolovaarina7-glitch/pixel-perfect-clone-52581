@@ -146,10 +146,8 @@ test("case image reveals its edge-color glow on hover without decorating the cas
   await image.hover();
 
   await expect
-    .poll(() =>
-      image.evaluate((element) => Number.parseFloat(getComputedStyle(element, "::before").opacity)),
-    )
-    .toBeGreaterThan(0.2);
+    .poll(() => image.evaluate((element) => getComputedStyle(element).boxShadow))
+    .not.toBe("none");
   await expect(card).not.toHaveClass(/case-spotlight/);
 });
 

@@ -52,11 +52,11 @@ export function setImageEdgeGlow(event: SyntheticEvent<HTMLImageElement>) {
       pixels,
       range.map((y) => [0, y]),
     );
+    const average = [0, 1, 2].map((channel) =>
+      Math.round((top[channel] + right[channel] + bottom[channel] + left[channel]) / 4),
+    );
 
-    glow.style.setProperty("--image-glow-top", asRgb(top));
-    glow.style.setProperty("--image-glow-right", asRgb(right));
-    glow.style.setProperty("--image-glow-bottom", asRgb(bottom));
-    glow.style.setProperty("--image-glow-left", asRgb(left));
+    glow.style.setProperty("--image-glow-color", asRgb(average));
   } catch {
     // The warm neutral CSS fallback remains when browser canvas access is unavailable.
   }

@@ -151,39 +151,21 @@
   }
 
   .case-image-glow {
-    --image-glow-top: rgb(238 227 211);
-    --image-glow-right: rgb(215 192 165);
-    --image-glow-bottom: rgb(201 174 139);
-    --image-glow-left: rgb(238 227 211);
+    --image-glow-color: rgb(215 192 165);
     position: relative;
-    isolation: isolate;
-  }
-
-  .case-image-glow::before {
-    position: absolute;
-    z-index: -1;
-    inset: -0.45rem;
-    background: conic-gradient(
-      from 45deg,
-      var(--image-glow-top) 0deg 90deg,
-      var(--image-glow-right) 90deg 180deg,
-      var(--image-glow-bottom) 180deg 270deg,
-      var(--image-glow-left) 270deg 360deg
-    );
-    content: "";
-    opacity: 0;
-    filter: blur(16px);
-    pointer-events: none;
-    transition: opacity 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    border-radius: 2px;
+    transition: box-shadow 480ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .case-image-frame {
     transition: border-color 420ms ease;
   }
 
-  .case-image-glow:hover::before,
-  .group:focus-visible .case-image-glow::before {
-    opacity: 0.3;
+  .case-image-glow:hover,
+  .group:focus-visible .case-image-glow {
+    box-shadow:
+      0 0 1.15rem color-mix(in srgb, var(--image-glow-color) 24%, transparent),
+      0 0 2.6rem color-mix(in srgb, var(--image-glow-color) 14%, transparent);
   }
 
   .case-image-glow:hover .case-image-frame,
