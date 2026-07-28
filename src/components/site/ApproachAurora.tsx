@@ -1,10 +1,63 @@
 import { useEffect, useRef } from "react";
 
-const COLORS = [
-  [166, 111, 76],
-  [201, 164, 155],
-  [201, 174, 139],
-] as const;
+type Haze = {
+  color: [number, number, number];
+  x: number;
+  y: number;
+  radiusX: number;
+  radiusY: number;
+  driftX: number;
+  driftY: number;
+  phase: number;
+  opacity: number;
+};
+
+const HAZE_FIELDS: Haze[] = [
+  {
+    color: [201, 174, 139],
+    x: 0.16,
+    y: 0.28,
+    radiusX: 0.3,
+    radiusY: 0.2,
+    driftX: 0.035,
+    driftY: 0.022,
+    phase: 0.2,
+    opacity: 0.24,
+  },
+  {
+    color: [201, 164, 155],
+    x: 0.78,
+    y: 0.22,
+    radiusX: 0.27,
+    radiusY: 0.24,
+    driftX: -0.03,
+    driftY: 0.025,
+    phase: 2.4,
+    opacity: 0.2,
+  },
+  {
+    color: [166, 111, 76],
+    x: 0.88,
+    y: 0.7,
+    radiusX: 0.34,
+    radiusY: 0.22,
+    driftX: -0.04,
+    driftY: -0.018,
+    phase: 4.1,
+    opacity: 0.16,
+  },
+  {
+    color: [238, 227, 211],
+    x: 0.36,
+    y: 0.76,
+    radiusX: 0.38,
+    radiusY: 0.27,
+    driftX: 0.025,
+    driftY: -0.024,
+    phase: 5.3,
+    opacity: 0.42,
+  },
+];
 
 export function ApproachAurora() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -37,57 +90,92 @@ export function ApproachAurora() {
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
     };
 
-    const drawRibbon = (time: number, index: number) => {
-      const color = COLORS[index];
-      const phase = time * (0.14 + index * 0.025) + index * 2.1;
-      const baseY = height * (0.2 + index * 0.27);
-      const amplitude = height * (0.08 + index * 0.018);
-      const gradient = context.createLinearGradient(0, 0, width, 0);
-      gradient.addColorStop(0, `rgba(${color.join(",")},0)`);
-      gradient.addColorStop(0.24, `rgba(${color.join(",")},0.16)`);
-      gradient.addColorStop(0.56, `rgba(${color.join(",")},0.31)`);
-      gradient.addColorStop(1, `rgba(${color.join(",")},0)`);
+    const drawHaze = (time: number, field: Haze, index: number) => {
+      const x =
+        width * (field.x + Math.sin(time * (0.055 + index * 0.008) + field.phase) * field.driftX);
+      const y =
+        height * (field.y + Math.cos(time * (0.048 + index * 0.006) + field.phase) * field.driftY);
+      const radiusX = width * field.radiusX;
+      const radiusY = height * field.radiusY;
+      const gradient = context.createRadialGradient(0, 0, 0, 0, 0, 1);
+      const [red, green, blue] = field.color;
+      gradient.addColorStop(0, `rgba(${red},${green},${blue},${field.opacity})`);
+      gradient.addColorStop(0.38, `rgba(${red},${green},${blue},${field.opacity * 0.58})`);
+      gradient.addColorStop(1, `rgba(${red},${green},${blue},0)`);
 
-      const trace = () => {
-        context.beginPath();
-        for (let x = -30; x <= width + 30; x += 22) {
-          const progress = x / Math.max(width, 1);
-          const y =
-            baseY +
-            Math.sin(progress * Math.PI * (1.55 + index * 0.16) + phase) * amplitude +
-            Math.sin(progress * 7.2 - phase * 0.55) * amplitude * 0.22;
-          if (x === -30) context.moveTo(x, y);
-          else context.lineTo(x, y);
-        }
-      };
+      context.save();
+      context.translate(x, y);
+      context.rotate(Math.sin(time * 0.035 + field.phase) * 0.12);
+      context.scale(radiusX, radiusY);
+      context.fillStyle = gradient;
+      context.beginPath();
+      context.arc(0, 0, 1, 0, Math.PI * 2);
+      context.fill();
+      context.restore();
+    };
 
-      context.strokeStyle = gradient;
-      context.lineCap = "round";
-      context.lineJoin = "round";
-      context.lineWidth = height * (0.2 - index * 0.022);
-      context.globalAlpha = 0.18;
-      trace();
-      context.stroke();
+    const drawRay = (
+      time: number,
+      offset: number,
+      thickness: number,
+      opacity: number,
+      speed: number,
+    ) => {
+      const travel = Math.sin(time * speed + offset * 8) * height * 0.025;
+      const startX = -width * 0.08;
+      const startY = height * (0.1 + offset) + travel;
+      const endX = width * 1.08;
+      const endY = height * (0.58 + offset * 0.42) + travel;
+      const gradient = context.createLinearGradient(startX, startY, endX, endY);
+      gradient.addColorStop(0, "rgba(255,252,246,0)");
+      gradient.addColorStop(0.2, `rgba(255,250,240,${opacity * 0.38})`);
+      gradient.addColorStop(0.56, `rgba(201,174,139,${opacity})`);
+      gradient.addColorStop(0.82, `rgba(166,111,76,${opacity * 0.35})`);
+      gradient.addColorStop(1, "rgba(166,111,76,0)");
 
-      context.lineWidth = height * (0.075 - index * 0.006);
-      context.globalAlpha = 0.3;
-      trace();
-      context.stroke();
+      context.save();
+      context.shadowColor = `rgba(201,174,139,${opacity * 0.28})`;
+      context.shadowBlur = compact ? 9 : 16;
+      context.fillStyle = gradient;
+      context.beginPath();
+      context.moveTo(startX, startY - thickness);
+      context.lineTo(endX, endY - thickness * 0.26);
+      context.lineTo(endX, endY + thickness * 0.26);
+      context.lineTo(startX, startY + thickness);
+      context.closePath();
+      context.fill();
+      context.restore();
+    };
 
-      context.lineWidth = Math.max(1, height * 0.004);
-      context.strokeStyle = `rgba(255,250,242,${0.28 - index * 0.04})`;
-      context.globalAlpha = 1;
-      trace();
-      context.stroke();
+    const drawLightSource = (time: number) => {
+      const x = width * (0.1 + Math.sin(time * 0.045) * 0.018);
+      const y = height * (0.15 + Math.cos(time * 0.04) * 0.018);
+      const radius = Math.max(width, height) * 0.38;
+      const glow = context.createRadialGradient(x, y, 0, x, y, radius);
+      glow.addColorStop(0, "rgba(255,254,250,0.92)");
+      glow.addColorStop(0.16, "rgba(255,248,235,0.38)");
+      glow.addColorStop(0.54, "rgba(238,227,211,0.12)");
+      glow.addColorStop(1, "rgba(238,227,211,0)");
+      context.fillStyle = glow;
+      context.fillRect(0, 0, width, height);
     };
 
     const render = (timestamp = 0) => {
+      const time = timestamp * 0.001;
       context.clearRect(0, 0, width, height);
       context.globalCompositeOperation = "source-over";
-      drawRibbon(timestamp * 0.001, 0);
-      drawRibbon(timestamp * 0.001, 1);
-      drawRibbon(timestamp * 0.001, 2);
+      HAZE_FIELDS.slice(0, compact ? 3 : 4).forEach((field, index) => drawHaze(time, field, index));
+      drawLightSource(time);
+      context.globalCompositeOperation = "soft-light";
+      drawRay(time, 0.05, height * 0.095, 0.24, 0.07);
+      drawRay(time, 0.17, height * 0.04, 0.32, 0.09);
+      drawRay(time, 0.28, height * 0.012, 0.54, 0.11);
+      if (!compact) {
+        drawRay(time, 0.36, height * 0.006, 0.46, 0.08);
+        drawRay(time, 0.43, height * 0.002, 0.62, 0.13);
+      }
       context.globalAlpha = 1;
+      context.globalCompositeOperation = "source-over";
     };
 
     const animate = (timestamp: number) => {
