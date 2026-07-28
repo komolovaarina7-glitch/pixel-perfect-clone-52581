@@ -146,6 +146,9 @@ test("cases hero finishes its title before revealing the supporting copy", async
   await page.goto("/cases");
   await waitForHydration(page);
 
+  await expect(page.locator(".cases-hero-intro")).toHaveCSS("opacity", "0");
+  await expect(page.locator(".cases-hero-intro")).not.toHaveClass(/global-scroll-reveal/);
+
   const timing = await page.evaluate(() => {
     const letters = Array.from(document.querySelectorAll<HTMLElement>(".cases-hero-letter"));
     const lastLetter = letters.at(-1);
