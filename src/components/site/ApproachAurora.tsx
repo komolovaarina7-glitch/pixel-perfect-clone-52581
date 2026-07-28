@@ -97,24 +97,39 @@ export function ApproachAurora() {
         height * (field.y + Math.cos(time * (0.048 + index * 0.006) + field.phase) * field.driftY);
       const radiusX = width * field.radiusX;
       const radiusY = height * field.radiusY;
-      const gradient = context.createRadialGradient(0, 0, 0, 0, 0, 1);
       const [red, green, blue] = field.color;
-      gradient.addColorStop(0, `rgba(${red},${green},${blue},${field.opacity})`);
-      gradient.addColorStop(0.38, `rgba(${red},${green},${blue},${field.opacity * 0.58})`);
-      gradient.addColorStop(1, `rgba(${red},${green},${blue},0)`);
 
       context.save();
       context.translate(x, y);
       context.rotate(Math.sin(time * 0.035 + field.phase) * 0.12);
-      context.scale(radiusX, radiusY);
-      context.fillStyle = gradient;
-      context.beginPath();
-      context.arc(0, 0, 1, 0, Math.PI * 2);
-      context.fill();
+      context.globalCompositeOperation = index === 3 ? "screen" : "source-over";
+
+      for (let lobe = 0; lobe < 4; lobe += 1) {
+        const phase = time * (0.075 + lobe * 0.006) + field.phase + lobe * 1.7;
+        const lobeX = Math.sin(phase) * radiusX * 0.24 + (lobe - 1.5) * radiusX * 0.16;
+        const lobeY = Math.cos(phase * 0.78) * radiusY * 0.2;
+        const lobeRadiusX = radiusX * (0.56 + lobe * 0.07);
+        const lobeRadiusY = radiusY * (0.54 + ((lobe + 1) % 2) * 0.16);
+        const gradient = context.createRadialGradient(0, 0, 0, 0, 0, 1);
+        const lobeOpacity = field.opacity * (0.42 - lobe * 0.045);
+        gradient.addColorStop(0, `rgba(${red},${green},${blue},${lobeOpacity})`);
+        gradient.addColorStop(0.34, `rgba(${red},${green},${blue},${lobeOpacity * 0.62})`);
+        gradient.addColorStop(0.72, `rgba(${red},${green},${blue},${lobeOpacity * 0.18})`);
+        gradient.addColorStop(1, `rgba(${red},${green},${blue},0)`);
+
+        context.save();
+        context.translate(lobeX, lobeY);
+        context.scale(lobeRadiusX, lobeRadiusY);
+        context.fillStyle = gradient;
+        context.beginPath();
+        context.arc(0, 0, 1, 0, Math.PI * 2);
+        context.fill();
+        context.restore();
+      }
       context.restore();
     };
 
-    const drawRay = (
+    const drawBeam = (
       time: number,
       offset: number,
       thickness: number,
@@ -122,26 +137,65 @@ export function ApproachAurora() {
       speed: number,
     ) => {
       const travel = Math.sin(time * speed + offset * 8) * height * 0.025;
-      const startX = -width * 0.08;
-      const startY = height * (0.1 + offset) + travel;
-      const endX = width * 1.08;
-      const endY = height * (0.58 + offset * 0.42) + travel;
+      const startX = -width * 0.12;
+      const startY = height * (0.08 + offset) + travel;
+      const endX = width * 1.12;
+      const endY = height * (0.48 + offset * 0.42) + travel;
+      const bend = Math.sin(time * speed * 0.7 + offset * 11) * thickness * 0.18;
       const gradient = context.createLinearGradient(startX, startY, endX, endY);
       gradient.addColorStop(0, "rgba(255,252,246,0)");
-      gradient.addColorStop(0.2, `rgba(255,250,240,${opacity * 0.38})`);
-      gradient.addColorStop(0.56, `rgba(201,174,139,${opacity})`);
-      gradient.addColorStop(0.82, `rgba(166,111,76,${opacity * 0.35})`);
+      gradient.addColorStop(0.18, `rgba(255,250,240,${opacity * 0.3})`);
+      gradient.addColorStop(0.52, `rgba(224,203,177,${opacity})`);
+      gradient.addColorStop(0.78, `rgba(180,132,101,${opacity * 0.3})`);
       gradient.addColorStop(1, "rgba(166,111,76,0)");
 
       context.save();
-      context.shadowColor = `rgba(201,174,139,${opacity * 0.28})`;
-      context.shadowBlur = compact ? 9 : 16;
+      context.filter = `blur(${compact ? 10 : 18}px)`;
+      context.shadowColor = `rgba(92,70,59,${opacity * 0.18})`;
+      context.shadowBlur = compact ? 12 : 24;
       context.fillStyle = gradient;
       context.beginPath();
-      context.moveTo(startX, startY - thickness);
-      context.lineTo(endX, endY - thickness * 0.26);
-      context.lineTo(endX, endY + thickness * 0.26);
-      context.lineTo(startX, startY + thickness);
+      context.moveTo(startX, startY - thickness * 0.66);
+      context.bezierCurveTo(
+        width * 0.25,
+        startY - thickness + bend,
+        width * 0.68,
+        endY - thickness * 0.42 - bend,
+        endX,
+        endY - thickness * 0.16,
+      );
+      context.bezierCurveTo(
+        width * 0.72,
+        endY + thickness * 0.36 + bend,
+        width * 0.22,
+        startY + thickness * 0.82 - bend,
+        startX,
+        startY + thickness * 0.66,
+      );
+      context.closePath();
+      context.fill();
+
+      context.filter = `blur(${compact ? 3 : 6}px)`;
+      context.shadowBlur = 0;
+      context.globalAlpha = 0.5;
+      context.beginPath();
+      context.moveTo(startX, startY - thickness * 0.08);
+      context.bezierCurveTo(
+        width * 0.3,
+        startY - thickness * 0.2 + bend,
+        width * 0.7,
+        endY - thickness * 0.1 - bend,
+        endX,
+        endY,
+      );
+      context.bezierCurveTo(
+        width * 0.66,
+        endY + thickness * 0.09,
+        width * 0.28,
+        startY + thickness * 0.14,
+        startX,
+        startY + thickness * 0.08,
+      );
       context.closePath();
       context.fill();
       context.restore();
@@ -166,13 +220,13 @@ export function ApproachAurora() {
       context.globalCompositeOperation = "source-over";
       HAZE_FIELDS.slice(0, compact ? 3 : 4).forEach((field, index) => drawHaze(time, field, index));
       drawLightSource(time);
+      context.globalCompositeOperation = "multiply";
+      drawBeam(time, 0.04, height * 0.12, 0.18, 0.07);
       context.globalCompositeOperation = "soft-light";
-      drawRay(time, 0.05, height * 0.095, 0.24, 0.07);
-      drawRay(time, 0.17, height * 0.04, 0.32, 0.09);
-      drawRay(time, 0.28, height * 0.012, 0.54, 0.11);
+      drawBeam(time, 0.18, height * 0.052, 0.3, 0.09);
+      drawBeam(time, 0.3, height * 0.018, 0.42, 0.11);
       if (!compact) {
-        drawRay(time, 0.36, height * 0.006, 0.46, 0.08);
-        drawRay(time, 0.43, height * 0.002, 0.62, 0.13);
+        drawBeam(time, 0.38, height * 0.009, 0.38, 0.08);
       }
       context.globalAlpha = 1;
       context.globalCompositeOperation = "source-over";
