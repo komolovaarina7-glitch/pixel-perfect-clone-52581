@@ -22,7 +22,7 @@ const HAZE_FIELDS: Haze[] = [
     driftX: 0.035,
     driftY: 0.022,
     phase: 0.2,
-    opacity: 0.24,
+    opacity: 0.34,
   },
   {
     color: [201, 164, 155],
@@ -33,7 +33,7 @@ const HAZE_FIELDS: Haze[] = [
     driftX: -0.03,
     driftY: 0.025,
     phase: 2.4,
-    opacity: 0.2,
+    opacity: 0.3,
   },
   {
     color: [166, 111, 76],
@@ -44,7 +44,7 @@ const HAZE_FIELDS: Haze[] = [
     driftX: -0.04,
     driftY: -0.018,
     phase: 4.1,
-    opacity: 0.16,
+    opacity: 0.24,
   },
   {
     color: [238, 227, 211],
@@ -55,7 +55,7 @@ const HAZE_FIELDS: Haze[] = [
     driftX: 0.025,
     driftY: -0.024,
     phase: 5.3,
-    opacity: 0.42,
+    opacity: 0.5,
   },
 ];
 
@@ -110,19 +110,28 @@ export function ApproachAurora() {
         const lobeY = Math.cos(phase * 0.78) * radiusY * 0.2;
         const lobeRadiusX = radiusX * (0.56 + lobe * 0.07);
         const lobeRadiusY = radiusY * (0.54 + ((lobe + 1) % 2) * 0.16);
+        const shadow = context.createRadialGradient(0, 0, 0, 0, 0, 1);
         const gradient = context.createRadialGradient(0, 0, 0, 0, 0, 1);
         const lobeOpacity = field.opacity * (0.42 - lobe * 0.045);
-        gradient.addColorStop(0, `rgba(${red},${green},${blue},${lobeOpacity})`);
-        gradient.addColorStop(0.34, `rgba(${red},${green},${blue},${lobeOpacity * 0.62})`);
+        shadow.addColorStop(0, `rgba(92,70,59,${lobeOpacity * 0.2})`);
+        shadow.addColorStop(0.48, `rgba(166,111,76,${lobeOpacity * 0.11})`);
+        shadow.addColorStop(1, "rgba(92,70,59,0)");
+        gradient.addColorStop(0, `rgba(255,252,246,${lobeOpacity * 1.18})`);
+        gradient.addColorStop(0.2, `rgba(${red},${green},${blue},${lobeOpacity})`);
+        gradient.addColorStop(0.48, `rgba(${red},${green},${blue},${lobeOpacity * 0.55})`);
         gradient.addColorStop(0.72, `rgba(${red},${green},${blue},${lobeOpacity * 0.18})`);
         gradient.addColorStop(1, `rgba(${red},${green},${blue},0)`);
 
         context.save();
         context.translate(lobeX, lobeY);
         context.scale(lobeRadiusX, lobeRadiusY);
+        context.fillStyle = shadow;
+        context.beginPath();
+        context.arc(0.08, 0.15, 1.08, 0, Math.PI * 2);
+        context.fill();
         context.fillStyle = gradient;
         context.beginPath();
-        context.arc(0, 0, 1, 0, Math.PI * 2);
+        context.arc(-0.08, -0.1, 1, 0, Math.PI * 2);
         context.fill();
         context.restore();
       }
