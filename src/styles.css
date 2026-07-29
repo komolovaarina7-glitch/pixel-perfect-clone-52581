@@ -2048,6 +2048,87 @@
     outline-offset: 3px;
   }
 
+  .mobile-navigation-shell {
+    display: grid;
+    grid-template-rows: 0fr;
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    border-top: 1px solid transparent;
+    background: rgba(251, 250, 247, 0.82);
+    opacity: 0;
+    transform: translate3d(0, -10px, 0);
+    transition:
+      grid-template-rows 680ms cubic-bezier(0.22, 1, 0.36, 1),
+      max-height 680ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 360ms ease,
+      transform 680ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 300ms ease,
+      visibility 0s linear 680ms;
+  }
+
+  .mobile-navigation-shell--open {
+    grid-template-rows: 1fr;
+    max-height: calc(100vh - 4rem);
+    visibility: visible;
+    border-color: hsl(var(--rule));
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition-delay: 0s;
+  }
+
+  .mobile-navigation-clip {
+    min-height: 0;
+    overflow-y: auto;
+    padding-block: 0.75rem;
+  }
+
+  .mobile-navigation-link {
+    opacity: 0;
+    transform: translate3d(0, -8px, 0);
+    transition:
+      color 220ms ease,
+      opacity 260ms ease,
+      transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .mobile-navigation-shell--open .mobile-navigation-link {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .mobile-navigation-shell--open .mobile-navigation-link:nth-child(1) {
+    transition-delay: 110ms;
+  }
+
+  .mobile-navigation-shell--open .mobile-navigation-link:nth-child(2) {
+    transition-delay: 145ms;
+  }
+
+  .mobile-navigation-shell--open .mobile-navigation-link:nth-child(3) {
+    transition-delay: 180ms;
+  }
+
+  .mobile-navigation-shell--open .mobile-navigation-link:nth-child(4) {
+    transition-delay: 215ms;
+  }
+
+  .mobile-navigation-shell--open .mobile-navigation-link:nth-child(5) {
+    transition-delay: 250ms;
+  }
+
+  .mobile-navigation-shell--open .mobile-navigation-link:nth-child(6) {
+    transition-delay: 285ms;
+  }
+
+  .mobile-navigation-shell--open .mobile-navigation-link:nth-child(7) {
+    transition-delay: 320ms;
+  }
+
+  .mobile-navigation-shell--open .mobile-navigation-link:nth-child(8) {
+    transition-delay: 355ms;
+  }
+
   .services-flow-background {
     position: relative;
     isolation: isolate;
@@ -5805,6 +5886,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .mobile-navigation-shell,
+  .mobile-navigation-link {
+    transition: none;
+  }
+
   .thinking-entry,
   .thinking-essay-paragraph::before {
     animation: none;
