@@ -42,13 +42,20 @@ float fbm(vec2 p) {
   return value;
 }
 
-vec3 palette(int index) {
-  if (index == 0) return vec3(0.788, 0.682, 0.545);
-  if (index == 1) return vec3(0.788, 0.643, 0.608);
-  if (index == 2) return vec3(0.651, 0.435, 0.298);
-  if (index == 3) return vec3(0.843, 0.753, 0.647);
-  if (index == 4) return vec3(0.933, 0.890, 0.827);
-  return vec3(0.965, 0.945, 0.910);
+mat2 rotate2d(float angle) {
+  float c = cos(angle);
+  float s = sin(angle);
+  return mat2(c, -s, s, c);
+}
+
+float silkField(vec2 point, vec2 center, vec2 scale, float angle, float distortion) {
+  vec2 local = rotate2d(angle) * (point - center);
+  local += vec2(
+    sin(local.y * 3.4 + distortion) * 0.045,
+    cos(local.x * 2.6 - distortion) * 0.035
+  );
+  local /= scale;
+  return dot(local, local);
 }
 
 void main() {
@@ -58,42 +65,87 @@ void main() {
 
   float time = u_time * u_motion;
   vec2 warp = vec2(
-    fbm(p * 1.7 + vec2(time * 0.025, 1.4)),
-    fbm(p * 1.55 + vec2(3.8, -time * 0.022))
+    fbm(p * 1.45 + vec2(time * 0.018, 1.4)),
+    fbm(p * 1.35 + vec2(3.8, -time * 0.016))
   ) - 0.5;
-  vec2 field = p + warp * 0.11;
+  vec2 field = p + warp * 0.17;
 
-  vec3 base = vec3(0.965, 0.945, 0.910);
-  vec3 colour = base;
-  float totalGlow = 0.0;
+  vec3 ivory = vec3(0.965, 0.945, 0.910);
+  vec3 warmCream = vec3(0.933, 0.890, 0.827);
+  vec3 sand = vec3(0.843, 0.753, 0.647);
+  vec3 champagne = vec3(0.788, 0.682, 0.545);
+  vec3 copper = vec3(0.651, 0.435, 0.298);
+  vec3 dustyRose = vec3(0.788, 0.643, 0.608);
+  vec3 warmShadow = vec3(0.361, 0.275, 0.231);
 
-  for (int i = 0; i < 6; i++) {
-    float fi = float(i);
-    vec2 center = vec2(
-      sin(time * (0.11 + fi * 0.014) + fi * 2.17),
-      cos(time * (0.085 + fi * 0.012) + fi * 1.63)
-    );
-    center *= vec2(0.48 + 0.025 * fi, 0.28 + 0.018 * mod(fi, 2.0));
+  vec3 colour = mix(ivory, warmCream, 0.24 + uv.y * 0.12);
 
-    vec2 delta = field - center;
-    delta.x *= 0.82 + 0.08 * mod(fi, 3.0);
-    float distanceSquared = dot(delta, delta);
-    float halo = exp(-distanceSquared * (5.2 + fi * 0.24));
-    float body = exp(-distanceSquared * (11.0 + fi * 0.7));
-    float core = exp(-distanceSquared * (34.0 + fi * 1.4));
+  vec2 centerA = vec2(
+    -0.54 + sin(time * 0.105) * 0.28,
+    0.24 + cos(time * 0.082) * 0.12
+  );
+  vec2 centerB = vec2(
+    0.58 + cos(time * 0.091 + 1.6) * 0.3,
+    0.08 + sin(time * 0.074 + 0.7) * 0.2
+  );
+  vec2 centerC = vec2(
+    -0.02 + sin(time * 0.067 + 2.4) * 0.44,
+    -0.38 + cos(time * 0.088 + 1.1) * 0.12
+  );
+  vec2 centerD = vec2(
+    0.12 + cos(time * 0.072 + 3.2) * 0.48,
+    0.38 + sin(time * 0.061) * 0.1
+  );
 
-    vec3 lightColour = palette(i);
-    colour += lightColour * halo * 0.075;
-    colour += lightColour * body * 0.095;
-    colour += vec3(1.0, 0.982, 0.945) * core * 0.115;
-    totalGlow += halo;
-  }
+  float fieldA = silkField(field, centerA, vec2(0.66, 0.24), -0.46, time * 0.15);
+  float fieldB = silkField(field, centerB, vec2(0.72, 0.28), 0.38, time * 0.12 + 2.0);
+  float fieldC = silkField(field, centerC, vec2(0.7, 0.22), -0.18, time * 0.1 + 4.0);
+  float fieldD = silkField(field, centerD, vec2(0.82, 0.18), 0.13, time * 0.09 + 1.0);
 
-  float pearl = fbm(field * 3.2 + time * 0.018) * 0.018;
-  float edgeCalm = smoothstep(0.92, 0.25, length(p));
-  colour += pearl * edgeCalm;
-  colour = mix(base, colour, 0.9);
-  colour -= smoothstep(1.8, 4.2, totalGlow) * vec3(0.012, 0.008, 0.005);
+  float haloA = exp(-fieldA * 0.9);
+  float haloB = exp(-fieldB * 0.86);
+  float haloC = exp(-fieldC * 0.95);
+  float haloD = exp(-fieldD * 0.82);
+  float bodyA = exp(-fieldA * 2.5);
+  float bodyB = exp(-fieldB * 2.35);
+  float bodyC = exp(-fieldC * 2.8);
+  float bodyD = exp(-fieldD * 3.1);
+  float coreA = exp(-fieldA * 7.5);
+  float coreB = exp(-fieldB * 7.0);
+  float coreC = exp(-fieldC * 8.0);
+  float coreD = exp(-fieldD * 9.0);
+
+  colour = mix(colour, dustyRose, haloA * 0.2);
+  colour = mix(colour, champagne, haloB * 0.22);
+  colour = mix(colour, sand, haloC * 0.22);
+  colour = mix(colour, copper, haloD * 0.12);
+
+  colour = mix(colour, mix(dustyRose, warmCream, 0.26), bodyA * 0.28);
+  colour = mix(colour, mix(champagne, ivory, 0.2), bodyB * 0.3);
+  colour = mix(colour, mix(sand, copper, 0.18), bodyC * 0.22);
+  colour = mix(colour, mix(champagne, dustyRose, 0.35), bodyD * 0.2);
+
+  vec3 pearl = vec3(1.0, 0.982, 0.945);
+  colour = mix(colour, pearl, coreA * 0.34);
+  colour = mix(colour, pearl, coreB * 0.38);
+  colour = mix(colour, pearl, coreC * 0.3);
+  colour = mix(colour, pearl, coreD * 0.28);
+
+  float valley = (1.0 - max(max(haloA, haloB), max(haloC, haloD)));
+  float depthNoise = fbm(field * 1.85 - vec2(time * 0.012, 0.0));
+  colour = mix(colour, warmShadow, valley * depthNoise * 0.055);
+
+  float silkHighlight = pow(
+    0.5 + 0.5 * sin((field.x * 1.8 + field.y * 3.2 + warp.x * 2.0) * 3.14159),
+    10.0
+  );
+  colour = mix(colour, pearl, silkHighlight * 0.055);
+
+  float grain = hash21(gl_FragCoord.xy + floor(time * 8.0)) - 0.5;
+  colour += grain * 0.006;
+
+  float textCalm = exp(-dot(p / vec2(0.76, 0.34), p / vec2(0.76, 0.34)) * 2.0);
+  colour = mix(colour, mix(ivory, warmCream, 0.2), textCalm * 0.23);
 
   gl_FragColor = vec4(clamp(colour, 0.0, 1.0), 1.0);
 }

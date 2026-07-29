@@ -5619,7 +5619,7 @@
   }
 
   to {
-    opacity: 0.82;
+    opacity: 0.98;
     transform: scale(1);
   }
 }
@@ -5703,7 +5703,7 @@
   }
 
   to {
-    opacity: 0.68;
+    opacity: 0.9;
     transform: scale(1);
   }
 }
@@ -6157,7 +6157,7 @@
   }
 
   .services-hero-lights {
-    opacity: 0.72;
+    opacity: 0.92;
   }
 
   .global-scroll-reveal,
