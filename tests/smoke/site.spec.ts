@@ -169,6 +169,62 @@ test("cases hero finishes its title before revealing the supporting copy", async
   expect(timing!.introStart).toBeGreaterThan(timing!.titleEnd);
 });
 
+test("internal heroes keep their copy and reveal it in sequence", async ({ page }) => {
+  await page.goto("/services");
+  await waitForHydration(page);
+
+  const eyebrow = page.locator(".internal-hero-eyebrow");
+  const title = page.locator(".standard-page-hero-title");
+  const subtitle = page.locator(".internal-hero-subtitle");
+
+  await expect(eyebrow).toContainText("Services");
+  await expect(title).toContainText("Five disciplines of strategic recovery");
+  await expect(subtitle).toContainText("REPOSITION LAB works where");
+  await expect(eyebrow).toHaveCSS("animation-name", "homeHeroSideReveal");
+
+  const timing = await page.evaluate(() => {
+    const letters = Array.from(document.querySelectorAll<HTMLElement>(".internal-hero-letter"));
+    const lastLetter = letters.at(-1);
+    const supportingCopy = document.querySelector<HTMLElement>(".internal-hero-subtitle");
+    if (!lastLetter || !supportingCopy) return null;
+
+    const letterStyle = getComputedStyle(lastLetter);
+    const copyStyle = getComputedStyle(supportingCopy);
+    return {
+      titleEnd:
+        Number.parseFloat(letterStyle.animationDelay) +
+        Number.parseFloat(letterStyle.animationDuration),
+      subtitleStart: Number.parseFloat(copyStyle.animationDelay),
+    };
+  });
+
+  expect(timing).not.toBeNull();
+  expect(timing!.subtitleStart).toBeGreaterThan(timing!.titleEnd);
+});
+
+test("internal hero titles stay centered and preserve whole words on mobile", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/selected-thinking");
+  await waitForHydration(page);
+
+  const title = page.locator(".standard-page-hero-title");
+  await expect(title).toHaveCSS("text-align", "center");
+
+  const layout = await page.evaluate(() => {
+    const words = Array.from(document.querySelectorAll<HTMLElement>(".internal-hero-word"));
+    const titleElement = document.querySelector<HTMLElement>(".standard-page-hero-title");
+    return {
+      pageOverflows: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+      fontSize: titleElement ? Number.parseFloat(getComputedStyle(titleElement).fontSize) : 0,
+      wordsFit: words.every((word) => word.getBoundingClientRect().width <= window.innerWidth),
+    };
+  });
+
+  expect(layout.pageOverflows).toBe(false);
+  expect(layout.fontSize).toBeGreaterThanOrEqual(38);
+  expect(layout.wordsFit).toBe(true);
+});
+
 test("case image reveals its edge-color glow on hover without decorating the case container", async ({
   page,
 }) => {

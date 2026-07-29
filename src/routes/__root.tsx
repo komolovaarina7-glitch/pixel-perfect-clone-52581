@@ -211,6 +211,8 @@ function GlobalScrollReveal() {
           item.closest(".home-hero") ||
           item.closest(".approach-hero") ||
           item.closest(".cases-hero") ||
+          item.closest(".standard-page-hero") ||
+          item.closest(".case-detail-hero") ||
           item.closest('[role="slider"]') ||
           item.classList.contains("page-reveal") ||
           item.classList.contains("hero-text-reveal")

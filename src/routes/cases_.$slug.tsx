@@ -77,7 +77,7 @@ function CaseDetail() {
     <article ref={articleRef}>
       <BackToHome />
       <header
-        className={`container-rl pt-8 pb-16 ${
+        className={`case-detail-hero container-rl pt-8 pb-16 ${
           hasArchitecturalDrawing || hasMountainDrawing || hasFallingLeaves
             ? "line-art-case-hero"
             : ""
