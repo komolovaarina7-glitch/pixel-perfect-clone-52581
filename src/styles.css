@@ -1949,6 +1949,10 @@
 
   .premium-action {
     position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: top;
     isolation: isolate;
     overflow: hidden;
     contain: paint;
@@ -5568,6 +5572,58 @@
   text-align: center;
 }
 
+.services-hero.standard-page-hero-content {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.services-hero-lights {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(1.025);
+  animation: servicesHeroLightsReveal 1500ms 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.services-hero::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  height: clamp(4rem, 11vh, 8rem);
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(251, 250, 247, 0), rgba(251, 250, 247, 0.94));
+}
+
+.services-hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+
+@keyframes servicesHeroLightsReveal {
+  from {
+    opacity: 0;
+    transform: scale(1.045);
+  }
+
+  to {
+    opacity: 0.82;
+    transform: scale(1);
+  }
+}
+
 .standard-page-hero-title,
 .validation-title {
   margin-top: clamp(1.4rem, 3vh, 2.2rem);
@@ -5633,6 +5689,22 @@
 
   .internal-hero-subtitle {
     animation-delay: 2300ms;
+  }
+
+  .services-hero-lights {
+    animation-name: servicesHeroLightsRevealMobile;
+  }
+}
+
+@keyframes servicesHeroLightsRevealMobile {
+  from {
+    opacity: 0;
+    transform: scale(1.035);
+  }
+
+  to {
+    opacity: 0.68;
+    transform: scale(1);
   }
 }
 
@@ -6067,6 +6139,7 @@
   .home-hero-eyebrow,
   .home-hero-subtitle,
   .home-hero-letter,
+  .services-hero-lights,
   .internal-hero-eyebrow,
   .internal-hero-subtitle,
   .internal-hero-letter,
@@ -6081,6 +6154,10 @@
     filter: none;
     transform: none;
     will-change: auto;
+  }
+
+  .services-hero-lights {
+    opacity: 0.72;
   }
 
   .global-scroll-reveal,

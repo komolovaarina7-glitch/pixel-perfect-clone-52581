@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AnimatedHeroTitle } from "@/components/site/AnimatedHeroTitle";
 import { BackToHome } from "@/components/site/BackToHome";
+import { ServicesHeroLights } from "@/components/site/ServicesHeroLights";
 import { useLanguage, withoutTerminalDots } from "@/i18n";
 
 export const Route = createFileRoute("/services")({
@@ -100,17 +101,20 @@ function Services() {
         </g>
       </svg>
       <BackToHome />
-      <header className="standard-page-hero standard-page-hero-content container-rl">
-        <p className="internal-hero-eyebrow eyebrow text-accent">{l(t.services.eyebrow)}</p>
-        <h1 className="standard-page-hero-title mobile-safe-text serif mt-6 max-w-4xl text-foreground">
-          <AnimatedHeroTitle>{withoutTerminalDots(l(t.services.title))}</AnimatedHeroTitle>
-        </h1>
-        <div className="internal-hero-subtitle services-intro">
-          {t.services.intro.map((paragraph, index) => (
-            <p key={paragraph.en} className={index === 0 ? "services-intro-lead" : undefined}>
-              {l(paragraph)}
-            </p>
-          ))}
+      <header className="services-hero standard-page-hero standard-page-hero-content container-rl">
+        <ServicesHeroLights />
+        <div className="services-hero-content">
+          <p className="internal-hero-eyebrow eyebrow text-accent">{l(t.services.eyebrow)}</p>
+          <h1 className="standard-page-hero-title mobile-safe-text serif mt-6 max-w-4xl text-foreground">
+            <AnimatedHeroTitle>{withoutTerminalDots(l(t.services.title))}</AnimatedHeroTitle>
+          </h1>
+          <div className="internal-hero-subtitle services-intro">
+            {t.services.intro.map((paragraph, index) => (
+              <p key={paragraph.en} className={index === 0 ? "services-intro-lead" : undefined}>
+                {l(paragraph)}
+              </p>
+            ))}
+          </div>
         </div>
       </header>
 

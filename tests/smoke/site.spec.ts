@@ -202,6 +202,24 @@ test("internal heroes keep their copy and reveal it in sequence", async ({ page 
   expect(timing!.subtitleStart).toBeGreaterThan(timing!.titleEnd);
 });
 
+test("services hero renders non-interactive volumetric lights behind its complete copy", async ({
+  page,
+}) => {
+  const runtimeErrors = captureRuntimeErrors(page);
+  await page.goto("/services");
+  await waitForHydration(page);
+
+  const hero = page.locator(".services-hero");
+  const lights = hero.locator(".services-hero-lights");
+
+  await expect(lights).toHaveAttribute("aria-hidden", "true");
+  await expect(lights).toHaveCSS("pointer-events", "none");
+  await expect(hero.locator("h1")).toContainText("Five disciplines of strategic recovery");
+  await expect(hero.locator(".services-intro")).toContainText("REPOSITION LAB works where");
+  await expect(lights).toBeVisible();
+  expect(runtimeErrors).toEqual([]);
+});
+
 test("internal hero titles stay centered and preserve whole words on mobile", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/selected-thinking");
@@ -241,6 +259,28 @@ test("case image reveals its edge-color glow on hover without decorating the cas
     .poll(() => image.evaluate((element) => getComputedStyle(element).boxShadow))
     .not.toBe("none");
   await expect(card).not.toHaveClass(/case-spotlight/);
+});
+
+test("contact call to action keeps a readable gap below its explanatory copy", async ({ page }) => {
+  await page.goto("/contact");
+  await waitForHydration(page);
+
+  const copy = page.locator(".contact-note-text");
+  const action = page.locator(".contact-submit");
+  await action.scrollIntoViewIfNeeded();
+
+  const spacing = await page.evaluate(() => {
+    const copyElement = document.querySelector<HTMLElement>(".contact-note-text");
+    const actionElement = document.querySelector<HTMLElement>(".contact-submit");
+    if (!copyElement || !actionElement) return null;
+
+    const copyBox = copyElement.getBoundingClientRect();
+    const actionBox = actionElement.getBoundingClientRect();
+    return actionBox.top - copyBox.bottom;
+  });
+
+  expect(spacing).not.toBeNull();
+  expect(spacing!).toBeGreaterThanOrEqual(24);
 });
 
 test("asset form blocks an empty submission and focuses the first invalid field", async ({
