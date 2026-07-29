@@ -7,10 +7,15 @@ import { FallingLeaves } from "@/components/site/FallingLeaves";
 import { MountainLineDrawing } from "@/components/site/MountainLineDrawing";
 import { cases } from "@/data/cases";
 import { useLanguage } from "@/i18n";
+import { getPublishedCases } from "@/lib/api/admin.functions";
+import { mergePublishedCases } from "@/lib/admin/public-content";
 
 export const Route = createFileRoute("/cases_/$slug")({
-  loader: ({ params }) => {
-    const caseStudy = cases.find((item) => item.slug === params.slug);
+  loader: async ({ params }) => {
+    const managedCases = await getPublishedCases();
+    const caseStudy = mergePublishedCases(cases, managedCases).find(
+      (item) => item.slug === params.slug,
+    );
     if (!caseStudy) throw notFound();
     return caseStudy;
   },
