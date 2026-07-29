@@ -219,7 +219,11 @@ function getUniforms(gl: WebGLRenderingContext, program: WebGLProgram): Uniforms
   return Object.fromEntries(entries) as Uniforms;
 }
 
-export function AnimatedHeroBackground() {
+type AnimatedHeroBackgroundProps = {
+  className?: string;
+};
+
+export function AnimatedHeroBackground({ className = "" }: AnimatedHeroBackgroundProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -348,7 +352,7 @@ export function AnimatedHeroBackground() {
   return (
     <div
       ref={containerRef}
-      className="pointer-events-none absolute inset-0 overflow-hidden"
+      className={`pointer-events-none absolute inset-0 overflow-hidden ${className}`.trim()}
       aria-hidden="true"
       style={{
         background:

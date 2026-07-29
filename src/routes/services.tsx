@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { AnimatedHeroBackground } from "@/components/site/AnimatedHeroBackground";
 import { AnimatedHeroTitle } from "@/components/site/AnimatedHeroTitle";
 import { BackToHome } from "@/components/site/BackToHome";
-import { ServicesHeroLights } from "@/components/site/ServicesHeroLights";
 import { useLanguage, withoutTerminalDots } from "@/i18n";
 
 export const Route = createFileRoute("/services")({
@@ -102,7 +102,7 @@ function Services() {
       </svg>
       <BackToHome />
       <header className="services-hero standard-page-hero standard-page-hero-content container-rl">
-        <ServicesHeroLights />
+        <AnimatedHeroBackground className="services-hero-lights" />
         <div className="services-hero-content">
           <p className="internal-hero-eyebrow eyebrow text-accent">{l(t.services.eyebrow)}</p>
           <h1 className="standard-page-hero-title mobile-safe-text serif mt-6 max-w-4xl text-foreground">
