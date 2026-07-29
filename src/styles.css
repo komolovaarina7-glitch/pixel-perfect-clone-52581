@@ -5602,6 +5602,23 @@
   background: linear-gradient(to bottom, rgba(251, 250, 247, 0), rgba(251, 250, 247, 0.94));
 }
 
+.services-hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  height: clamp(5rem, 14vh, 10rem);
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    #fbfaf7 0%,
+    rgba(251, 250, 247, 0.82) 28%,
+    transparent 100%
+  );
+}
+
 .services-hero-content {
   position: relative;
   z-index: 2;

@@ -71,7 +71,7 @@ void main() {
   vec2 p = uv - 0.5;
   p.x *= u_resolution.x / u_resolution.y;
 
-  float time = u_time * u_motion;
+  float time = u_time * 1.22 * u_motion;
   vec2 warp = vec2(
     fbm(p * 1.45 + vec2(time * 0.018, 1.4)),
     fbm(p * 1.35 + vec2(3.8, -time * 0.016))
@@ -85,6 +85,9 @@ void main() {
   vec3 copper = vec3(0.651, 0.435, 0.298);
   vec3 dustyRose = vec3(0.788, 0.643, 0.608);
   vec3 warmShadow = vec3(0.361, 0.275, 0.231);
+  vec3 mutedGold = vec3(0.722, 0.537, 0.286);
+  vec3 burntOrange = vec3(0.722, 0.435, 0.235);
+  vec3 richBrown = vec3(0.431, 0.286, 0.212);
 
   vec3 colour = mix(ivory, warmCream, 0.24 + uv.y * 0.12);
 
@@ -170,22 +173,22 @@ void main() {
   float shadeC = exp(-pow(abs(ribbonC - 0.14) / 0.115, 2.0));
 
   float horizontalFade = smoothstep(1.05, 0.6, abs(p.x));
-  colour = mix(colour, dustyRose, foldA * horizontalFade * 0.2);
-  colour = mix(colour, champagne, foldB * horizontalFade * 0.22);
-  colour = mix(colour, sand, foldC * horizontalFade * 0.22);
+  colour = mix(colour, mix(dustyRose, burntOrange, 0.2), foldA * horizontalFade * 0.22);
+  colour = mix(colour, mix(champagne, mutedGold, 0.3), foldB * horizontalFade * 0.24);
+  colour = mix(colour, mix(sand, burntOrange, 0.16), foldC * horizontalFade * 0.23);
 
-  colour = mix(colour, warmShadow, shadeA * horizontalFade * 0.09);
-  colour = mix(colour, copper, shadeB * horizontalFade * 0.085);
-  colour = mix(colour, warmShadow, shadeC * horizontalFade * 0.08);
+  colour = mix(colour, richBrown, shadeA * horizontalFade * 0.14);
+  colour = mix(colour, mix(copper, richBrown, 0.45), shadeB * horizontalFade * 0.13);
+  colour = mix(colour, warmShadow, shadeC * horizontalFade * 0.125);
 
   vec3 liftedSilk = mix(pearl, warmCream, 0.28);
-  colour = mix(colour, liftedSilk, liftA * horizontalFade * 0.22);
-  colour = mix(colour, liftedSilk, liftB * horizontalFade * 0.24);
-  colour = mix(colour, liftedSilk, liftC * horizontalFade * 0.22);
+  colour = mix(colour, liftedSilk, liftA * horizontalFade * 0.28);
+  colour = mix(colour, liftedSilk, liftB * horizontalFade * 0.3);
+  colour = mix(colour, liftedSilk, liftC * horizontalFade * 0.28);
 
   float combinedSheen = max(sheenA, max(sheenB, sheenC));
-  colour = mix(colour, pearl, combinedSheen * horizontalFade * 0.3);
-  colour += combinedSheen * horizontalFade * vec3(0.025, 0.016, 0.009);
+  colour = mix(colour, pearl, combinedSheen * horizontalFade * 0.46);
+  colour += combinedSheen * horizontalFade * vec3(0.038, 0.026, 0.014);
 
   float grain = hash21(gl_FragCoord.xy + floor(time * 8.0)) - 0.5;
   colour += grain * 0.006;
@@ -259,7 +262,7 @@ export function ServicesHeroLights() {
 
     const resize = () => {
       const bounds = canvas.getBoundingClientRect();
-      const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+      const ratio = Math.min(window.devicePixelRatio || 1, 1.25) * 0.7;
       const width = Math.max(1, Math.round(bounds.width * ratio));
       const height = Math.max(1, Math.round(bounds.height * ratio));
       if (canvas.width !== width || canvas.height !== height) {
