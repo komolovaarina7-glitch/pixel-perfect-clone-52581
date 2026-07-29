@@ -58,6 +58,14 @@ float silkField(vec2 point, vec2 center, vec2 scale, float angle, float distorti
   return dot(local, local);
 }
 
+float silkRibbon(vec2 point, float offset, float frequency, float phase, float time) {
+  float curve =
+    offset +
+    sin(point.x * frequency + phase + time * 0.11) * 0.12 +
+    sin(point.x * (frequency * 0.46) - phase + time * 0.07) * 0.055;
+  return point.y - curve;
+}
+
 void main() {
   vec2 uv = gl_FragCoord.xy / u_resolution.xy;
   vec2 p = uv - 0.5;
@@ -139,13 +147,42 @@ void main() {
     0.5 + 0.5 * sin((field.x * 1.8 + field.y * 3.2 + warp.x * 2.0) * 3.14159),
     10.0
   );
-  colour = mix(colour, pearl, silkHighlight * 0.055);
+  colour = mix(colour, pearl, silkHighlight * 0.045);
+
+  float ribbonA = silkRibbon(field, 0.22, 2.15, 0.4, time);
+  float ribbonB = silkRibbon(field, -0.02, 1.72, 2.3, -time * 0.88);
+  float ribbonC = silkRibbon(field, -0.3, 2.48, 4.1, time * 0.72);
+
+  float foldA = exp(-pow(abs(ribbonA) / 0.17, 2.0));
+  float foldB = exp(-pow(abs(ribbonB) / 0.15, 2.0));
+  float foldC = exp(-pow(abs(ribbonC) / 0.14, 2.0));
+
+  float sheenA = exp(-pow(abs(ribbonA + 0.018) / 0.026, 2.0));
+  float sheenB = exp(-pow(abs(ribbonB - 0.012) / 0.022, 2.0));
+  float sheenC = exp(-pow(abs(ribbonC + 0.016) / 0.024, 2.0));
+
+  float shadeA = exp(-pow(abs(ribbonA - 0.1) / 0.07, 2.0));
+  float shadeB = exp(-pow(abs(ribbonB + 0.085) / 0.065, 2.0));
+  float shadeC = exp(-pow(abs(ribbonC - 0.08) / 0.06, 2.0));
+
+  float horizontalFade = smoothstep(1.05, 0.6, abs(p.x));
+  colour = mix(colour, dustyRose, foldA * horizontalFade * 0.16);
+  colour = mix(colour, champagne, foldB * horizontalFade * 0.18);
+  colour = mix(colour, sand, foldC * horizontalFade * 0.18);
+
+  colour = mix(colour, warmShadow, shadeA * horizontalFade * 0.075);
+  colour = mix(colour, copper, shadeB * horizontalFade * 0.065);
+  colour = mix(colour, warmShadow, shadeC * horizontalFade * 0.06);
+
+  float combinedSheen = max(sheenA, max(sheenB, sheenC));
+  colour = mix(colour, pearl, combinedSheen * horizontalFade * 0.48);
+  colour += combinedSheen * horizontalFade * vec3(0.045, 0.029, 0.016);
 
   float grain = hash21(gl_FragCoord.xy + floor(time * 8.0)) - 0.5;
   colour += grain * 0.006;
 
   float textCalm = exp(-dot(p / vec2(0.76, 0.34), p / vec2(0.76, 0.34)) * 2.0);
-  colour = mix(colour, mix(ivory, warmCream, 0.2), textCalm * 0.23);
+  colour = mix(colour, mix(ivory, warmCream, 0.2), textCalm * 0.13);
 
   gl_FragColor = vec4(clamp(colour, 0.0, 1.0), 1.0);
 }
