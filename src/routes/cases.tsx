@@ -2,8 +2,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { BackToHome } from "@/components/site/BackToHome";
 import { cases } from "@/data/cases";
 import { useLanguage, withoutTerminalDots } from "@/i18n";
+import { getPublishedCases } from "@/lib/api/admin.functions";
+import { mergePublishedCases } from "@/lib/admin/public-content";
 
 export const Route = createFileRoute("/cases")({
+  loader: () => getPublishedCases(),
   head: () => ({
     meta: [
       { title: "Transformation Intelligence Cases — REPOSITION LAB" },
@@ -26,7 +29,8 @@ export const Route = createFileRoute("/cases")({
 
 function Cases() {
   const { t, l } = useLanguage();
-  const visibleCases = cases.filter(
+  const managedCases = Route.useLoaderData();
+  const visibleCases = mergePublishedCases(cases, managedCases).filter(
     (caseStudy) => caseStudy.slug !== "industrial-heritage-slovenia",
   );
 
