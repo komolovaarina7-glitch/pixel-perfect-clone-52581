@@ -9,8 +9,10 @@ import {
 } from "@/components/ui/accordion";
 import { cases, type CaseStudy } from "@/data/cases";
 import { useLanguage, type LocalizedString } from "@/i18n";
+import { getPublishedContent } from "@/lib/api/admin.functions";
 
 export const Route = createFileRoute("/")({
+  loader: () => getPublishedContent(),
   head: () => ({
     meta: [
       {
@@ -135,7 +137,8 @@ const faqItems = [
 ] satisfies Array<{ question: LocalizedString; answer: LocalizedString }>;
 
 function Home() {
-  const { t, l } = useLanguage();
+  const { t, l, language } = useLanguage();
+  const editableContent = Route.useLoaderData();
   const valueProofRef = useRef<HTMLElement>(null);
   const [valueProofLinesVisible, setValueProofLinesVisible] = useState(false);
 
@@ -169,6 +172,14 @@ function Home() {
     .map((path) => t.home.directions.find((direction) => direction.to === path))
     .filter((direction): direction is (typeof t.home.directions)[number] => Boolean(direction));
 
+  const editable = (key: string, fallback: string) => {
+    const item = editableContent.find(
+      (content) => content.group_name === "home" && content.content_key === key,
+    );
+    const value = language === "ru" ? item?.value_ru : item?.value_en;
+    return value?.trim() || fallback;
+  };
+
   return (
     <div>
       <section className="relative flex min-h-[70vh] items-end overflow-hidden bg-background">
@@ -176,16 +187,18 @@ function Home() {
 
         <div className="container-rl relative pb-16 pt-32">
           <p className="eyebrow hero-text-reveal hero-text-reveal-eyebrow page-reveal page-reveal-delay-1 text-accent">
-            {l(t.home.eyebrow)}
+            {editable("hero_eyebrow", l(t.home.eyebrow))}
           </p>
 
           <h1 className="mobile-safe-text serif hero-text-reveal hero-text-reveal-headline page-reveal page-reveal-delay-2 mt-5 max-w-4xl text-3xl leading-[1.05] text-foreground md:text-5xl lg:text-6xl">
-            {l(t.home.headlineStart)}{" "}
-            <em className="not-italic text-accent">{l(t.home.headlineEm)}</em>
+            {editable(
+              "hero_title",
+              [l(t.home.headlineStart), l(t.home.headlineEm)].filter(Boolean).join(" "),
+            )}
           </h1>
 
           <p className="hero-text-reveal hero-text-reveal-subtitle page-reveal page-reveal-delay-3 mt-6 max-w-xl text-sm leading-relaxed text-foreground/75 md:text-base">
-            {l(t.home.intro)}
+            {editable("hero_intro", l(t.home.intro))}
           </p>
         </div>
       </section>
