@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { AnimatedHeroTitle } from "@/components/site/AnimatedHeroTitle";
 import { BackToHome } from "@/components/site/BackToHome";
 import { useLanguage, withoutTerminalDots } from "@/i18n";
 
@@ -58,9 +59,9 @@ function WhoWeAre() {
           </div>
         </div>
         <div className="who-hero-content container-rl">
-          <p className="eyebrow text-accent page-reveal page-reveal-delay-1">{l(t.who.eyebrow)}</p>
-          <h1 className="standard-page-hero-title mobile-safe-text serif mt-6 max-w-4xl text-foreground page-reveal page-reveal-delay-2">
-            {withoutTerminalDots(l(t.who.title))}
+          <p className="internal-hero-eyebrow eyebrow text-accent">{l(t.who.eyebrow)}</p>
+          <h1 className="standard-page-hero-title mobile-safe-text serif mt-6 max-w-4xl text-foreground">
+            <AnimatedHeroTitle>{withoutTerminalDots(l(t.who.title))}</AnimatedHeroTitle>
           </h1>
         </div>
       </header>
