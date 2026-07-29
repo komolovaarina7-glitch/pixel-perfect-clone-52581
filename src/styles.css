@@ -5768,6 +5768,19 @@
   transform: translateX(50%);
 }
 
+.approach-hero::before {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 50%;
+  width: 100vw;
+  height: clamp(5rem, 12vw, 9rem);
+  background: linear-gradient(180deg, #fbfaf7 0%, rgba(251, 250, 247, 0.72) 34%, transparent 100%);
+  content: "";
+  pointer-events: none;
+  transform: translateX(50%);
+}
+
 .approach-aurora {
   position: absolute;
   z-index: 0;

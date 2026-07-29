@@ -1,63 +1,33 @@
 import { useEffect, useRef } from "react";
 
-type Haze = {
-  color: [number, number, number];
+type Star = {
   x: number;
   y: number;
-  radiusX: number;
-  radiusY: number;
+  radius: number;
+  phase: number;
+  speed: number;
   driftX: number;
   driftY: number;
-  phase: number;
-  opacity: number;
+  warmth: number;
 };
 
-const HAZE_FIELDS: Haze[] = [
-  {
-    color: [201, 174, 139],
-    x: 0.16,
-    y: 0.28,
-    radiusX: 0.3,
-    radiusY: 0.2,
-    driftX: 0.035,
-    driftY: 0.022,
-    phase: 0.2,
-    opacity: 0.34,
-  },
-  {
-    color: [201, 164, 155],
-    x: 0.78,
-    y: 0.22,
-    radiusX: 0.27,
-    radiusY: 0.24,
-    driftX: -0.03,
-    driftY: 0.025,
-    phase: 2.4,
-    opacity: 0.3,
-  },
-  {
-    color: [166, 111, 76],
-    x: 0.88,
-    y: 0.7,
-    radiusX: 0.34,
-    radiusY: 0.22,
-    driftX: -0.04,
-    driftY: -0.018,
-    phase: 4.1,
-    opacity: 0.24,
-  },
-  {
-    color: [238, 227, 211],
-    x: 0.36,
-    y: 0.76,
-    radiusX: 0.38,
-    radiusY: 0.27,
-    driftX: 0.025,
-    driftY: -0.024,
-    phase: 5.3,
-    opacity: 0.5,
-  },
-];
+function seededRandom(seed: number) {
+  const value = Math.sin(seed * 12_989.8) * 43_758.5453;
+  return value - Math.floor(value);
+}
+
+function createStars(count: number): Star[] {
+  return Array.from({ length: count }, (_, index) => ({
+    x: seededRandom(index + 11),
+    y: seededRandom(index + 107),
+    radius: 0.4 + seededRandom(index + 211) * 0.8,
+    phase: seededRandom(index + 307) * Math.PI * 2,
+    speed: 0.22 + seededRandom(index + 401) * 0.42,
+    driftX: (seededRandom(index + 503) - 0.5) * 0.012,
+    driftY: (seededRandom(index + 601) - 0.5) * 0.008,
+    warmth: seededRandom(index + 701),
+  }));
+}
 
 export function ApproachAurora() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -67,20 +37,21 @@ export function ApproachAurora() {
     const container = canvas?.parentElement;
     if (!canvas || !container) return;
 
-    const context = canvas.getContext("2d", { alpha: true });
+    const context = canvas.getContext("2d", { alpha: false });
     if (!context) return;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const compact = window.matchMedia("(max-width: 767px)").matches;
-    let width = 0;
-    let height = 0;
+    const compact = window.matchMedia("(max-width: 767px), (pointer: coarse)").matches;
+    const stars = createStars(compact ? 54 : 96);
+    let width = 1;
+    let height = 1;
     let frame = 0;
-    let active = true;
-    let lastFrame = 0;
+    let visible = true;
+    let start = performance.now();
 
     const resize = () => {
       const bounds = container.getBoundingClientRect();
-      const ratio = Math.min(window.devicePixelRatio || 1, compact ? 1 : 1.5);
+      const ratio = Math.min(window.devicePixelRatio || 1, compact ? 1 : 1.25);
       width = Math.max(1, Math.round(bounds.width));
       height = Math.max(1, Math.round(bounds.height));
       canvas.width = Math.round(width * ratio);
@@ -90,184 +61,131 @@ export function ApproachAurora() {
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
     };
 
-    const drawHaze = (time: number, field: Haze, index: number) => {
-      const x =
-        width * (field.x + Math.sin(time * (0.055 + index * 0.008) + field.phase) * field.driftX);
-      const y =
-        height * (field.y + Math.cos(time * (0.048 + index * 0.006) + field.phase) * field.driftY);
-      const radiusX = width * field.radiusX;
-      const radiusY = height * field.radiusY;
-      const [red, green, blue] = field.color;
-
-      context.save();
-      context.translate(x, y);
-      context.rotate(Math.sin(time * 0.035 + field.phase) * 0.12);
-      context.globalCompositeOperation = index === 3 ? "screen" : "source-over";
-
-      for (let lobe = 0; lobe < 4; lobe += 1) {
-        const phase = time * (0.075 + lobe * 0.006) + field.phase + lobe * 1.7;
-        const lobeX = Math.sin(phase) * radiusX * 0.24 + (lobe - 1.5) * radiusX * 0.16;
-        const lobeY = Math.cos(phase * 0.78) * radiusY * 0.2;
-        const lobeRadiusX = radiusX * (0.56 + lobe * 0.07);
-        const lobeRadiusY = radiusY * (0.54 + ((lobe + 1) % 2) * 0.16);
-        const shadow = context.createRadialGradient(0, 0, 0, 0, 0, 1);
-        const gradient = context.createRadialGradient(0, 0, 0, 0, 0, 1);
-        const lobeOpacity = field.opacity * (0.42 - lobe * 0.045);
-        shadow.addColorStop(0, `rgba(92,70,59,${lobeOpacity * 0.2})`);
-        shadow.addColorStop(0.48, `rgba(166,111,76,${lobeOpacity * 0.11})`);
-        shadow.addColorStop(1, "rgba(92,70,59,0)");
-        gradient.addColorStop(0, `rgba(255,252,246,${lobeOpacity * 1.18})`);
-        gradient.addColorStop(0.2, `rgba(${red},${green},${blue},${lobeOpacity})`);
-        gradient.addColorStop(0.48, `rgba(${red},${green},${blue},${lobeOpacity * 0.55})`);
-        gradient.addColorStop(0.72, `rgba(${red},${green},${blue},${lobeOpacity * 0.18})`);
-        gradient.addColorStop(1, `rgba(${red},${green},${blue},0)`);
-
-        context.save();
-        context.translate(lobeX, lobeY);
-        context.scale(lobeRadiusX, lobeRadiusY);
-        context.fillStyle = shadow;
-        context.beginPath();
-        context.arc(0.08, 0.15, 1.08, 0, Math.PI * 2);
-        context.fill();
-        context.fillStyle = gradient;
-        context.beginPath();
-        context.arc(-0.08, -0.1, 1, 0, Math.PI * 2);
-        context.fill();
-        context.restore();
-      }
-      context.restore();
-    };
-
-    const drawBeam = (
-      time: number,
-      offset: number,
-      thickness: number,
-      opacity: number,
-      speed: number,
+    const drawMist = (
+      x: number,
+      y: number,
+      radius: number,
+      color: string,
+      middleOpacity: number,
     ) => {
-      const travel = Math.sin(time * speed + offset * 8) * height * 0.025;
-      const startX = -width * 0.12;
-      const startY = height * (0.08 + offset) + travel;
-      const endX = width * 1.12;
-      const endY = height * (0.48 + offset * 0.42) + travel;
-      const bend = Math.sin(time * speed * 0.7 + offset * 11) * thickness * 0.18;
-      const gradient = context.createLinearGradient(startX, startY, endX, endY);
-      gradient.addColorStop(0, "rgba(255,252,246,0)");
-      gradient.addColorStop(0.18, `rgba(255,250,240,${opacity * 0.3})`);
-      gradient.addColorStop(0.52, `rgba(224,203,177,${opacity})`);
-      gradient.addColorStop(0.78, `rgba(180,132,101,${opacity * 0.3})`);
-      gradient.addColorStop(1, "rgba(166,111,76,0)");
-
-      context.save();
-      context.filter = `blur(${compact ? 10 : 18}px)`;
-      context.shadowColor = `rgba(92,70,59,${opacity * 0.18})`;
-      context.shadowBlur = compact ? 12 : 24;
+      const gradient = context.createRadialGradient(x, y, 0, x, y, radius);
+      gradient.addColorStop(0, color.replace("ALPHA", String(middleOpacity * 1.18)));
+      gradient.addColorStop(0.32, color.replace("ALPHA", String(middleOpacity)));
+      gradient.addColorStop(0.68, color.replace("ALPHA", String(middleOpacity * 0.36)));
+      gradient.addColorStop(1, color.replace("ALPHA", "0"));
       context.fillStyle = gradient;
-      context.beginPath();
-      context.moveTo(startX, startY - thickness * 0.66);
-      context.bezierCurveTo(
-        width * 0.25,
-        startY - thickness + bend,
-        width * 0.68,
-        endY - thickness * 0.42 - bend,
-        endX,
-        endY - thickness * 0.16,
-      );
-      context.bezierCurveTo(
-        width * 0.72,
-        endY + thickness * 0.36 + bend,
-        width * 0.22,
-        startY + thickness * 0.82 - bend,
-        startX,
-        startY + thickness * 0.66,
-      );
-      context.closePath();
-      context.fill();
-
-      context.filter = `blur(${compact ? 3 : 6}px)`;
-      context.shadowBlur = 0;
-      context.globalAlpha = 0.5;
-      context.beginPath();
-      context.moveTo(startX, startY - thickness * 0.08);
-      context.bezierCurveTo(
-        width * 0.3,
-        startY - thickness * 0.2 + bend,
-        width * 0.7,
-        endY - thickness * 0.1 - bend,
-        endX,
-        endY,
-      );
-      context.bezierCurveTo(
-        width * 0.66,
-        endY + thickness * 0.09,
-        width * 0.28,
-        startY + thickness * 0.14,
-        startX,
-        startY + thickness * 0.08,
-      );
-      context.closePath();
-      context.fill();
-      context.restore();
+      context.fillRect(x - radius, y - radius, radius * 2, radius * 2);
     };
 
-    const drawLightSource = (time: number) => {
-      const x = width * (0.1 + Math.sin(time * 0.045) * 0.018);
-      const y = height * (0.15 + Math.cos(time * 0.04) * 0.018);
-      const radius = Math.max(width, height) * 0.38;
-      const glow = context.createRadialGradient(x, y, 0, x, y, radius);
-      glow.addColorStop(0, "rgba(255,254,250,0.92)");
-      glow.addColorStop(0.16, "rgba(255,248,235,0.38)");
-      glow.addColorStop(0.54, "rgba(238,227,211,0.12)");
-      glow.addColorStop(1, "rgba(238,227,211,0)");
-      context.fillStyle = glow;
+    const render = (now: number) => {
+      const time = reducedMotion ? 0 : (now - start) / 1000;
+      const base = context.createLinearGradient(0, 0, 0, height);
+      base.addColorStop(0, "#f8f4ed");
+      base.addColorStop(0.48, "#f6f1e8");
+      base.addColorStop(1, "#f3eadf");
+      context.fillStyle = base;
       context.fillRect(0, 0, width, height);
-    };
 
-    const render = (timestamp = 0) => {
-      const time = timestamp * 0.001;
-      context.clearRect(0, 0, width, height);
       context.globalCompositeOperation = "source-over";
-      HAZE_FIELDS.slice(0, compact ? 3 : 4).forEach((field, index) => drawHaze(time, field, index));
-      drawLightSource(time);
-      context.globalCompositeOperation = "multiply";
-      drawBeam(time, 0.04, height * 0.12, 0.18, 0.07);
-      context.globalCompositeOperation = "soft-light";
-      drawBeam(time, 0.18, height * 0.052, 0.3, 0.09);
-      drawBeam(time, 0.3, height * 0.018, 0.42, 0.11);
-      if (!compact) {
-        drawBeam(time, 0.38, height * 0.009, 0.38, 0.08);
-      }
-      context.globalAlpha = 1;
-      context.globalCompositeOperation = "source-over";
-    };
+      drawMist(
+        width * (0.2 + Math.sin(time * 0.055) * 0.1),
+        height * (-0.02 + Math.cos(time * 0.043) * 0.035),
+        Math.max(width * 0.58, height * 0.72),
+        "rgba(201,174,139,ALPHA)",
+        0.2,
+      );
+      drawMist(
+        width * (0.82 + Math.cos(time * 0.048) * 0.09),
+        height * (0.06 + Math.sin(time * 0.039) * 0.04),
+        Math.max(width * 0.48, height * 0.62),
+        "rgba(201,164,155,ALPHA)",
+        0.16,
+      );
+      drawMist(
+        width * (0.28 + Math.cos(time * 0.044) * 0.12),
+        height * (1.04 + Math.sin(time * 0.036) * 0.045),
+        Math.max(width * 0.62, height * 0.76),
+        "rgba(215,192,165,ALPHA)",
+        0.24,
+      );
+      drawMist(
+        width * (0.86 + Math.sin(time * 0.051) * 0.08),
+        height * (0.96 + Math.cos(time * 0.041) * 0.04),
+        Math.max(width * 0.46, height * 0.58),
+        "rgba(166,111,76,ALPHA)",
+        0.11,
+      );
 
-    const animate = (timestamp: number) => {
-      if (!active) return;
-      if (timestamp - lastFrame >= (compact ? 42 : 30)) {
-        render(timestamp);
-        lastFrame = timestamp;
-      }
-      frame = requestAnimationFrame(animate);
+      context.globalCompositeOperation = "source-over";
+      stars.forEach((star, index) => {
+        const twinkle = 0.5 + Math.sin(time * star.speed + star.phase) * 0.5;
+        const pulse = 0.22 + twinkle * 0.66;
+        const x = ((star.x + time * star.driftX + 1) % 1) * width;
+        const y = ((star.y + time * star.driftY + 1) % 1) * height;
+        const radius = star.radius * (0.86 + twinkle * 0.2);
+        const color =
+          star.warmth > 0.7
+            ? `rgba(166,111,76,${pulse * 0.76})`
+            : star.warmth > 0.38
+              ? `rgba(184,137,73,${pulse * 0.66})`
+              : `rgba(145,113,91,${pulse * 0.54})`;
+
+        if (index % 19 === 0) {
+          const glow = context.createRadialGradient(x, y, 0, x, y, radius * 3.4);
+          glow.addColorStop(0, `rgba(255,248,232,${pulse * 0.72})`);
+          glow.addColorStop(0.2, `rgba(201,174,139,${pulse * 0.24})`);
+          glow.addColorStop(1, "rgba(201,174,139,0)");
+          context.fillStyle = glow;
+          context.beginPath();
+          context.arc(x, y, radius * 3.4, 0, Math.PI * 2);
+          context.fill();
+        }
+
+        context.fillStyle = color;
+        context.beginPath();
+        context.arc(x, y, radius, 0, Math.PI * 2);
+        context.fill();
+
+        context.fillStyle = `rgba(255,253,247,${0.35 + pulse * 0.42})`;
+        context.beginPath();
+        context.arc(x, y, Math.max(0.32, radius * 0.34), 0, Math.PI * 2);
+        context.fill();
+
+        if (index % 19 === 0) {
+          context.strokeStyle = `rgba(184,137,73,${pulse * 0.58})`;
+          context.lineWidth = 0.45;
+          context.beginPath();
+          context.moveTo(x - radius * 3.2, y);
+          context.lineTo(x + radius * 3.2, y);
+          context.moveTo(x, y - radius * 3.2);
+          context.lineTo(x, y + radius * 3.2);
+          context.stroke();
+        }
+      });
+      context.globalCompositeOperation = "source-over";
+
+      if (!reducedMotion && visible) frame = requestAnimationFrame(render);
     };
 
     const resizeObserver = new ResizeObserver(() => {
       resize();
-      render(lastFrame);
+      start = performance.now();
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(render);
     });
     const visibilityObserver = new IntersectionObserver(([entry]) => {
-      active = entry.isIntersecting;
+      visible = entry?.isIntersecting ?? true;
       cancelAnimationFrame(frame);
-      if (active && !reducedMotion) frame = requestAnimationFrame(animate);
+      if (visible && !reducedMotion) frame = requestAnimationFrame(render);
     });
 
     resize();
-    render();
     resizeObserver.observe(container);
     visibilityObserver.observe(canvas);
-    if (!reducedMotion) frame = requestAnimationFrame(animate);
+    frame = requestAnimationFrame(render);
 
     return () => {
-      active = false;
+      visible = false;
       cancelAnimationFrame(frame);
       resizeObserver.disconnect();
       visibilityObserver.disconnect();

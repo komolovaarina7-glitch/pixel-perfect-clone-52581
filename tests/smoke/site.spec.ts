@@ -220,6 +220,25 @@ test("services hero renders non-interactive volumetric lights behind its complet
   expect(runtimeErrors).toEqual([]);
 });
 
+test("approach hero renders its star field without hiding motion-sensitive content", async ({
+  page,
+}) => {
+  const runtimeErrors = captureRuntimeErrors(page);
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/approach");
+  await waitForHydration(page);
+
+  const hero = page.locator(".approach-hero");
+  const starField = hero.locator(".approach-aurora");
+
+  await expect(starField).toHaveAttribute("aria-hidden", "true");
+  await expect(starField).toHaveCSS("pointer-events", "none");
+  await expect(starField).toHaveCSS("animation-name", "none");
+  await expect(hero.locator("h1")).toContainText("A five-stage institutional method");
+  await expect(starField).toBeVisible();
+  expect(runtimeErrors).toEqual([]);
+});
+
 test("internal hero titles stay centered and preserve whole words on mobile", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/selected-thinking");
