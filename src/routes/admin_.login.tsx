@@ -60,8 +60,8 @@ function AdminLogin() {
 
         {!configured ? (
           <div className="mt-7 rounded-2xl border border-amber-300/20 bg-amber-300/10 p-4 text-sm leading-6 text-amber-100">
-            Админ‑панель готова, но база данных пока не включена. После подключения Supabase
-            вход станет доступен.
+            Админ‑панель готова, но база данных пока не включена. После подключения Supabase вход
+            станет доступен.
           </div>
         ) : null}
 
@@ -104,10 +104,7 @@ function AdminLogin() {
             {busy ? "Входим…" : "Войти"}
           </button>
         </form>
-        <a
-          href="/"
-          className="mt-6 inline-flex text-sm text-white/50 transition hover:text-white"
-        >
+        <a href="/" className="mt-6 inline-flex text-sm text-white/50 transition hover:text-white">
           ← Вернуться на сайт
         </a>
       </div>
