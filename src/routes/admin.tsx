@@ -68,9 +68,7 @@ function AdminPage() {
   const [tab, setTab] = useState<Tab>("overview");
   const [mobileMenu, setMobileMenu] = useState(false);
   const [busy, setBusy] = useState("");
-  const [notice, setNotice] = useState<{ type: "success" | "error"; text: string } | null>(
-    null,
-  );
+  const [notice, setNotice] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   if (!result.ok) {
     return (
@@ -207,11 +205,7 @@ function AdminPage() {
             <MediaSection data={data.media} busy={busy} runAction={runAction} />
           ) : null}
           {tab === "submissions" ? (
-            <SubmissionsSection
-              data={data.submissions}
-              busy={busy}
-              runAction={runAction}
-            />
+            <SubmissionsSection data={data.submissions} busy={busy} runAction={runAction} />
           ) : null}
           {tab === "users" ? (
             <UsersSection data={data.users} busy={busy} runAction={runAction} />
@@ -1057,7 +1051,8 @@ function UsersSection({
               <div className="min-w-0">
                 <p className="truncate text-sm font-semibold">{user.email}</p>
                 <p className="text-xs text-slate-500">
-                  Последний вход: {user.lastSignInAt ? formatDate(user.lastSignInAt) : "ещё не входил"}
+                  Последний вход:{" "}
+                  {user.lastSignInAt ? formatDate(user.lastSignInAt) : "ещё не входил"}
                 </p>
               </div>
             </div>
