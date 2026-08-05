@@ -8,12 +8,20 @@ import { FallingLeaves } from "@/components/site/FallingLeaves";
 import { MountainLineDrawing } from "@/components/site/MountainLineDrawing";
 import { cases } from "@/data/cases";
 import { useLanguage } from "@/i18n";
+import { getPublishedCases, getPublishedContent } from "@/lib/api/admin.functions";
+import { applyManagedCaseContent, mergePublishedCases } from "@/lib/admin/public-content";
 
 export const Route = createFileRoute("/cases_/$slug")({
-  loader: ({ params }) => {
-    const caseStudy = cases.find((item) => item.slug === params.slug);
-    if (!caseStudy) throw notFound();
-    return caseStudy;
+  loader: async ({ params }) => {
+    const [managedCases, managedContent] = await Promise.all([
+      getPublishedCases(),
+      getPublishedContent(),
+    ]);
+    const baseCaseStudy = mergePublishedCases(cases, managedCases).find(
+      (item) => item.slug === params.slug,
+    );
+    if (!baseCaseStudy) throw notFound();
+    return applyManagedCaseContent(baseCaseStudy, managedContent);
   },
   head: ({ loaderData }) => ({
     meta: loaderData
