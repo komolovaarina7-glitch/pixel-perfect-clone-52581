@@ -1,4 +1,4 @@
-import { useSession } from "@tanstack/react-start/server";
+import { useSession as createServerSession } from "@tanstack/react-start/server";
 
 export type AdminSessionData = {
   accessToken?: string;
@@ -7,13 +7,13 @@ export type AdminSessionData = {
   userId?: string;
 };
 
-export function useAdminSession() {
+export function getAdminSessionStore() {
   const password = process.env.ADMIN_SESSION_SECRET;
   if (!password || password.length < 32) {
     throw new Error("ADMIN_SESSION_SECRET must contain at least 32 characters.");
   }
 
-  return useSession<AdminSessionData>({
+  return createServerSession<AdminSessionData>({
     name: "reposition-lab-admin",
     password,
     maxAge: 60 * 60 * 24 * 7,
