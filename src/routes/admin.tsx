@@ -441,7 +441,11 @@ function ContentSection({
     >
       <div className="mb-5 grid gap-3 rounded-2xl border border-slate-200 bg-white p-4 sm:grid-cols-2">
         <Field label="Раздел сайта">
-          <select value={group} onChange={(event) => setGroup(event.target.value)} className={controlClass}>
+          <select
+            value={group}
+            onChange={(event) => setGroup(event.target.value)}
+            className={controlClass}
+          >
             <option value="all">Все разделы</option>
             {groups.map((value) => (
               <option key={value} value={value}>
@@ -464,7 +468,9 @@ function ContentSection({
           <ContentEditor key={item.id} item={item} busy={busy} runAction={runAction} />
         ))}
         {!data.length ? <Empty text="Текстовые блоки появятся после подключения базы." /> : null}
-        {data.length && !visibleItems.length ? <Empty text="В этом разделе ничего не найдено." /> : null}
+        {data.length && !visibleItems.length ? (
+          <Empty text="В этом разделе ничего не найдено." />
+        ) : null}
       </div>
     </Section>
   );
