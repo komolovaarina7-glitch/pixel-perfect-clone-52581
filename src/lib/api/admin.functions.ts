@@ -18,7 +18,7 @@ import {
   signInWithPassword,
   uploadMediaObject,
 } from "@/lib/admin/supabase.server";
-import { useAdminSession } from "@/lib/admin/session.server";
+import { getAdminSessionStore } from "@/lib/admin/session.server";
 import type {
   AdminCaseStudy,
   AdminPanelData,
@@ -65,7 +65,12 @@ const caseSchema = z.object({
 });
 
 const settingSchema = z.object({
-  key: z.string().trim().min(2).max(120).regex(/^[a-z0-9_]+$/),
+  key: z
+    .string()
+    .trim()
+    .min(2)
+    .max(120)
+    .regex(/^[a-z0-9_]+$/),
   label: z.string().trim().min(2).max(160),
   value: z.string().max(5_000),
 });
@@ -126,7 +131,7 @@ async function verifyAdmin() {
 
   let session;
   try {
-    session = await useAdminSession();
+    session = await getAdminSessionStore();
   } catch {
     return { ok: false as const, code: "not_configured" as const };
   }
@@ -192,7 +197,7 @@ export const loginAdmin = createServerFn({ method: "POST" })
       if (!auth.user.email || !isAllowedAdmin(auth.user)) {
         return forbiddenResponse("forbidden");
       }
-      const session = await useAdminSession();
+      const session = await getAdminSessionStore();
       await session.update({
         accessToken: auth.access_token,
         refreshToken: auth.refresh_token,
@@ -208,7 +213,7 @@ export const loginAdmin = createServerFn({ method: "POST" })
 
 export const logoutAdmin = createServerFn({ method: "POST" }).handler(async () => {
   try {
-    const session = await useAdminSession();
+    const session = await getAdminSessionStore();
     await session.clear();
   } catch {
     // A missing session secret is already surfaced on the login screen.
@@ -362,12 +367,7 @@ export const uploadMedia = createServerFn({ method: "POST" })
         .replace(/^-+|-+$/g, "")
         .slice(0, 80) || "image";
     const storagePath = `${new Date().toISOString().slice(0, 10)}/${safeStem}-${randomUUID()}.${extension}`;
-    const publicUrl = await uploadMediaObject(
-      auth.config,
-      storagePath,
-      bytes,
-      data.mimeType,
-    );
+    const publicUrl = await uploadMediaObject(auth.config, storagePath, bytes, data.mimeType);
 
     await restUpsert(
       auth.config,
