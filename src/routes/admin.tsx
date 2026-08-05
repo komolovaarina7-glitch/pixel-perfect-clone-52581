@@ -406,16 +406,71 @@ function ContentSection({
   busy: string;
   runAction: RunAction;
 }) {
+  const [group, setGroup] = useState("home");
+  const [search, setSearch] = useState("");
+  const groups = useMemo(() => Array.from(new Set(data.map((item) => item.group_name))), [data]);
+  const visibleItems = useMemo(() => {
+    const query = search.trim().toLowerCase();
+    return data.filter((item) => {
+      if (group !== "all" && item.group_name !== group) return false;
+      if (!query) return true;
+      return [item.label, item.content_key, item.value_en, item.value_ru].some((value) =>
+        value.toLowerCase().includes(query),
+      );
+    });
+  }, [data, group, search]);
+  const groupLabel = (value: string) => {
+    const labels: Record<string, string> = {
+      common: "Общие кнопки и подписи",
+      header: "Шапка и меню",
+      footer: "Подвал сайта",
+      home: "Главная",
+      who: "Кто мы",
+      services: "Услуги",
+      cases: "Страница кейсов",
+      approach: "Подход",
+    };
+    if (value.startsWith("case-")) return `Кейс: ${value.slice(5)}`;
+    return labels[value] ?? value;
+  };
+
   return (
     <Section
       title="Контент сайта"
       description="Редактируйте английскую и русскую версии. Изменение появится после сохранения."
     >
+      <div className="mb-5 grid gap-3 rounded-2xl border border-slate-200 bg-white p-4 sm:grid-cols-2">
+        <Field label="Раздел сайта">
+          <select
+            value={group}
+            onChange={(event) => setGroup(event.target.value)}
+            className={controlClass}
+          >
+            <option value="all">Все разделы</option>
+            {groups.map((value) => (
+              <option key={value} value={value}>
+                {groupLabel(value)}
+              </option>
+            ))}
+          </select>
+        </Field>
+        <Field label="Найти текст">
+          <input
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Введите слово или фразу"
+            className={controlClass}
+          />
+        </Field>
+      </div>
       <div className="space-y-4">
-        {data.map((item) => (
+        {visibleItems.map((item) => (
           <ContentEditor key={item.id} item={item} busy={busy} runAction={runAction} />
         ))}
         {!data.length ? <Empty text="Текстовые блоки появятся после подключения базы." /> : null}
+        {data.length && !visibleItems.length ? (
+          <Empty text="В этом разделе ничего не найдено." />
+        ) : null}
       </div>
     </Section>
   );

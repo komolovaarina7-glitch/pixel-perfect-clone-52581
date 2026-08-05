@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { AnimatedHeroBackground } from "@/components/site/AnimatedHeroBackground";
 import {
   Accordion,
@@ -9,10 +9,9 @@ import {
 } from "@/components/ui/accordion";
 import { cases, type CaseStudy } from "@/data/cases";
 import { useLanguage, type LocalizedString } from "@/i18n";
-import { getPublishedContent } from "@/lib/api/admin.functions";
+import { setImageEdgeGlow } from "@/lib/imageEdgeGlow";
 
 export const Route = createFileRoute("/")({
-  loader: () => getPublishedContent(),
   head: () => ({
     meta: [
       {
@@ -136,9 +135,49 @@ const faqItems = [
   },
 ] satisfies Array<{ question: LocalizedString; answer: LocalizedString }>;
 
+function AnimatedHeadline({ primary, accent }: { primary: string; accent: string }) {
+  const fullText = accent ? `${primary} ${accent}` : primary;
+  let letterIndex = 0;
+
+  const renderWords = (text: string, isAccent = false) =>
+    text.split(/(\s+)/).map((part, partIndex) => {
+      if (/^\s+$/.test(part)) {
+        return <span key={`space-${partIndex}`}> </span>;
+      }
+
+      return (
+        <span
+          aria-hidden="true"
+          className={`home-hero-word${isAccent ? " text-accent" : ""}`}
+          key={`${part}-${partIndex}`}
+        >
+          {Array.from(part).map((character) => {
+            const currentIndex = letterIndex++;
+            return (
+              <span
+                className="home-hero-letter"
+                key={`${character}-${currentIndex}`}
+                style={{ "--letter-index": currentIndex } as CSSProperties}
+              >
+                {character}
+              </span>
+            );
+          })}
+        </span>
+      );
+    });
+
+  return (
+    <span aria-label={fullText}>
+      {renderWords(primary)}
+      {accent && <span aria-hidden="true"> </span>}
+      {accent && renderWords(accent, true)}
+    </span>
+  );
+}
+
 function Home() {
-  const { t, l, language } = useLanguage();
-  const editableContent = Route.useLoaderData();
+  const { t, l } = useLanguage();
   const valueProofRef = useRef<HTMLElement>(null);
   const [valueProofLinesVisible, setValueProofLinesVisible] = useState(false);
 
@@ -157,7 +196,7 @@ function Home() {
         setValueProofLinesVisible(true);
         observer.disconnect();
       },
-      { threshold: 0.22, rootMargin: "0px 0px -8% 0px" },
+      { threshold: 0.3, rootMargin: "0px 0px -15% 0px" },
     );
 
     observer.observe(section);
@@ -172,33 +211,35 @@ function Home() {
     .map((path) => t.home.directions.find((direction) => direction.to === path))
     .filter((direction): direction is (typeof t.home.directions)[number] => Boolean(direction));
 
-  const editable = (key: string, fallback: string) => {
-    const item = editableContent.find(
-      (content) => content.group_name === "home" && content.content_key === key,
-    );
-    const value = language === "ru" ? item?.value_ru : item?.value_en;
-    return value?.trim() || fallback;
-  };
+  const heroEyebrow = l(t.home.eyebrow);
+  const heroHeadlineStart = l(t.home.headlineStart);
+  const heroHeadlineAccent = l(t.home.headlineEm);
+  const heroIntro = l(t.home.intro);
+  const heroHeadlineLength = Array.from(
+    [heroHeadlineStart, heroHeadlineAccent].filter(Boolean).join(" "),
+  ).length;
 
   return (
     <div>
-      <section className="relative flex min-h-[70vh] items-end overflow-hidden bg-background">
+      <section className="home-hero relative flex min-h-[70vh] overflow-hidden bg-background">
         <AnimatedHeroBackground />
 
-        <div className="container-rl relative pb-16 pt-32">
-          <p className="eyebrow hero-text-reveal hero-text-reveal-eyebrow page-reveal page-reveal-delay-1 text-accent">
-            {editable("hero_eyebrow", l(t.home.eyebrow))}
-          </p>
+        <div className="home-hero-content container-rl relative">
+          <p className="home-hero-eyebrow eyebrow text-accent">{heroEyebrow}</p>
 
-          <h1 className="mobile-safe-text serif hero-text-reveal hero-text-reveal-headline page-reveal page-reveal-delay-2 mt-5 max-w-4xl text-3xl leading-[1.05] text-foreground md:text-5xl lg:text-6xl">
-            {editable(
-              "hero_title",
-              [l(t.home.headlineStart), l(t.home.headlineEm)].filter(Boolean).join(" "),
-            )}
+          <h1 className="home-hero-headline mobile-safe-text serif text-foreground">
+            <AnimatedHeadline primary={heroHeadlineStart} accent={heroHeadlineAccent} />
           </h1>
 
-          <p className="hero-text-reveal hero-text-reveal-subtitle page-reveal page-reveal-delay-3 mt-6 max-w-xl text-sm leading-relaxed text-foreground/75 md:text-base">
-            {editable("hero_intro", l(t.home.intro))}
+          <p
+            className="home-hero-subtitle text-foreground/80"
+            style={
+              {
+                "--hero-subtitle-delay": `${Math.min(4400, 950 + heroHeadlineLength * 26)}ms`,
+              } as CSSProperties
+            }
+          >
+            {heroIntro}
           </p>
         </div>
       </section>
@@ -308,15 +349,18 @@ function Home() {
                 params={{ slug: caseStudy.slug }}
                 className="group block"
               >
-                <div className="aspect-[4/3] overflow-hidden border border-rule bg-muted">
-                  <img
-                    src={caseStudy.img}
-                    alt={l(caseStudy.title)}
-                    loading="lazy"
-                    width={1280}
-                    height={960}
-                    className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
-                  />
+                <div className="case-image-glow">
+                  <div className="case-image-frame aspect-[4/3] overflow-hidden border border-rule bg-muted">
+                    <img
+                      src={caseStudy.img}
+                      alt={l(caseStudy.title)}
+                      loading="lazy"
+                      width={1280}
+                      height={960}
+                      className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
+                      onLoad={setImageEdgeGlow}
+                    />
+                  </div>
                 </div>
 
                 <div className="mt-4 flex items-baseline justify-between gap-3">

@@ -12,12 +12,16 @@ import {
   loadAdminPanelData,
   refreshAuthSession,
   restDelete,
+  restInsertDefaults,
   restList,
   restUpsert,
   revokeAdmin,
   signInWithPassword,
   uploadMediaObject,
 } from "@/lib/admin/supabase.server";
+import { cases as defaultCases } from "@/data/cases";
+import { getDefaultSiteContent } from "@/i18n";
+import { getDefaultCaseContent } from "@/lib/admin/public-content";
 import { getAdminSessionStore } from "@/lib/admin/session.server";
 import type {
   AdminCaseStudy,
@@ -93,6 +97,8 @@ const mediaUploadSchema = z.object({
   altEn: z.string().trim().max(500),
   altRu: z.string().trim().max(500),
 });
+
+const legacyHomeContentKeys = new Set(["hero_eyebrow", "hero_title", "hero_intro"]);
 
 function matchesImageSignature(
   bytes: Uint8Array,
@@ -226,6 +232,35 @@ export const getAdminPanelData = createServerFn({ method: "GET" }).handler(async
   if (!auth.ok) return forbiddenResponse(auth.code);
 
   try {
+    await Promise.all([
+      restInsertDefaults(
+        auth.config,
+        "site_content",
+        [...getDefaultSiteContent(), ...getDefaultCaseContent()],
+        "group_name,content_key",
+      ),
+      restInsertDefaults(
+        auth.config,
+        "case_studies",
+        defaultCases.map((item, index) => ({
+          slug: item.slug,
+          title_en: item.title.en,
+          title_ru: item.title.ru,
+          theme_en: item.theme.en,
+          theme_ru: item.theme.ru,
+          challenge_en: item.challenge.en,
+          challenge_ru: item.challenge.ru,
+          logic_en: item.logic.en,
+          logic_ru: item.logic.ru,
+          direction_en: item.direction.en,
+          direction_ru: item.direction.ru,
+          image_url: item.img,
+          published: true,
+          sort_order: index,
+        })),
+        "slug",
+      ),
+    ]);
     const data = await loadAdminPanelData(auth.config);
     return {
       ok: true as const,
@@ -233,6 +268,9 @@ export const getAdminPanelData = createServerFn({ method: "GET" }).handler(async
         configured: true,
         currentUser: { email: auth.user.email ?? "" },
         ...data,
+        content: data.content.filter(
+          (item) => item.group_name !== "home" || !legacyHomeContentKeys.has(item.content_key),
+        ),
       } satisfies AdminPanelData,
     };
   } catch (error) {

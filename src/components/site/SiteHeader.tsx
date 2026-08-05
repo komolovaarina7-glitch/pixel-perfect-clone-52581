@@ -140,18 +140,22 @@ export function SiteHeader() {
             </button>
           </div>
         </div>
-        {isMenuOpen ? (
-          <nav
-            id="mobile-navigation"
-            className="container-rl max-h-[calc(100vh-4rem)] overflow-y-auto border-t border-rule bg-background py-3 lg:hidden"
-            aria-label="Mobile navigation"
-          >
-            <div className="flex flex-col">
+        <nav
+          id="mobile-navigation"
+          className={`mobile-navigation-shell container-rl lg:hidden ${
+            isMenuOpen ? "mobile-navigation-shell--open" : ""
+          }`}
+          aria-label="Mobile navigation"
+          aria-hidden={!isMenuOpen}
+        >
+          <div className="mobile-navigation-clip">
+            <div className="mobile-navigation-list flex flex-col">
               {mobileNav.map((n) => (
                 <Link
                   key={n.to}
                   to={n.to}
-                  className="mobile-safe-text min-h-12 border-b border-rule/70 px-1 py-4 text-[13px] uppercase tracking-[0.14em] text-foreground transition-colors hover:text-accent sm:tracking-[0.16em]"
+                  tabIndex={isMenuOpen ? undefined : -1}
+                  className="mobile-navigation-link mobile-safe-text min-h-12 border-b border-rule/70 px-1 py-4 text-[13px] uppercase tracking-[0.14em] text-foreground hover:text-accent sm:tracking-[0.16em]"
                   activeProps={{ className: "text-accent font-semibold" }}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -159,8 +163,8 @@ export function SiteHeader() {
                 </Link>
               ))}
             </div>
-          </nav>
-        ) : null}
+          </div>
+        </nav>
       </div>
     </header>
   );

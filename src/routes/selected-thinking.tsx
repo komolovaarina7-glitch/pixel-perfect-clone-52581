@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { AnimatedHeroTitle } from "@/components/site/AnimatedHeroTitle";
 import { BackToHome } from "@/components/site/BackToHome";
 import { useLanguage, withoutTerminalDots, type LocalizedString } from "@/i18n";
 
@@ -147,11 +148,11 @@ function Thinking() {
     <article className="thinking-page">
       <BackToHome />
       <header className="container-rl thinking-hero standard-page-hero standard-page-hero-content">
-        <p className="eyebrow text-accent page-reveal page-reveal-delay-1">{l(page.eyebrow)}</p>
-        <h1 className="standard-page-hero-title mobile-safe-text serif mt-6 max-w-4xl text-foreground page-reveal page-reveal-delay-2">
-          {withoutTerminalDots(l(page.title))}
+        <p className="internal-hero-eyebrow eyebrow text-accent">{l(page.eyebrow)}</p>
+        <h1 className="standard-page-hero-title mobile-safe-text serif mt-6 max-w-4xl text-foreground">
+          <AnimatedHeroTitle>{withoutTerminalDots(l(page.title))}</AnimatedHeroTitle>
         </h1>
-        <p className="thinking-hero-intro page-reveal page-reveal-delay-3">{l(page.intro)}</p>
+        <p className="internal-hero-subtitle thinking-hero-intro">{l(page.intro)}</p>
       </header>
 
       <section>

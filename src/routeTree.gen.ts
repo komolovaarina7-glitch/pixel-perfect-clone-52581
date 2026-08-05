@@ -92,7 +92,6 @@ const AdminLoginRoute = AdminLoginRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/admin/login': typeof AdminLoginRoute
   '/approach': typeof ApproachRoute
   '/cases': typeof CasesRoute
   '/contact': typeof ContactRoute
@@ -102,12 +101,12 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/submit': typeof SubmitRoute
   '/who-we-are': typeof WhoWeAreRoute
+  '/admin/login': typeof AdminLoginRoute
   '/cases/$slug': typeof CasesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/admin/login': typeof AdminLoginRoute
   '/approach': typeof ApproachRoute
   '/cases': typeof CasesRoute
   '/contact': typeof ContactRoute
@@ -117,13 +116,13 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/submit': typeof SubmitRoute
   '/who-we-are': typeof WhoWeAreRoute
+  '/admin/login': typeof AdminLoginRoute
   '/cases/$slug': typeof CasesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
-  '/admin_/login': typeof AdminLoginRoute
   '/approach': typeof ApproachRoute
   '/cases': typeof CasesRoute
   '/contact': typeof ContactRoute
@@ -133,6 +132,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/submit': typeof SubmitRoute
   '/who-we-are': typeof WhoWeAreRoute
+  '/admin_/login': typeof AdminLoginRoute
   '/cases_/$slug': typeof CasesSlugRoute
 }
 export interface FileRouteTypes {
@@ -140,7 +140,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
-    | '/admin/login'
     | '/approach'
     | '/cases'
     | '/contact'
@@ -150,12 +149,12 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/submit'
     | '/who-we-are'
+    | '/admin/login'
     | '/cases/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/admin'
-    | '/admin/login'
     | '/approach'
     | '/cases'
     | '/contact'
@@ -165,12 +164,12 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/submit'
     | '/who-we-are'
+    | '/admin/login'
     | '/cases/$slug'
   id:
     | '__root__'
     | '/'
     | '/admin'
-    | '/admin_/login'
     | '/approach'
     | '/cases'
     | '/contact'
@@ -180,13 +179,13 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/submit'
     | '/who-we-are'
+    | '/admin_/login'
     | '/cases_/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
-  AdminLoginRoute: typeof AdminLoginRoute
   ApproachRoute: typeof ApproachRoute
   CasesRoute: typeof CasesRoute
   ContactRoute: typeof ContactRoute
@@ -196,25 +195,12 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SubmitRoute: typeof SubmitRoute
   WhoWeAreRoute: typeof WhoWeAreRoute
+  AdminLoginRoute: typeof AdminLoginRoute
   CasesSlugRoute: typeof CasesSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin_/login': {
-      id: '/admin_/login'
-      path: '/admin/login'
-      fullPath: '/admin/login'
-      preLoaderRoute: typeof AdminLoginRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/who-we-are': {
       id: '/who-we-are'
       path: '/who-we-are'
@@ -278,6 +264,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApproachRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -292,13 +285,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CasesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin_/login': {
+      id: '/admin_/login'
+      path: '/admin/login'
+      fullPath: '/admin/login'
+      preLoaderRoute: typeof AdminLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
-  AdminLoginRoute: AdminLoginRoute,
   ApproachRoute: ApproachRoute,
   CasesRoute: CasesRoute,
   ContactRoute: ContactRoute,
@@ -308,6 +307,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SubmitRoute: SubmitRoute,
   WhoWeAreRoute: WhoWeAreRoute,
+  AdminLoginRoute: AdminLoginRoute,
   CasesSlugRoute: CasesSlugRoute,
 }
 export const routeTree = rootRouteImport
