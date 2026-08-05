@@ -45,7 +45,11 @@ function getHeaders(config: SupabaseAdminConfig, extra?: HeadersInit) {
 async function parseError(response: Response) {
   const body = await response.text();
   try {
-    const parsed = JSON.parse(body) as { message?: string; msg?: string; error_description?: string };
+    const parsed = JSON.parse(body) as {
+      message?: string;
+      msg?: string;
+      error_description?: string;
+    };
     return parsed.message ?? parsed.msg ?? parsed.error_description ?? "Request failed.";
   } catch {
     return body || "Request failed.";
@@ -73,10 +77,7 @@ export async function signInWithPassword(
   return (await response.json()) as AuthSessionResponse;
 }
 
-export async function refreshAuthSession(
-  config: SupabaseAdminConfig,
-  refreshToken: string,
-) {
+export async function refreshAuthSession(config: SupabaseAdminConfig, refreshToken: string) {
   const response = await fetch(`${config.url}/auth/v1/token?grant_type=refresh_token`, {
     method: "POST",
     headers: getHeaders(config),
@@ -111,10 +112,7 @@ export function isAllowedAdmin(user: AuthUser) {
   return Boolean(user.email && allowlist.includes(user.email.toLowerCase()));
 }
 
-export async function restList<T>(
-  config: SupabaseAdminConfig,
-  path: string,
-): Promise<T[]> {
+export async function restList<T>(config: SupabaseAdminConfig, path: string): Promise<T[]> {
   const response = await fetch(`${config.url}/rest/v1/${path}`, {
     headers: getHeaders(config),
     signal: AbortSignal.timeout(12_000),
@@ -144,11 +142,7 @@ export async function restUpsert<T extends Record<string, unknown>>(
   return (await response.json()) as T[];
 }
 
-export async function restDelete(
-  config: SupabaseAdminConfig,
-  table: string,
-  filter: string,
-) {
+export async function restDelete(config: SupabaseAdminConfig, table: string, filter: string) {
   const response = await fetch(`${config.url}/rest/v1/${table}?${filter}`, {
     method: "DELETE",
     headers: getHeaders(config),
@@ -174,10 +168,7 @@ export async function callRpc<T>(
 
 export async function loadAdminPanelData(config: SupabaseAdminConfig) {
   const [content, cases, media, settings, submissions, users] = await Promise.all([
-    restList<SiteContentItem>(
-      config,
-      "site_content?select=*&order=group_name.asc,content_key.asc",
-    ),
+    restList<SiteContentItem>(config, "site_content?select=*&order=group_name.asc,content_key.asc"),
     restList<AdminCaseStudy>(config, "case_studies?select=*&order=sort_order.asc,updated_at.desc"),
     restList<MediaAsset>(config, "media_assets?select=*&order=created_at.desc"),
     restList<SiteSetting>(config, "site_settings?select=*&order=setting_key.asc"),
