@@ -15,7 +15,6 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { LanguageProvider } from "@/i18n";
-import { getPublishedContent } from "@/lib/api/admin.functions";
 
 function getStoredLanguage() {
   if (typeof window === "undefined") return "en";
@@ -98,7 +97,6 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  loader: () => getPublishedContent(),
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -150,14 +148,13 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  const managedContent = Route.useLoaderData();
   const isAdminRoute = useRouterState({
     select: (state) => state.location.pathname.startsWith("/admin"),
   });
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider content={managedContent}>
+      <LanguageProvider>
         {!isAdminRoute ? <GlobalScrollReveal /> : null}
         {!isAdminRoute ? <SiteHeader /> : null}
         <main>
@@ -172,7 +169,6 @@ function RootComponent() {
 function GlobalScrollReveal() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      document.documentElement.dataset.hydrated = "true";
       return;
     }
 
@@ -185,8 +181,8 @@ function GlobalScrollReveal() {
             [
               {
                 opacity: 0,
-                filter: "blur(4px)",
-                transform: "translate3d(0, 18px, 0)",
+                filter: "blur(10px)",
+                transform: "translate3d(0, 32px, 0)",
               },
               {
                 opacity: 1,
@@ -195,7 +191,7 @@ function GlobalScrollReveal() {
               },
             ],
             {
-              duration: 820,
+              duration: 1050,
               easing: "cubic-bezier(0.22, 1, 0.36, 1)",
             },
           );
@@ -215,11 +211,6 @@ function GlobalScrollReveal() {
       textItems.forEach((item) => {
         if (
           item.closest(".castle-line-drawing") ||
-          item.closest(".home-hero") ||
-          item.closest(".approach-hero") ||
-          item.closest(".cases-hero") ||
-          item.closest(".standard-page-hero") ||
-          item.closest(".case-detail-hero") ||
           item.closest('[role="slider"]') ||
           item.classList.contains("page-reveal") ||
           item.classList.contains("hero-text-reveal")
@@ -232,7 +223,6 @@ function GlobalScrollReveal() {
       imageItems.forEach((image) => {
         if (
           image.closest(".castle-line-drawing") ||
-          image.closest(".cases-hero") ||
           image.closest('[role="slider"]') ||
           image.closest(".case-photo-reveal")
         ) {
@@ -249,15 +239,22 @@ function GlobalScrollReveal() {
     };
 
     const mutationObserver = new MutationObserver(() => register());
-    register();
-    document.documentElement.dataset.hydrated = "true";
+    let secondFrame = 0;
+    const firstFrame = window.requestAnimationFrame(() => {
+      secondFrame = window.requestAnimationFrame(() => {
+        register();
+        document.documentElement.dataset.hydrated = "true";
 
-    const main = document.querySelector("main");
-    if (main) {
-      mutationObserver.observe(main, { childList: true, subtree: true });
-    }
+        const main = document.querySelector("main");
+        if (main) {
+          mutationObserver.observe(main, { childList: true, subtree: true });
+        }
+      });
+    });
 
     return () => {
+      window.cancelAnimationFrame(firstFrame);
+      window.cancelAnimationFrame(secondFrame);
       delete document.documentElement.dataset.hydrated;
       observer.disconnect();
       mutationObserver.disconnect();

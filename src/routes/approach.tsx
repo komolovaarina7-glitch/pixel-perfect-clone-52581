@@ -1,7 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import type { CSSProperties } from "react";
 import { useState } from "react";
-import { ApproachAurora } from "@/components/site/ApproachAurora";
 import { BackToHome } from "@/components/site/BackToHome";
 import { useLanguage, withoutTerminalDots } from "@/i18n";
 
@@ -24,50 +22,34 @@ export const Route = createFileRoute("/approach")({
   component: Approach,
 });
 
-function ApproachHeadline({ children }: { children: string }) {
-  let letterIndex = 0;
-
-  return (
-    <span aria-label={children}>
-      {children.split(/(\s+)/).map((part, partIndex) => {
-        if (/^\s+$/.test(part)) return <span key={`space-${partIndex}`}> </span>;
-
-        return (
-          <span aria-hidden="true" className="home-hero-word" key={`${part}-${partIndex}`}>
-            {Array.from(part).map((character) => {
-              const currentIndex = letterIndex++;
-              return (
-                <span
-                  className="home-hero-letter"
-                  key={`${character}-${currentIndex}`}
-                  style={{ "--letter-index": currentIndex } as CSSProperties}
-                >
-                  {character}
-                </span>
-              );
-            })}
-          </span>
-        );
-      })}
-    </span>
-  );
-}
-
 function Approach() {
   const [openStage, setOpenStage] = useState<string | null>(null);
   const { t, l } = useLanguage();
 
   return (
     <article className="approach-page">
+      <div className="approach-page-lightfield" aria-hidden="true">
+        <span className="approach-lightfield-orb approach-lightfield-orb--1" />
+        <span className="approach-lightfield-orb approach-lightfield-orb--2" />
+        <span className="approach-lightfield-orb approach-lightfield-orb--3" />
+        <span className="approach-lightfield-orb approach-lightfield-orb--4" />
+        <span className="approach-lightfield-orb approach-lightfield-orb--5" />
+        <span className="approach-lightfield-ribbon approach-lightfield-ribbon--1" />
+        <span className="approach-lightfield-ribbon approach-lightfield-ribbon--2" />
+        <span className="approach-lightfield-ribbon approach-lightfield-ribbon--3" />
+        <span className="approach-lightfield-highlight approach-lightfield-highlight--1" />
+        <span className="approach-lightfield-highlight approach-lightfield-highlight--2" />
+        <span className="approach-lightfield-highlight approach-lightfield-highlight--3" />
+        <span className="approach-lightfield-highlight approach-lightfield-highlight--4" />
+      </div>
       <BackToHome />
       <header className="approach-hero standard-page-hero standard-page-hero-content container-rl">
-        <ApproachAurora />
-        <div className="approach-hero-content">
-          <p className="home-hero-eyebrow eyebrow text-accent">{l(t.approach.eyebrow)}</p>
-          <h1 className="approach-hero-title mobile-safe-text serif text-foreground">
-            <ApproachHeadline>{withoutTerminalDots(l(t.approach.title))}</ApproachHeadline>
-          </h1>
-        </div>
+        <p className="eyebrow text-accent page-reveal page-reveal-delay-1">
+          {l(t.approach.eyebrow)}
+        </p>
+        <h1 className="standard-page-hero-title mobile-safe-text serif mt-6 max-w-4xl text-foreground page-reveal page-reveal-delay-2">
+          {withoutTerminalDots(l(t.approach.title))}
+        </h1>
       </header>
 
       <section className="approach-process-section">

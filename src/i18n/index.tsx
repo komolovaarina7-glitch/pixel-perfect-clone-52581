@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import type { SiteContentItem } from "@/lib/admin/types";
 
 export type Language = "en" | "ru";
 
@@ -542,90 +541,7 @@ export const copy = {
   },
 } as const;
 
-export type Copy = typeof copy;
-
-type MutableRecord = Record<string, unknown>;
-
-function isLocalizedString(value: unknown): value is LocalizedString {
-  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
-  const localized = value as Record<string, unknown>;
-  return typeof localized.en === "string" && typeof localized.ru === "string";
-}
-
-function contentLabel(group: string, path: string) {
-  const pageNames: Record<string, string> = {
-    common: "Общие элементы",
-    header: "Шапка и меню",
-    footer: "Подвал сайта",
-    home: "Главная",
-    who: "Кто мы",
-    services: "Услуги",
-    cases: "Кейсы",
-    approach: "Подход",
-  };
-  return `${pageNames[group] ?? group}: ${path.replace(/\.(\d+)(?=\.|$)/g, " [$1]")}`;
-}
-
-export type DefaultSiteContentItem = Omit<SiteContentItem, "id" | "updated_at">;
-
-export function getDefaultSiteContent(): DefaultSiteContentItem[] {
-  const rows: DefaultSiteContentItem[] = [];
-
-  const walk = (value: unknown, group: string, path: string[]) => {
-    if (isLocalizedString(value)) {
-      const contentKey = path.join(".");
-      rows.push({
-        group_name: group,
-        content_key: contentKey,
-        label: contentLabel(group, contentKey),
-        value_en: value.en,
-        value_ru: value.ru,
-        published: true,
-      });
-      return;
-    }
-
-    if (Array.isArray(value)) {
-      value.forEach((item, index) => walk(item, group, [...path, String(index)]));
-      return;
-    }
-
-    if (value && typeof value === "object") {
-      Object.entries(value).forEach(([key, item]) => walk(item, group, [...path, key]));
-    }
-  };
-
-  Object.entries(copy).forEach(([group, value]) => walk(value, group, []));
-  return rows;
-}
-
-function setCopyValue(target: MutableRecord, path: string[], value: LocalizedString) {
-  let current: unknown = target;
-  for (let index = 0; index < path.length - 1; index += 1) {
-    const key = path[index];
-    if (Array.isArray(current)) current = current[Number(key)];
-    else if (current && typeof current === "object") current = (current as MutableRecord)[key];
-    else return;
-  }
-
-  const finalKey = path.at(-1);
-  if (!finalKey || !current) return;
-  if (Array.isArray(current)) current[Number(finalKey)] = value;
-  else if (typeof current === "object") (current as MutableRecord)[finalKey] = value;
-}
-
-export function applyManagedCopy(content: SiteContentItem[]): Copy {
-  if (!content.length) return copy;
-  const managed = structuredClone(copy) as unknown as MutableRecord;
-  content.forEach((item) => {
-    if (!item.published || !(item.group_name in managed)) return;
-    setCopyValue(managed[item.group_name] as MutableRecord, item.content_key.split("."), {
-      en: item.value_en,
-      ru: item.value_ru,
-    });
-  });
-  return managed as unknown as Copy;
-}
+type Copy = typeof copy;
 
 const LanguageContext = createContext<{
   language: Language;
@@ -639,13 +555,7 @@ function getInitialLanguage(): Language {
   return window.localStorage.getItem(STORAGE_KEY) === "ru" ? "ru" : "en";
 }
 
-export function LanguageProvider({
-  children,
-  content = [],
-}: {
-  children: ReactNode;
-  content?: SiteContentItem[];
-}) {
+export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<Language>("en");
 
   const setLanguage = (nextLanguage: Language) => {
@@ -661,16 +571,14 @@ export function LanguageProvider({
     document.documentElement.lang = language;
   }, [language]);
 
-  const managedCopy = useMemo(() => applyManagedCopy(content), [content]);
-
   const value = useMemo(
     () => ({
       language,
       setLanguage,
-      t: managedCopy,
+      t: copy,
       l: (localized: LocalizedString) => localized[language],
     }),
-    [language, managedCopy],
+    [language],
   );
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;

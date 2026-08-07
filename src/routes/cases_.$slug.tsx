@@ -1,27 +1,24 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
-import { AnimatedHeroTitle } from "@/components/site/AnimatedHeroTitle";
 import { BackToHome } from "@/components/site/BackToHome";
+import { BauskasDocumentaryChapter } from "@/components/site/BauskasDocumentaryChapter";
 import { BeforeAfterReveal } from "@/components/site/BeforeAfterReveal";
 import { CastleLineDrawing } from "@/components/site/CastleLineDrawing";
 import { FallingLeaves } from "@/components/site/FallingLeaves";
 import { MountainLineDrawing } from "@/components/site/MountainLineDrawing";
 import { cases } from "@/data/cases";
 import { useLanguage } from "@/i18n";
-import { getPublishedCases, getPublishedContent } from "@/lib/api/admin.functions";
-import { applyManagedCaseContent, mergePublishedCases } from "@/lib/admin/public-content";
+import { getPublishedCases } from "@/lib/api/admin.functions";
+import { mergePublishedCases } from "@/lib/admin/public-content";
 
 export const Route = createFileRoute("/cases_/$slug")({
   loader: async ({ params }) => {
-    const [managedCases, managedContent] = await Promise.all([
-      getPublishedCases(),
-      getPublishedContent(),
-    ]);
-    const baseCaseStudy = mergePublishedCases(cases, managedCases).find(
+    const managedCases = await getPublishedCases();
+    const caseStudy = mergePublishedCases(cases, managedCases).find(
       (item) => item.slug === params.slug,
     );
-    if (!baseCaseStudy) throw notFound();
-    return applyManagedCaseContent(baseCaseStudy, managedContent);
+    if (!caseStudy) throw notFound();
+    return caseStudy;
   },
   head: ({ loaderData }) => ({
     meta: loaderData
@@ -85,7 +82,7 @@ function CaseDetail() {
     <article ref={articleRef}>
       <BackToHome />
       <header
-        className={`case-detail-hero container-rl pt-8 pb-16 ${
+        className={`container-rl pt-8 pb-16 ${
           hasArchitecturalDrawing || hasMountainDrawing || hasFallingLeaves
             ? "line-art-case-hero"
             : ""
@@ -103,12 +100,14 @@ function CaseDetail() {
             <span aria-hidden>←</span>
             <span>{l(t.common.backToCases)}</span>
           </Link>
-          <p className="internal-hero-eyebrow eyebrow mt-10 text-accent">{l(caseStudy.theme)}</p>
-          <h1 className="mobile-safe-text serif text-4xl md:text-6xl mt-6 max-w-4xl leading-[1.05] text-foreground">
-            <AnimatedHeroTitle>{l(caseStudy.title)}</AnimatedHeroTitle>
+          <p className="eyebrow mt-10 text-accent page-reveal page-reveal-delay-1">
+            {l(caseStudy.theme)}
+          </p>
+          <h1 className="mobile-safe-text serif text-4xl md:text-6xl mt-6 max-w-4xl leading-[1.05] text-foreground page-reveal page-reveal-delay-2">
+            {l(caseStudy.title)}
           </h1>
           {caseStudy.subtitle && (
-            <p className="internal-hero-subtitle mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground page-reveal page-reveal-delay-3">
               {l(caseStudy.subtitle)}
             </p>
           )}
@@ -155,6 +154,8 @@ function CaseDetail() {
           </div>
         </div>
       </section>
+
+      {caseStudy.slug === "bauskas-16a-riga" && <BauskasDocumentaryChapter />}
 
       {caseStudy.sections && caseStudy.sections.length > 0 && (
         <section className="case-file-sections border-t border-rule py-16 md:py-20">

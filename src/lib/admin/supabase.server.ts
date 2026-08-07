@@ -142,27 +142,6 @@ export async function restUpsert<T extends Record<string, unknown>>(
   return (await response.json()) as T[];
 }
 
-export async function restInsertDefaults<T extends Record<string, unknown>>(
-  config: SupabaseAdminConfig,
-  table: string,
-  payload: T[],
-  conflict: string,
-) {
-  if (!payload.length) return;
-  const response = await fetch(
-    `${config.url}/rest/v1/${table}?on_conflict=${encodeURIComponent(conflict)}`,
-    {
-      method: "POST",
-      headers: getHeaders(config, {
-        Prefer: "resolution=ignore-duplicates,return=minimal",
-      }),
-      body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(20_000),
-    },
-  );
-  await assertOk(response);
-}
-
 export async function restDelete(config: SupabaseAdminConfig, table: string, filter: string) {
   const response = await fetch(`${config.url}/rest/v1/${table}?${filter}`, {
     method: "DELETE",
