@@ -62,4 +62,4 @@ begin
 end;
 $$;
 
-rollback;
+rollback;git config --global user.name "Arina Komolova"git config --global user.name "Arina Komolova"git config --global user.name "Arina Komolova"git config --global user.name "Arina Komolova"git config --global user.name "Arina Komolova"
