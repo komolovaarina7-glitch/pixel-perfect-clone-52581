@@ -24,7 +24,9 @@ export const Route = createFileRoute("/cases")({
           "Selected repositioning theses across heritage, industrial and special-situation real estate.",
       },
       { property: "og:image", content: cases[0].img },
+      { property: "og:url", content: "https://reposition-lab.com/cases" },
     ],
+    links: [{ rel: "canonical", href: "https://reposition-lab.com/cases" }],
   }),
   component: Cases,
 });

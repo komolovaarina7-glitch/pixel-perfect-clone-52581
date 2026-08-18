@@ -19,7 +19,9 @@ export const Route = createFileRoute("/approach")({
         property: "og:description",
         content: "The five-stage method behind every REPOSITION LAB mandate.",
       },
+      { property: "og:url", content: "https://reposition-lab.com/approach" },
     ],
+    links: [{ rel: "canonical", href: "https://reposition-lab.com/approach" }],
   }),
   component: Approach,
 });

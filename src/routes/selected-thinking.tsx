@@ -18,7 +18,9 @@ export const Route = createFileRoute("/selected-thinking")({
         property: "og:description",
         content: "Notes on recovery, repositioning and real estate intelligence.",
       },
+      { property: "og:url", content: "https://reposition-lab.com/selected-thinking" },
     ],
+    links: [{ rel: "canonical", href: "https://reposition-lab.com/selected-thinking" }],
   }),
   component: Thinking,
 });

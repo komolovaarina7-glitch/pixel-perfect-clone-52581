@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { cases } from "@/data/cases";
 
-const BASE_URL = "https://repositionlab.com";
+const BASE_URL = "https://reposition-lab.com";
 
 interface SitemapEntry {
   path: string;

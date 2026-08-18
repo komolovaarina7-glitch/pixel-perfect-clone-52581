@@ -4258,6 +4258,580 @@
   }
 }
 
+/* Bauskas institutional case */
+.bauskas-case {
+  scroll-behavior: smooth;
+}
+.bauskas-subnav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: color-mix(in srgb, var(--background) 92%, transparent);
+  backdrop-filter: blur(14px);
+}
+.bauskas-subnav-track {
+  display: flex;
+  gap: 1.6rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.bauskas-subnav-track::-webkit-scrollbar {
+  display: none;
+}
+.bauskas-subnav-link {
+  flex: 0 0 auto;
+  padding: 1rem 0;
+  color: var(--muted-foreground);
+  font:
+    500 0.65rem/1 Inter,
+    sans-serif;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+.bauskas-subnav-link:hover,
+.bauskas-subnav-link:focus-visible {
+  color: var(--accent);
+}
+.bauskas-process {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-block: 1px solid var(--rule);
+}
+.bauskas-process span {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem 0.7rem;
+  border-right: 1px solid var(--rule);
+  font:
+    500 0.65rem/1.2 Inter,
+    sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.bauskas-process span:last-child {
+  border-right: 0;
+}
+.bauskas-process b {
+  color: var(--accent);
+  font:
+    400 0.58rem/1 "JetBrains Mono",
+    monospace;
+}
+.bauskas-facts {
+  border-top: 1px solid var(--rule);
+}
+.bauskas-fact {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.75fr) 1.5fr;
+  gap: 2rem;
+  align-items: start;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.bauskas-fact > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.bauskas-fact > p {
+  color: color-mix(in srgb, var(--foreground) 78%, transparent);
+  line-height: 1.65;
+}
+.bauskas-status {
+  flex: 0 0 auto;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--rule);
+  color: var(--muted-foreground);
+  font:
+    500 0.55rem/1 Inter,
+    sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.bauskas-status--verified {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--rule));
+  color: var(--accent);
+}
+.bauskas-status--reported {
+  border-style: dashed;
+}
+.bauskas-status--interpretation {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+.bauskas-dark {
+  background: #111312;
+  color: #f1efe8;
+}
+.bauskas-two-col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: 1px solid var(--rule);
+}
+.bauskas-two-col > div {
+  padding: 2rem;
+}
+.bauskas-two-col > div + div {
+  border-left: 1px solid var(--rule);
+}
+.bauskas-two-col h3 {
+  font:
+    400 1.8rem/1.15 "Cormorant Garamond",
+    serif;
+}
+.bauskas-two-col ul {
+  margin-top: 1.5rem;
+}
+.bauskas-two-col li {
+  position: relative;
+  padding: 1rem 0 1rem 1.25rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+.bauskas-two-col li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+}
+.bauskas-thesis {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: 1px solid var(--rule);
+}
+.bauskas-thesis > div {
+  min-height: 13rem;
+  padding: 2rem;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.bauskas-thesis > div:nth-child(even) {
+  border-right: 0;
+}
+.bauskas-thesis > div:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+.bauskas-thesis-primary {
+  grid-column: 1 / -1;
+  background: #151716;
+  color: white;
+  border-right: 0 !important;
+}
+.bauskas-thesis span {
+  color: var(--accent);
+  font:
+    500 0.62rem/1 Inter,
+    sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.bauskas-thesis h2 {
+  max-width: 55rem;
+  margin-top: 1.1rem;
+  font:
+    400 clamp(2.2rem, 5vw, 4.6rem)/0.98 "Cormorant Garamond",
+    serif;
+}
+.bauskas-thesis h3 {
+  margin-top: 1rem;
+  font:
+    400 2rem/1.1 "Cormorant Garamond",
+    serif;
+}
+.bauskas-thesis p {
+  margin-top: 1rem;
+  max-width: 34rem;
+  color: var(--muted-foreground);
+  line-height: 1.7;
+}
+.bauskas-caveat {
+  max-width: 60rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent);
+  color: var(--muted-foreground);
+  line-height: 1.65;
+}
+.bauskas-scenarios {
+  display: grid;
+  gap: 1rem;
+}
+.bauskas-scenario {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.8fr) 2fr;
+  border: 1px solid var(--rule);
+  background: var(--background);
+}
+.bauskas-scenario header {
+  grid-row: 1 / span 7;
+  padding: 2rem;
+  border-right: 1px solid var(--rule);
+}
+.bauskas-scenario header > span {
+  color: var(--accent);
+  font:
+    400 0.7rem/1 "JetBrains Mono",
+    monospace;
+}
+.bauskas-scenario header p {
+  margin-top: 2.5rem;
+  color: var(--accent);
+  font:
+    500 0.62rem/1 Inter,
+    sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.bauskas-scenario h3 {
+  margin-top: 0.8rem;
+  font:
+    400 2rem/1.08 "Cormorant Garamond",
+    serif;
+}
+.bauskas-scenario-row {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.55fr) 1.45fr;
+  gap: 1.5rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--rule);
+}
+.bauskas-scenario-row:last-child {
+  border-bottom: 0;
+}
+.bauskas-scenario-row dt {
+  color: var(--muted-foreground);
+  font:
+    500 0.58rem/1.4 Inter,
+    sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.bauskas-scenario-row dd {
+  color: color-mix(in srgb, var(--foreground) 78%, transparent);
+  line-height: 1.55;
+}
+.bauskas-evidence {
+  display: grid;
+  gap: 5rem;
+}
+.bauskas-evidence-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+  gap: 3rem;
+  align-items: stretch;
+}
+.bauskas-evidence-item:nth-child(even) .bauskas-evidence-image {
+  order: 2;
+}
+.bauskas-evidence-image {
+  min-height: 34rem;
+  overflow: hidden;
+  background: var(--muted);
+}
+.bauskas-evidence-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.bauskas-evidence-item:hover img {
+  transform: scale(1.025);
+}
+.bauskas-evidence-item figcaption {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.bauskas-evidence-number {
+  margin-bottom: auto;
+  color: var(--accent);
+  font:
+    400 0.7rem/1 "JetBrains Mono",
+    monospace;
+}
+.bauskas-evidence-item figcaption div {
+  padding: 1rem 0;
+  border-top: 1px solid var(--rule);
+}
+.bauskas-evidence-item figcaption b {
+  color: var(--accent);
+  font:
+    500 0.58rem/1 Inter,
+    sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.bauskas-evidence-item figcaption p {
+  margin-top: 0.5rem;
+  color: var(--muted-foreground);
+  line-height: 1.55;
+}
+.bauskas-phases {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border-top: 1px solid rgb(255 255 255 / 0.18);
+}
+.bauskas-phase {
+  padding: 1.5rem 1.25rem;
+  border-right: 1px solid rgb(255 255 255 / 0.18);
+}
+.bauskas-phase:last-child {
+  border-right: 0;
+}
+.bauskas-phase > span {
+  color: var(--accent);
+  font:
+    500 0.58rem/1 Inter,
+    sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.bauskas-phase h3 {
+  margin-top: 1.5rem;
+  font:
+    400 1.75rem/1.05 "Cormorant Garamond",
+    serif;
+}
+.bauskas-phase p {
+  margin-top: 1rem;
+  color: rgb(255 255 255 / 0.6);
+  font-size: 0.86rem;
+  line-height: 1.65;
+}
+.bauskas-risk-list {
+  border-top: 1px solid var(--rule);
+}
+.bauskas-risk-list > div {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.bauskas-risk-list span {
+  color: var(--accent);
+  font:
+    400 0.65rem/1.5 "JetBrains Mono",
+    monospace;
+}
+.bauskas-risk-list p {
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+.bauskas-status-panel {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 5rem;
+  padding: 3rem;
+  border: 1px solid var(--accent);
+}
+.bauskas-status-panel h2 {
+  margin-top: 1rem;
+  font:
+    400 clamp(2rem, 4vw, 3.8rem)/1 "Cormorant Garamond",
+    serif;
+}
+.bauskas-status-panel > div:last-child {
+  align-self: end;
+}
+.bauskas-status-panel p {
+  color: var(--muted-foreground);
+  line-height: 1.7;
+}
+.bauskas-status-panel span {
+  display: block;
+  margin-top: 1.5rem;
+  color: var(--accent);
+  font:
+    500 0.6rem/1 Inter,
+    sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.bauskas-archive-toggle {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+  text-align: left;
+}
+.bauskas-archive-toggle span {
+  display: grid;
+  gap: 0.5rem;
+}
+.bauskas-archive-toggle b {
+  font:
+    400 2rem/1.1 "Cormorant Garamond",
+    serif;
+}
+.bauskas-archive-toggle small {
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.bauskas-archive-toggle i {
+  font:
+    300 2.5rem/1 Inter,
+    sans-serif;
+  color: var(--accent);
+}
+.bauskas-archive-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 1rem 0 3rem;
+}
+.bauskas-archive-grid img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+.bauskas-archive-grid figcaption {
+  margin-top: 0.5rem;
+  color: var(--muted-foreground);
+  font:
+    400 0.62rem/1.3 "JetBrains Mono",
+    monospace;
+}
+.bauskas-cta {
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--accent) 6%, var(--background)),
+    var(--background)
+  );
+}
+.who-institutional-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: 1px solid var(--rule);
+}
+.who-institutional-grid article {
+  min-height: 18rem;
+  padding: 2rem;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.who-institutional-grid article:nth-child(even) {
+  border-right: 0;
+}
+.who-institutional-grid article:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+.who-institutional-grid h3 {
+  margin-top: 1.25rem;
+  font:
+    400 2rem/1.1 "Cormorant Garamond",
+    serif;
+}
+.who-institutional-grid article > p:last-child {
+  margin-top: 1rem;
+  color: var(--muted-foreground);
+  line-height: 1.65;
+}
+
+@media (max-width: 900px) {
+  .bauskas-fact {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .bauskas-scenario {
+    grid-template-columns: 1fr;
+  }
+  .bauskas-scenario header {
+    grid-row: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .bauskas-evidence-item {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .bauskas-evidence-item:nth-child(even) .bauskas-evidence-image {
+    order: 0;
+  }
+  .bauskas-evidence-image {
+    min-height: 28rem;
+  }
+  .bauskas-evidence-number {
+    margin-bottom: 2rem;
+  }
+  .bauskas-phases {
+    grid-template-columns: 1fr;
+  }
+  .bauskas-phase {
+    border-right: 0;
+    border-bottom: 1px solid rgb(255 255 255 / 0.18);
+  }
+  .bauskas-status-panel {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .who-institutional-grid {
+    grid-template-columns: 1fr;
+  }
+  .who-institutional-grid article {
+    min-height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--rule) !important;
+  }
+  .who-institutional-grid article:last-child {
+    border-bottom: 0 !important;
+  }
+  .bauskas-process {
+    grid-template-columns: 1fr;
+  }
+  .bauskas-process span {
+    grid-template-columns: 2rem 1fr;
+    border-right: 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .bauskas-process span:last-child {
+    border-bottom: 0;
+  }
+  .bauskas-fact > div {
+    display: grid;
+    justify-content: start;
+  }
+  .bauskas-two-col,
+  .bauskas-thesis {
+    grid-template-columns: 1fr;
+  }
+  .bauskas-two-col > div + div {
+    border-left: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .bauskas-thesis-primary {
+    grid-column: auto;
+  }
+  .bauskas-thesis > div {
+    min-height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--rule) !important;
+  }
+  .bauskas-thesis > div:last-child {
+    border-bottom: 0 !important;
+  }
+  .bauskas-scenario-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  .bauskas-evidence-image {
+    min-height: 22rem;
+  }
+  .bauskas-status-panel {
+    padding: 1.5rem;
+  }
+  .bauskas-archive-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @keyframes pageTextReveal {
   from {
     opacity: 0;

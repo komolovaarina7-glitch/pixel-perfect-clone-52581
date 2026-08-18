@@ -6,6 +6,7 @@ import { BeforeAfterReveal } from "@/components/site/BeforeAfterReveal";
 import { CastleLineDrawing } from "@/components/site/CastleLineDrawing";
 import { FallingLeaves } from "@/components/site/FallingLeaves";
 import { MountainLineDrawing } from "@/components/site/MountainLineDrawing";
+import { BauskasCase } from "@/components/site/BauskasCase";
 import { cases } from "@/data/cases";
 import { useLanguage } from "@/i18n";
 import { getPublishedCases, getPublishedContent } from "@/lib/api/admin.functions";
@@ -30,7 +31,19 @@ export const Route = createFileRoute("/cases_/$slug")({
           { name: "description", content: loaderData.challenge.en },
           { property: "og:title", content: `${loaderData.title.en} — REPOSITION LAB` },
           { property: "og:description", content: loaderData.challenge.en },
+          { property: "og:type", content: "article" },
+          { property: "og:url", content: `https://reposition-lab.com/cases/${loaderData.slug}` },
+          {
+            property: "og:image",
+            content: loaderData.img.startsWith("/")
+              ? `https://reposition-lab.com${loaderData.img}`
+              : "https://reposition-lab.com/",
+          },
+          { name: "twitter:card", content: "summary_large_image" },
         ]
+      : [],
+    links: loaderData
+      ? [{ rel: "canonical", href: `https://reposition-lab.com/cases/${loaderData.slug}` }]
       : [],
   }),
   component: CaseDetail,
@@ -80,6 +93,8 @@ function CaseDetail() {
     items.forEach((item) => observer.observe(item));
     return () => observer.disconnect();
   }, [slug]);
+
+  if (slug === "bauskas-16a-riga") return <BauskasCase />;
 
   return (
     <article ref={articleRef}>
