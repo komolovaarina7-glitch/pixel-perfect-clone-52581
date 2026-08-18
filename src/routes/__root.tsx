@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -14,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { LanguageProvider } from "@/i18n";
+import { getPublishedContent } from "@/lib/api/admin.functions";
 
 function getStoredLanguage() {
   if (typeof window === "undefined") return "en";
@@ -96,6 +98,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+  loader: () => getPublishedContent(),
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -161,16 +164,20 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const managedContent = Route.useLoaderData();
+  const isAdminRoute = useRouterState({
+    select: (state) => state.location.pathname.startsWith("/admin"),
+  });
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <GlobalScrollReveal />
-        <SiteHeader />
+      <LanguageProvider content={managedContent}>
+        {!isAdminRoute ? <GlobalScrollReveal /> : null}
+        {!isAdminRoute ? <SiteHeader /> : null}
         <main>
           <Outlet />
         </main>
-        <SiteFooter />
+        {!isAdminRoute ? <SiteFooter /> : null}
       </LanguageProvider>
     </QueryClientProvider>
   );

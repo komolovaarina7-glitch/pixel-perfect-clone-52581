@@ -213,31 +213,35 @@ function Home() {
     .map((path) => t.home.directions.find((direction) => direction.to === path))
     .filter((direction): direction is (typeof t.home.directions)[number] => Boolean(direction));
 
+  const heroEyebrow = l(t.home.eyebrow);
+  const heroHeadlineStart = l(t.home.headlineStart);
+  const heroHeadlineAccent = l(t.home.headlineEm);
+  const heroIntro = l(t.home.intro);
+  const heroHeadlineLength = Array.from(
+    [heroHeadlineStart, heroHeadlineAccent].filter(Boolean).join(" "),
+  ).length;
+
   return (
     <div>
       <section className="home-hero relative flex min-h-[70vh] overflow-hidden bg-background">
         <AnimatedHeroBackground />
 
         <div className="home-hero-content container-rl relative">
-          <p className="home-hero-eyebrow eyebrow text-accent">{l(t.home.eyebrow)}</p>
+          <p className="home-hero-eyebrow eyebrow text-accent">{heroEyebrow}</p>
 
           <h1 className="home-hero-headline mobile-safe-text serif text-foreground">
-            <AnimatedHeadline primary={l(t.home.headlineStart)} accent={l(t.home.headlineEm)} />
+            <AnimatedHeadline primary={heroHeadlineStart} accent={heroHeadlineAccent} />
           </h1>
 
           <p
             className="home-hero-subtitle text-foreground/80"
             style={
               {
-                "--hero-subtitle-delay": `${Math.min(
-                  4400,
-                  950 +
-                    Array.from(`${l(t.home.headlineStart)} ${l(t.home.headlineEm)}`).length * 26,
-                )}ms`,
+                "--hero-subtitle-delay": `${Math.min(4400, 950 + heroHeadlineLength * 26)}ms`,
               } as CSSProperties
             }
           >
-            {l(t.home.intro)}
+            {heroIntro}
           </p>
         </div>
       </section>
