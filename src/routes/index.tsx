@@ -31,7 +31,9 @@ export const Route = createFileRoute("/")({
         content:
           "Strategic repositioning and recovery intelligence for distressed and underutilized real estate.",
       },
+      { property: "og:url", content: "https://reposition-lab.com/" },
     ],
+    links: [{ rel: "canonical", href: "https://reposition-lab.com/" }],
   }),
   component: Home,
 });

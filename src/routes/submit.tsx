@@ -19,7 +19,9 @@ export const Route = createFileRoute("/submit")({
         property: "og:description",
         content: "Confidential asset submission for strategic review.",
       },
+      { property: "og:url", content: "https://reposition-lab.com/submit" },
     ],
+    links: [{ rel: "canonical", href: "https://reposition-lab.com/submit" }],
   }),
   component: Submit,
 });

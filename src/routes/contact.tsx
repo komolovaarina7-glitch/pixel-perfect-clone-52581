@@ -14,7 +14,9 @@ export const Route = createFileRoute("/contact")({
       },
       { property: "og:title", content: "Contact — REPOSITION LAB" },
       { property: "og:description", content: "Confidential institutional contact." },
+      { property: "og:url", content: "https://reposition-lab.com/contact" },
     ],
+    links: [{ rel: "canonical", href: "https://reposition-lab.com/contact" }],
   }),
   component: Contact,
 });

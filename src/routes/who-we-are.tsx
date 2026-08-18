@@ -1,7 +1,44 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AnimatedHeroTitle } from "@/components/site/AnimatedHeroTitle";
 import { BackToHome } from "@/components/site/BackToHome";
-import { useLanguage, withoutTerminalDots } from "@/i18n";
+import { useLanguage, withoutTerminalDots, type LocalizedString } from "@/i18n";
+
+const c = (en: string, ru: string): LocalizedString => ({ en, ru });
+
+const institutionalProfile = [
+  [
+    c("Leadership", "Руководство"),
+    c("Partner-led mandate structure", "Партнёрская структура мандатов"),
+    c(
+      "Named leadership profiles and verified professional biographies are being prepared for publication. No individual credentials are implied until confirmed.",
+      "Именные профили руководителей и подтверждённые профессиональные биографии готовятся к публикации. До подтверждения конкретные персональные квалификации не подразумеваются.",
+    ),
+  ],
+  [
+    c("Legal entity", "Юридическое лицо"),
+    c("RANTA LIMITED, London", "RANTA LIMITED, London"),
+    c(
+      "REPOSITION LAB operates under RANTA LIMITED. Registered-office, company-number and regulatory details will be published after formal verification.",
+      "REPOSITION LAB работает в структуре RANTA LIMITED. Адрес регистрации, номер компании и регуляторные сведения будут опубликованы после формального подтверждения.",
+    ),
+  ],
+  [
+    c("Geographic coverage", "География"),
+    c("Latvia · Slovenia · Turkey", "Латвия · Словения · Турция"),
+    c(
+      "Current strategic coverage stated by the practice. Asset-specific legal, technical and market work is commissioned in the relevant jurisdiction.",
+      "Текущая география стратегической работы, заявленная практикой. Юридическая, техническая и рыночная работа по объекту выполняется в соответствующей юрисдикции.",
+    ),
+  ],
+  [
+    c("Specialist network", "Сеть специалистов"),
+    c("Mandate-specific, independently scoped", "Формируется под конкретный мандат"),
+    c(
+      "Where required, the work can coordinate legal, planning, heritage, architecture, engineering, valuation, hospitality and operator perspectives. Appointments are confirmed per mandate.",
+      "При необходимости работа может объединять юридическую, градостроительную, историко-культурную, архитектурную, инженерную, оценочную, гостиничную и операторскую экспертизу. Состав подтверждается для каждого мандата.",
+    ),
+  ],
+] as const;
 
 export const Route = createFileRoute("/who-we-are")({
   head: () => ({
@@ -18,7 +55,10 @@ export const Route = createFileRoute("/who-we-are")({
         content:
           "Strategic recovery and repositioning logic for low-liquidity and distressed real estate.",
       },
+      { property: "og:url", content: "https://reposition-lab.com/who-we-are" },
+      { property: "og:type", content: "website" },
     ],
+    links: [{ rel: "canonical", href: "https://reposition-lab.com/who-we-are" }],
   }),
   component: WhoWeAre,
 });
@@ -106,6 +146,123 @@ function WhoWeAre() {
               ))}
             </ul>
           </div>
+        </div>
+      </section>
+
+      <section className="py-24 border-t border-rule">
+        <div className="container-rl">
+          <p className="eyebrow text-accent">
+            {l(c("Institutional Profile", "Институциональный профиль"))}
+          </p>
+          <h2 className="serif text-3xl md:text-5xl mt-5 max-w-3xl">
+            {l(
+              c(
+                "Clear scope, explicit limits and accountable deliverables.",
+                "Ясный объём работы, обозначенные ограничения и проверяемые результаты.",
+              ),
+            )}
+          </h2>
+          <div className="who-institutional-grid mt-12">
+            {institutionalProfile.map(([label, title, body]) => (
+              <article key={label.en}>
+                <p className="eyebrow text-accent">{l(label)}</p>
+                <h3>{l(title)}</h3>
+                <p>{l(body)}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 border-t border-rule">
+        <div className="container-rl grid lg:grid-cols-3 gap-12">
+          <div>
+            <p className="eyebrow text-accent">{l(c("Mandate Selection", "Отбор мандатов"))}</p>
+            <h2 className="serif text-3xl mt-5">
+              {l(c("Fit before engagement", "Сначала — соответствие задачи"))}
+            </h2>
+          </div>
+          <div>
+            <h3 className="text-sm uppercase tracking-[.14em]">
+              {l(c("Selection principles", "Принципы отбора"))}
+            </h3>
+            <ul className="mt-5 text-muted-foreground leading-relaxed space-y-3">
+              <li>
+                {l(
+                  c(
+                    "A material strategic problem that standard disposal cannot resolve.",
+                    "Существенная стратегическая проблема, которую не решает стандартная продажа.",
+                  ),
+                )}
+              </li>
+              <li>
+                {l(
+                  c(
+                    "Sufficient owner access to facts and decision-makers.",
+                    "Достаточный доступ владельца к данным и принимающим решения лицам.",
+                  ),
+                )}
+              </li>
+              <li>
+                {l(
+                  c(
+                    "A credible route to verification and qualified counterparties.",
+                    "Реалистичный путь к проверке и квалифицированным контрагентам.",
+                  ),
+                )}
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-sm uppercase tracking-[.14em]">
+              {l(c("Institutional deliverables", "Институциональные результаты"))}
+            </h3>
+            <ul className="mt-5 text-muted-foreground leading-relaxed space-y-3">
+              <li>
+                {l(
+                  c(
+                    "Asset diagnosis and open-questions register.",
+                    "Диагностика объекта и реестр открытых вопросов.",
+                  ),
+                )}
+              </li>
+              <li>
+                {l(
+                  c(
+                    "Scenario hierarchy, dependencies and decision framing.",
+                    "Иерархия сценариев, зависимости и рамка решения.",
+                  ),
+                )}
+              </li>
+              <li>
+                {l(
+                  c(
+                    "Decision materials and selective engagement plan.",
+                    "Материалы для решения и план выборочного вовлечения.",
+                  ),
+                )}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 border-t border-rule bg-muted/30">
+        <div className="container-rl grid md:grid-cols-2 gap-10 items-start">
+          <div>
+            <p className="eyebrow text-accent">{l(c("Confidentiality", "Конфиденциальность"))}</p>
+            <h2 className="serif text-3xl mt-5">
+              {l(c("Discreet by default", "Конфиденциальность по умолчанию"))}
+            </h2>
+          </div>
+          <p className="text-muted-foreground leading-relaxed">
+            {l(
+              c(
+                "Information is requested on a need-to-know basis and used to assess mandate fit. Wider circulation, specialist access, counterparty outreach and any public case reference should be governed by the agreed mandate and the owner's consent. Formal confidentiality terms are confirmed before sensitive materials are exchanged.",
+                "Информация запрашивается по принципу необходимого доступа и используется для оценки соответствия мандата. Более широкое распространение, доступ специалистов, обращение к контрагентам и любое публичное упоминание кейса должны регулироваться согласованным мандатом и согласием владельца. Формальные условия конфиденциальности подтверждаются до обмена чувствительными материалами.",
+              ),
+            )}
+          </p>
         </div>
       </section>
 

@@ -285,16 +285,16 @@ export const cases: CaseStudy[] = [
       ru: "Репозиционирование исторической рижской усадьбы через кинематографичную идентичность, адаптивное использование и логику гостеприимства.",
     },
     challenge: {
-      en: "Bauskas 16A is a historically layered urban estate that the local market has consistently misread. Its spatial complexity, cultural depth and multi-function potential do not translate into conventional real estate disposal logic, leaving it under-read and difficult to place through standard channels.",
-      ru: "Bauskas 16A — исторически многослойная городская усадьба, которую локальный рынок последовательно понимал слишком узко. Пространственная сложность, культурная глубина и многофункциональный потенциал плохо укладываются в стандартную логику продажи недвижимости, из-за чего объект остаётся недооценённым и сложным для вывода через обычные каналы.",
+      en: "The asset is difficult to interpret through conventional residential or commercial property categories because its heritage character, spatial complexity and possible uses do not align with a standard disposal narrative.",
+      ru: "Объект сложно интерпретировать через стандартные категории жилой или коммерческой недвижимости: его исторический характер, пространственная сложность и возможные функции не укладываются в обычную логику продажи.",
     },
     logic: {
-      en: "REPOSITION LAB's concept repositions the estate from a fragmented and misunderstood asset into a coherent multi-scenario environment — readable by cultural operators, hospitality capital, creative industries and private-members concepts seeking heritage assets with strong spatial identity.",
-      ru: "Концепция REPOSITION LAB переводит усадьбу из фрагментированного и неверно понятого объекта в цельную мультисценарную среду — понятную культурным операторам, гостиничному капиталу, креативным индустриям и закрытым клубным концепциям, которым нужны объекты наследия с сильной пространственной идентичностью.",
+      en: "The working thesis prioritises operator-led heritage hospitality and private events, with cinematic identity as a differentiator and accommodation, wellness and production stays as supporting uses. It remains subject to legal, technical, demand and operator validation.",
+      ru: "Рабочий тезис отдаёт приоритет историческому hospitality-объекту и частным событиям под управлением оператора; кинематографичная идентичность служит отличием, а размещение, wellness и production-проживание — поддерживающими функциями. Тезис требует юридической, технической, рыночной и операторской проверки.",
     },
     direction: {
-      en: "Cinematic identity · adaptive reuse · hospitality and residential flexibility · cultural operator and lifestyle capital.",
-      ru: "Кинематографичная идентичность · адаптивное использование · гостеприимство и жилая гибкость · культурный оператор и lifestyle-капитал.",
+      en: "Verify · validate operator demand · package the selected thesis · engage qualified counterparties · support the owner's hold, partnership, conversion or controlled-exit decision.",
+      ru: "Проверить данные · валидировать операторский спрос · упаковать выбранный тезис · привлечь квалифицированных контрагентов · подготовить решение владельца об удержании, партнёрстве, конверсии или контролируемом выходе.",
     },
     sections: [
       {

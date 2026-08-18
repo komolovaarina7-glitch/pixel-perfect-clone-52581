@@ -21,7 +21,9 @@ export const Route = createFileRoute("/recovery-validation")({
         property: "og:description",
         content: "Independent valuation logic for repositioning-adjusted recovery scenarios.",
       },
+      { property: "og:url", content: "https://reposition-lab.com/recovery-validation" },
     ],
+    links: [{ rel: "canonical", href: "https://reposition-lab.com/recovery-validation" }],
   }),
   component: RecoveryValidation,
 });

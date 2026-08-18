@@ -18,7 +18,9 @@ export const Route = createFileRoute("/services")({
         property: "og:description",
         content: "Five disciplines of strategic real estate recovery.",
       },
+      { property: "og:url", content: "https://reposition-lab.com/services" },
     ],
+    links: [{ rel: "canonical", href: "https://reposition-lab.com/services" }],
   }),
   component: Services,
 });
