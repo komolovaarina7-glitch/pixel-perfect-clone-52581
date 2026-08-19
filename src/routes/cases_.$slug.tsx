@@ -431,11 +431,11 @@ function CaseDetail() {
               </p>
               <div className="mt-8">
                 <BeforeAfterReveal
-                  beforeSrc="/images/cases/bauskas-16a/case12.jpg"
+                  beforeSrc="/images/cases/bauskas-16a/admin-archive/IMG_8764-7.jpg"
                   afterSrc="/images/cases/bauskas-16a/baus2.jpg"
                   beforeAlt={l({
-                    en: "Bauskas 16A interior before repositioning — unintegrated heritage structure without operating logic",
-                    ru: "Усадьба Bauskas 16A до перепозиционирования — фрагментированный объект наследия без операционной логики",
+                    en: "Bauskas 16A interior before repositioning — raw unrestored hall with exposed timbers and missing plaster",
+                    ru: "Усадьба Bauskas 16A до перепозиционирования — аварийный зал без штукатурки, с открытыми балками и голыми перекрытиями",
                   })}
                   afterAlt={l({
                     en: "Bauskas 16A grand representative salon after repositioning — operator-led cultural and hospitality platform",
@@ -443,7 +443,10 @@ function CaseDetail() {
                   })}
                   beforeLabel={{
                     eyebrow: l({ en: "Before", ru: "До" }),
-                    caption: l({ en: "Unintegrated Estate", ru: "Фрагментированная усадьба" }),
+                    caption: l({
+                      en: "Raw Unrestored State",
+                      ru: "Исходное состояние (без отделки)",
+                    }),
                   }}
                   afterLabel={{
                     eyebrow: l({ en: "After", ru: "После" }),
@@ -456,8 +459,8 @@ function CaseDetail() {
                     ru: "Профессиональная переоценка",
                   })}
                   conceptTitle={l({
-                    en: "From an illiquid property stalemate to an operator-led hospitality and production ecosystem",
-                    ru: "От неликвидного тупика — к операторской платформе гостеприимства, съемок и событий",
+                    en: "From a distressed heritage shell to an operator-led hospitality and production ecosystem",
+                    ru: "От аварийного объема усадьбы — к операторской платформе гостеприимства, съемок и событий",
                   })}
                   conceptItems={[
                     l({ en: "Operator-led hospitality", ru: "Операторское гостеприимство" }),
@@ -492,50 +495,72 @@ function CaseDetail() {
                 </p>
               </div>
 
-              <div className="mt-12 grid gap-8 sm:grid-cols-2">
+              <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
                 {[
                   {
-                    src: "/images/cases/bauskas-16a/case12.jpg",
+                    src: "/images/cases/bauskas-16a/admin-archive/IMG_8764-7.jpg",
                     title: {
-                      en: "Raw Interior Condition",
-                      ru: "Исходное состояние помещений",
+                      en: "Grand Hall (Pre-Restoration)",
+                      ru: "Парадный зал до реставрации",
                     },
                     note: {
-                      en: "Observed state: Worn authentic finishes and unprogrammed rooms. Strategic re-evaluation: Preserve genuine patina for cinematic value instead of speculative full-scale rebuild.",
-                      ru: "Факт наблюдения: Неоднородная историческая отделка без функционального назначения. Вывод переоценки: Сохранение патины для съемочных сценариев вместо дорогой новодельной отделки.",
+                      en: "Observed state: Peeling plaster, exposed beam supports and bare subfloors. Strategic re-evaluation: Preserve authentic patina and volume for film productions rather than applying flat modern finishes.",
+                      ru: "Факт наблюдения: Осыпавшаяся штукатурка, открытые перекрытия и черновой пол. Вывод переоценки: Сохранение исторической патины и объема для киносъемок вместо плоского новодела.",
                     },
                   },
                   {
-                    src: "/images/cases/bauskas-16a/image3.jpg",
+                    src: "/images/cases/bauskas-16a/admin-archive/IMG_8760-3.jpg",
                     title: {
-                      en: "Circulation & Flow Separation",
-                      ru: "Внутренняя циркуляция и потоки",
+                      en: "Historic Staircase & Circulation",
+                      ru: "Историческая парадная лестница",
                     },
                     note: {
-                      en: "Observed state: Complex multi-level transitions. Strategic re-evaluation: Structure independent circulation between private apartments, public salon and service zones.",
-                      ru: "Факт наблюдения: Сложные межуровневые переходы. Вывод переоценки: Разделение маршрутов частного проживания, парадных приемов и бэк-офиса.",
+                      en: "Observed state: Worn stone treads, wrought-iron balustrades and damaged glazing. Strategic re-evaluation: Natural flow separator between guest salons and private suites.",
+                      ru: "Факт наблюдения: Каменные ступени, кованые ограждения и осыпавшиеся стены. Вывод переоценки: Естественный разделитель потоков гостей и приватных резиденций.",
                     },
                   },
                   {
-                    src: "/images/cases/bauskas-16a/page12.jpg",
+                    src: "/images/cases/bauskas-16a/admin-archive/IMG_8763-5.jpg",
                     title: {
-                      en: "Upper Level Historic Atmosphere",
-                      ru: "Историческая атмосфера верхних залов",
+                      en: "Historic Stove & Salon Room",
+                      ru: "Зал с изразцовой печью",
                     },
                     note: {
-                      en: "Observed state: Double-height proportions and library spaces. Strategic re-evaluation: Forms the emotional anchor for curated events and film productions.",
-                      ru: "Факт наблюдения: Двусветные пропорции и библиотечные залы. Вывод переоценки: Эмоциональное ядро для закрытых событий и кинопроизводства.",
+                      en: "Observed state: Damaged historical stove and raw unplastered openings. Strategic re-evaluation: Restoring the focal architectural element for private dining and salon gatherings.",
+                      ru: "Факт наблюдения: Историческая печь с утратами и неоштукатуренные проемы. Вывод переоценки: Восстановление ключевой доминанты для приватных ужинов и салонов.",
                     },
                   },
                   {
-                    src: "/images/cases/bauskas-16a/page123.jpg",
+                    src: "/images/cases/bauskas-16a/admin-archive/IMG_8745-25.jpg",
                     title: {
-                      en: "Multi-Layered Spatial Scale",
-                      ru: "Многослойный масштаб пространства",
+                      en: "Vaulted Brick Basement",
+                      ru: "Сводчатый кирпичный цоколь",
                     },
                     note: {
-                      en: "Observed state: Varied ceiling heights and room volumes. Strategic re-evaluation: Enables complementary multi-scenario operation across all seasons.",
-                      ru: "Факт наблюдения: Разновысотные помещения и контрастные объемы. Вывод переоценки: Возможность круглогодичной мультисценарной загрузки.",
+                      en: "Observed state: Exposed brick vaults, massive masonry piers and earthen floors. Strategic re-evaluation: Dedicated zone for commercial kitchen, spa and wellness logistics.",
+                      ru: "Факт наблюдения: Открытые кирпичные своды, массивные пилоны и черновой контур. Вывод переоценки: Размещение профессиональной кухни, спа и сервисной логистики.",
+                    },
+                  },
+                  {
+                    src: "/images/cases/bauskas-16a/admin-archive/IMG_8739-21.jpg",
+                    title: {
+                      en: "Exterior Facade & Grounds",
+                      ru: "Фасад усадьбы и территория",
+                    },
+                    note: {
+                      en: "Observed state: Weathered stone carvings, peeling paint and unpaved perimeter. Strategic re-evaluation: Exterior architectural presence as the flagship marketing anchor.",
+                      ru: "Факт наблюдения: Потертая историческая лепнина и необустроенный двор. Вывод переоценки: Монументальный внешний облик как главный маркетинговый якорь.",
+                    },
+                  },
+                  {
+                    src: "/images/cases/bauskas-16a/admin-archive/IMG_8750-32.jpg",
+                    title: {
+                      en: "Engineering Stabilization",
+                      ru: "Инженерная стабилизация",
+                    },
+                    note: {
+                      en: "Observed state: Conduit grooves, structural steel reinforcements and rough masonry. Strategic re-evaluation: Phased utility upgrades synchronized with operator commitments.",
+                      ru: "Факт наблюдения: Прокладка инженерных трасс, усиление конструкций и черновая подготовка. Вывод переоценки: Поэтапная инженерия под требования оператора.",
                     },
                   },
                 ].map((item, idx) => (
