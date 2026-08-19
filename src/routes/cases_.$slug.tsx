@@ -6,7 +6,6 @@ import { BeforeAfterReveal } from "@/components/site/BeforeAfterReveal";
 import { CastleLineDrawing } from "@/components/site/CastleLineDrawing";
 import { FallingLeaves } from "@/components/site/FallingLeaves";
 import { MountainLineDrawing } from "@/components/site/MountainLineDrawing";
-import { BauskasCase } from "@/components/site/BauskasCase";
 import { cases } from "@/data/cases";
 import { useLanguage } from "@/i18n";
 import { getPublishedCases, getPublishedContent } from "@/lib/api/admin.functions";
@@ -93,8 +92,6 @@ function CaseDetail() {
     items.forEach((item) => observer.observe(item));
     return () => observer.disconnect();
   }, [slug]);
-
-  if (slug === "bauskas-16a-riga") return <BauskasCase />;
 
   return (
     <article ref={articleRef}>
