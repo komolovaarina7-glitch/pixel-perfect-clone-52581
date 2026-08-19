@@ -278,109 +278,121 @@ export const cases: CaseStudy[] = [
   {
     slug: "bauskas-16a-riga",
     title: { en: "Bauskas 16A, Riga", ru: "Bauskas 16A, Рига" },
-    theme: { en: "Urban Heritage", ru: "Городское наследие" },
+    theme: {
+      en: "Strategic Re-Evaluation · Urban Heritage",
+      ru: "Стратегическая переоценка · Городское наследие",
+    },
     img: "/images/cases/bauskas-16a/case1.jpg",
     subtitle: {
-      en: "Repositioning a historic Riga estate through cinematic identity, adaptive reuse and hospitality logic.",
-      ru: "Репозиционирование исторической рижской усадьбы через кинематографичную идентичность, адаптивное использование и логику гостеприимства.",
+      en: "From an illiquid property stalemate to a multi-scenario operator platform: professional re-evaluation of a complex Riga heritage estate.",
+      ru: "От неликвидного тупика традиционной продажи к мультисценарной операторской платформе: профессиональная переоценка сложной рижской усадьбы.",
     },
     challenge: {
-      en: "The asset is difficult to interpret through conventional residential or commercial property categories because its heritage character, spatial complexity and possible uses do not align with a standard disposal narrative.",
-      ru: "Объект сложно интерпретировать через стандартные категории жилой или коммерческой недвижимости: его исторический характер, пространственная сложность и возможные функции не укладываются в обычную логику продажи.",
+      en: "The estate was trapped between conventional residential and commercial categories: too extensive and complex for a private family home, yet too architecturally specific for standard office use. In its un-repositioned state, it was perceived as an illiquid asset with unmanageable maintenance and refurbishment exposure.",
+      ru: "Усадьба оказалась в тупике стандартной классификации: слишком масштабная и сложная для частного дома одной семьи, но слишком специфическая и насыщенная историческими интерьерами для типового офиса. До переоценки объект воспринимался рынком как неликвидное обременение с высокими затратами на содержание.",
     },
     logic: {
-      en: "The working thesis prioritises operator-led heritage hospitality and private events, with cinematic identity as a differentiator and accommodation, wellness and production stays as supporting uses. It remains subject to legal, technical, demand and operator validation.",
-      ru: "Рабочий тезис отдаёт приоритет историческому hospitality-объекту и частным событиям под управлением оператора; кинематографичная идентичность служит отличием, а размещение, wellness и production-проживание — поддерживающими функциями. Тезис требует юридической, технической, рыночной и операторской проверки.",
+      en: "The strategic breakthrough came from shifting from a single-buyer property sale thesis to an operator-led platform model. Historic interiors and authentic patina became production value for film and curated events, supported by independent residential suites and a lower-level wellness and hospitality ecosystem.",
+      ru: "Стратегический перелом произошел при отказе от логики разовой продажи в пользу операторской платформы. Исторические залы и аутентичная патина превратились в готовую ценность для киносъемок и закрытых событий, усиленную независимыми жилыми апартаментами и инфраструктурным цоколем.",
     },
     direction: {
-      en: "Heritage repositioning · operator-led hospitality · cinematic and cultural platform · multi-scenario spatial ecosystem.",
-      ru: "Репозиционирование наследия · операторское гостеприимство · кинематографическая и культурная платформа · пространственная экосистема.",
+      en: "Asset re-evaluation · operator-led hospitality · cinematic production value · multi-level spatial ecosystem · phased activation.",
+      ru: "Стратегическая переоценка · операторское гостеприимство · кинематографическая ценность · многоуровневая экосистема · поэтапный запуск.",
     },
     sections: [
       {
-        eyebrow: { en: "Repositioning Thesis", ru: "Тезис репозиционирования" },
+        eyebrow: {
+          en: "Starting Point — The Valuation Stalemate",
+          ru: "Отправная точка — тупик традиционной оценки",
+        },
         body: [
           {
-            en: "Bauskas 16A is presented not as a conventional real estate asset, but as a repositioning case. The value of the work lies in how the property is re-read: from a fragmented historic estate into a multi-scenario cultural, hospitality and cinematic environment with stronger marketability logic.",
-            ru: "Bauskas 16A представлен не как стандартный объект недвижимости, а как кейс репозиционирования. Ценность работы заключается в новом прочтении объекта: от фрагментированной исторической усадьбы к мультисценарной культурной, гостиничной и кинематографичной среде с более сильной рыночной логикой.",
+            en: "At the outset, Bauskas 16A was evaluated through conventional real estate metrics: total square meters, physical condition, and price per square meter. Traditional brokerages attempted to position the 1,000+ m² historic complex either as an oversized single-family residence or as standard administrative premises. Both approaches collapsed under commercial scrutiny.",
+            ru: "В исходной точке Bauskas 16A оценивался через стандартные метрики рынка недвижимости: общую площадь, физическое состояние и цену за квадратный метр. Традиционные брокеры пытались продать исторический комплекс площадью более 1000 м² либо как избыточно большой частный дом, либо как типовое офисное здание. Оба подхода завели объект в тупик.",
           },
           {
-            en: "The concept reframes the building from an unusual and potentially difficult-to-read property into a hybrid heritage asset. Its repositioning logic is based on the combination of historic interiors, atmospheric spatial composition, residential flexibility, wellness and event infrastructure, and potential for curated cultural or hospitality use.",
-            ru: "Концепция переосмысляет здание из необычного и потенциально сложного для рынка объекта в гибридный объект наследия. Его логика репозиционирования строится на сочетании исторических интерьеров, атмосферной пространственной композиции, жилой гибкости, wellness- и event-инфраструктуры, а также потенциала для культурного или гостиничного использования.",
+            en: "For a private homeowner, maintaining grand representative salons, double-height libraries, and a professional lower-level kitchen was economically inefficient and operationally burdensome. For an office tenant, the unique layout, historical fireplaces, and delicate stucco details presented unnecessary operational friction. The property was culturally distinguished but commercially illegible.",
+            ru: "Для частного покупателя содержание парадных залов, двусветной библиотеки и цокольной кухни было избыточным бременем. Для коммерческого арендатора сложная планировка, исторические камины и аутентичная лепнина создавали эксплуатационные ограничения. Объект обладал очевидной культурной ценностью, но оставался коммерчески нечитаемым.",
           },
         ],
       },
       {
         eyebrow: {
-          en: "Spatial Identity as Value Driver",
-          ru: "Пространственная идентичность как фактор ценности",
+          en: "First Reframe — From Single Sale to Operating Platform",
+          ru: "Первый поворот — от разовой продажи к операторской платформе",
         },
         body: [
           {
-            en: "The property contains several distinct spatial layers: representative upper floors, independent residential apartments and a lower hospitality, wellness and event level. REPOSITION LAB's concept does not treat these as disconnected amenities, but as a functional ecosystem.",
-            ru: "Объект содержит несколько отдельных пространственных слоёв: репрезентативные верхние этажи, независимые жилые апартаменты и нижний уровень для гостеприимства, wellness и событий. Концепция REPOSITION LAB рассматривает их не как разрозненные удобства, а как функциональную экосистему.",
+            en: "The repositioning began by reframing the core question: instead of searching for an elusive single purchaser willing to take on the whole building, the asset was re-evaluated as an operational ecosystem capable of generating diverse, recurring revenue streams. The building was re-read as an operator-led heritage hospitality and private events estate.",
+            ru: "Перепозиционирование началось со смены ключевого вопроса: вместо поиска гипотетического покупателя на всё здание целиком, объект был переоценен как операционная экосистема с несколькими взаимоусиливающими источниками дохода. Здание получило новое позиционирование: усадьба исторического бутик-гостеприимства и частных событий под управлением профильного оператора.",
           },
           {
-            en: "The spatial composition allows the asset to support several complementary scenarios: private residence, creative residency, cinematic location, cultural programming, boutique hospitality, private events, wellness experience and curated destination use.",
-            ru: "Пространственная композиция позволяет объекту поддерживать несколько взаимодополняющих сценариев: частная резиденция, творческая резиденция, кинематографичная локация, культурная программа, бутик-гостеприимство, частные события, wellness-опыт и кураторское использование как самостоятельного направления.",
-          },
-        ],
-      },
-      {
-        eyebrow: { en: "Cinematic Upper Environment", ru: "Кинематографичная верхняя среда" },
-        body: [
-          {
-            en: "The second and third floors are interpreted as the emotional and cinematic core of the estate. Library-like rooms, double-height perspectives, salon-style zones, attic architecture, textured interiors and natural light create a setting with strong visual identity.",
-            ru: "Второй и третий этажи интерпретируются как эмоциональное и кинематографичное ядро усадьбы. Библиотечные комнаты, двойные высоты, салонные зоны, мансардная архитектура, фактурные интерьеры и естественный свет создают среду с сильной визуальной идентичностью.",
-          },
-          {
-            en: "The upper environment gives the asset a visual identity that becomes part of its repositioning thesis: a historically textured, cinematically credible environment that cannot be replicated through new construction.",
-            ru: "Верхняя среда даёт объекту визуальную идентичность, которая становится частью тезиса репозиционирования: исторически фактурная, кинематографически убедительная среда, которую невозможно воспроизвести новым строительством.",
-          },
-        ],
-      },
-      {
-        eyebrow: { en: "Residential Flexibility", ru: "Жилая гибкость" },
-        body: [
-          {
-            en: "The first floor is reported to contain two independent apartment configurations of approximately 125 square metres each, subject to confirmation. Within the repositioning logic, these spaces can support guest accommodation, creative residencies, private stays, long-term living or accommodation connected to events and productions on the upper floors.",
-            ru: "Первый этаж, по предварительным данным, содержит две независимые квартирные конфигурации примерно по 125 квадратных метров каждая, что требует подтверждения. В логике репозиционирования эти пространства могут поддерживать гостевое размещение, творческие резиденции, частное проживание, долгосрочное использование или размещение, связанное с событиями и съёмками на верхних этажах.",
-          },
-          {
-            en: "The estate can combine private, creative and hospitality use without being reduced to a single fixed operating model — an important quality for assets targeting non-standard audiences and non-conventional capital.",
-            ru: "Усадьба может сочетать частное, творческое и гостиничное использование, не сводясь к одной фиксированной операционной модели — важное качество для объектов, ориентированных на нестандартные аудитории и нетипичный капитал.",
+            en: "This unlocked multiple distinct demand audiences: boutique hospitality operators, creative production companies, cultural institutions, private clubs, and residency programs. Value was no longer held hostage by a future single transaction; it could be materialized progressively through curated activation and operator partnerships.",
+            ru: "Это открыло доступ сразу к нескольким целевым аудиториям: операторам бутик-отелей, съемочным и продюсерским компаниям, культурным институциям, закрытым клубам и резиденциям. Ценность перестала зависеть от единственной гипотетической сделки и стала формироваться через реальную эксплуатацию и партнерства.",
           },
         ],
       },
       {
         eyebrow: {
-          en: "Lower Hospitality and Wellness Layer",
-          ru: "Нижний wellness- и event-слой",
+          en: "Cinematic Atmosphere as Turnkey Production Value",
+          ru: "Кинематографическая патина как готовая ценность",
         },
         body: [
           {
-            en: "The lower level, which may include wellness facilities, a professional kitchen, meeting rooms and event space subject to confirmation, is read within the concept as a supporting experiential layer.",
-            ru: "Нижний уровень, который может включать wellness-зоны, профессиональную кухню, переговорные помещения и event-пространство при условии подтверждения, читается в концепции как поддерживающий опытный слой.",
+            en: "Standard redevelopment logic often presumes that historic interiors must undergo total cosmetic reconstruction. The repositioning analysis proved the opposite: the estate's authentic patina, deep timber textures, library proportions, and dramatic attic geometry already provide the visual depth that film producers, fashion photographers, and set designers spend substantial budgets trying to recreate.",
+            ru: "Стандартный девелоперский подход часто предполагает, что исторические интерьеры требуют тотального выравнивания и евроремонта. Анализ перепозиционирования доказал обратное: подлинная патина, фактура дерева, пропорции библиотеки и мансардные объемы уже несут в себе готовую художественную ценность, на создание которой художники-постановщики кино и fashion-съемок тратят огромные бюджеты.",
           },
           {
-            en: "The logic is to position it as an integrated component of a coherent multi-scenario environment — one that may enhance the estate's overall institutional readability and marketability.",
-            ru: "Логика состоит в том, чтобы позиционировать его как интегрированный компонент цельной мультисценарной среды — компонент, который может сделать усадьбу более понятной для институционального и профессионального рынка.",
+            en: "By treating visible age and character as production value rather than a defect, the asset immediately qualified for commercial filming, editorial campaigns, music videos, private presentations, and curated cultural gatherings without waiting for a multi-million capital expenditure cycle.",
+            ru: "Признание возраста и характера интерьеров активом, а не дефектом, позволило объекту сразу включиться в сценарии съемок полного метра, рекламы, модных эдиториалов, закрытых презентаций и культурных вечеров без необходимости многомиллионных предварительных вложений.",
           },
         ],
       },
       {
         eyebrow: {
-          en: "From Low-Liquidity Asset to Repositioned Concept",
-          ru: "От низколиквидного объекта к новой рыночной концепции",
+          en: "Tri-Level Spatial Architecture",
+          ru: "Трехуровневая пространственная архитектура",
         },
         body: [
           {
-            en: "The final strategic point is that Bauskas 16A's potential does not lie only in its physical features. Its potential lies in the concept that connects those features into a coherent market-facing story.",
-            ru: "Финальная стратегическая мысль в том, что потенциал Bauskas 16A заключается не только в физических характеристиках. Он заключается в концепции, которая соединяет эти характеристики в цельную рыночную историю.",
+            en: "The physical layout was restructured into three integrated functional strata: The ground floor houses two independent residential configurations of approximately 125 m² each, dedicated to production team stays, artist residencies, and long-stay guests. This preserves absolute privacy from the public floors above.",
+            ru: "Планировочная структура была реорганизована в три взаимосвязанных функциональных слоя: первый этаж включает две независимые жилые конфигурации примерно по 125 м² каждая для проживания съемочных групп, арт-резиденций и долгосрочных гостей, обеспечивая полную приватность от верхних публичных залов.",
           },
           {
-            en: "Through repositioning, the asset can be presented as a rare Riga heritage environment with cinematic, cultural, hospitality and residential logic. The purpose is not to guarantee liquidity, investor interest or value uplift. The purpose is to create a more defensible and institutionally readable basis for the asset's future positioning.",
-            ru: "Через репозиционирование объект может быть представлен как редкая рижская среда наследия с кинематографичной, культурной, гостиничной и жилой логикой. Цель — не гарантировать ликвидность, интерес инвесторов или рост стоимости. Цель — создать более обоснованную и понятную профессиональному рынку основу для будущего позиционирования объекта.",
+            en: "The second and third floors constitute the emotional and representative core—grand salons, library spaces, and attic lounges for receptions, screenings, and private dining. The vaulted lower level supports a professional catering kitchen, wellness and relaxation amenities, and event logistics, forming a complete hospitality ecosystem under one roof.",
+            ru: "Второй и третий этажи образуют эмоциональное и представительское ядро — парадные залы, библиотеку и мансардные пространства для приемов, кинопоказов и закрытых ужинов. Сводчатый нижний уровень вмещает профессиональную кухню, wellness-зону и техническую логистику, формируя цельную инфраструктуру.",
+          },
+        ],
+      },
+      {
+        eyebrow: {
+          en: "Selective Conservation vs Speculative Rebuild",
+          ru: "Выборочная стабилизация вместо тотальной перестройки",
+        },
+        body: [
+          {
+            en: "A critical strategic insight was to reject speculative total reconstruction. Over-restoration risks stripping away the singular historic texture that makes the asset irreplaceable, while placing an unsustainable debt load on the project before operating cash flows are validated.",
+            ru: "Ключевым выводом переоценки стал отказ от спекулятивной тотальной реконструкции. Избыточный ремонт рискует стереть уникальную историческую ткань, делающую объект неповторимым, и создает непосильную кредитную нагрузку еще до подтверждения операционных доходов.",
+          },
+          {
+            en: "The strategy focuses on selective stabilization: modernizing building services, life-safety, heating, and acoustic zoning while safeguarding the authentic atmosphere. Capital expenditure is strictly synchronized with real operator demand and phased activation milestones.",
+            ru: "Стратегия делает ставку на выборочную стабилизацию: обновление инженерии, пожарной безопасности, теплового контура и акустического зонирования при бережном сохранении аутентичной среды. Капитальные вложения строго синхронизируются с реальным спросом операторов и этапностью запуска.",
+          },
+        ],
+      },
+      {
+        eyebrow: {
+          en: "Final Positioned Asset — Market Readability and Value",
+          ru: "Итоговая позиция — рыночная понятность и ликвидность",
+        },
+        body: [
+          {
+            en: "The repositioned Bauskas 16A is no longer a problematic real estate puzzle. It has been transformed into an institutionally legible hybrid heritage asset with a verified target audience, clear operational logic, and robust risk mitigations.",
+            ru: "Перепозиционированный Bauskas 16A больше не является проблемной загадкой для рынка. Он трансформирован в институционально понятный гибридный объект наследия с подтвержденной целевой аудиторией, прозрачной операционной логикой и сниженными рисками.",
+          },
+          {
+            en: "The asset offers its owner a clear decision framework: hold and operate via a boutique hospitality partnership, lease to cultural and production operators, or execute a structured sale backed by verified operating logic and institutional demand.",
+            ru: "Объект предоставляет владельцу четкую основу для решений: удержание с привлечением гостиничного оператора, долгосрочная аренда под культурно-съемочные цели или структурированная продажа с подтвержденной операционной моделью.",
           },
         ],
       },
