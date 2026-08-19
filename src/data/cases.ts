@@ -293,8 +293,8 @@ export const cases: CaseStudy[] = [
       ru: "Рабочий тезис отдаёт приоритет историческому hospitality-объекту и частным событиям под управлением оператора; кинематографичная идентичность служит отличием, а размещение, wellness и production-проживание — поддерживающими функциями. Тезис требует юридической, технической, рыночной и операторской проверки.",
     },
     direction: {
-      en: "Verify · validate operator demand · package the selected thesis · engage qualified counterparties · support the owner's hold, partnership, conversion or controlled-exit decision.",
-      ru: "Проверить данные · валидировать операторский спрос · упаковать выбранный тезис · привлечь квалифицированных контрагентов · подготовить решение владельца об удержании, партнёрстве, конверсии или контролируемом выходе.",
+      en: "Heritage repositioning · operator-led hospitality · cinematic and cultural platform · multi-scenario spatial ecosystem.",
+      ru: "Репозиционирование наследия · операторское гостеприимство · кинематографическая и культурная платформа · пространственная экосистема.",
     },
     sections: [
       {
@@ -383,6 +383,39 @@ export const cases: CaseStudy[] = [
             ru: "Через репозиционирование объект может быть представлен как редкая рижская среда наследия с кинематографичной, культурной, гостиничной и жилой логикой. Цель — не гарантировать ликвидность, интерес инвесторов или рост стоимости. Цель — создать более обоснованную и понятную профессиональному рынку основу для будущего позиционирования объекта.",
           },
         ],
+      },
+    ],
+    advantages: [
+      {
+        title: { en: "Operator-led clarity", ru: "Операторская ясность" },
+        body: {
+          en: "Transforms a fragmented estate into a coherent hospitality and private events proposition with a targeted operating profile.",
+          ru: "Превращает фрагментированную усадьбу в понятное предложение для операторов гостеприимства и частных событий с четким целевым профилем.",
+        },
+      },
+      {
+        title: { en: "Spatial ecosystem", ru: "Пространственная экосистема" },
+        body: {
+          en: "Representative salons, independent accommodation and wellness infrastructure reinforce one another within a unified guest journey.",
+          ru: "Репрезентативные залы, независимое жилое размещение и wellness-инфраструктура взаимно усиливают друг друга в рамках единого сценария.",
+        },
+      },
+      {
+        title: {
+          en: "Authenticity as production value",
+          ru: "Ценность подлинной атмосферы",
+        },
+        body: {
+          en: "Historic patina, library rooms and attic architecture provide genuine cinematic character without speculative full-scale rebuild costs.",
+          ru: "Историческая патина, библиотечные комнаты и мансардная архитектура дают выразительный характер для съемок и резиденций без затрат на новодельную перестройку.",
+        },
+      },
+      {
+        title: { en: "Phased market activation", ru: "Поэтапная активация" },
+        body: {
+          en: "Allows the asset to generate demand, visibility and partnerships across productions and residencies before extensive conversion.",
+          ru: "Позволяет запускать съемки, резиденции и камерные события параллельно с подготовкой основной концепции, формируя доказательную базу спроса.",
+        },
       },
     ],
     gallery: [
