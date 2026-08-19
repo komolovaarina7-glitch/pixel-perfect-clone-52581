@@ -472,17 +472,17 @@ function CaseDetail() {
             </div>
           </section>
 
-          <section className="border-t border-rule py-20 md:py-28 bg-muted/10">
+          <section className="case-file-condition-archive border-t border-rule py-16 md:py-24">
             <div className="container-rl max-w-5xl">
               {/* Section Header */}
-              <div className="max-w-2xl">
+              <div className="max-w-3xl">
                 <p className="eyebrow text-accent">
                   {l({
                     en: "Condition Assessment & Documentary Evidence",
                     ru: "Оценка исходного состояния и документальный архив",
                   })}
                 </p>
-                <h2 className="serif text-3xl md:text-4xl lg:text-[2.6rem] leading-tight mt-4 text-foreground">
+                <h2 className="serif text-3xl md:text-5xl mt-5 leading-tight text-foreground">
                   {l({
                     en: "Photographic record behind the strategic re-evaluation",
                     ru: "Фотофиксация исходного состояния как основа переоценки",
@@ -497,11 +497,11 @@ function CaseDetail() {
               </div>
 
               {/* Editorial Sequence */}
-              <div className="mt-20 md:mt-24 space-y-24 md:space-y-32">
+              <div className="mt-16 md:mt-24 space-y-20 md:space-y-28">
                 {/* 01: Grand Hall — Dominant Large Editorial Moment */}
-                <div className="border-t border-rule/70 pt-12 md:pt-16">
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-                    <div className="lg:col-span-7 xl:col-span-8 overflow-hidden bg-muted">
+                <div className="border-t border-rule pt-12 md:pt-16">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+                    <div className="lg:col-span-7 xl:col-span-8 overflow-hidden bg-muted border border-rule">
                       <img
                         src="/images/cases/bauskas-16a/admin-archive/IMG_8764-7.jpg"
                         alt={l({
@@ -514,66 +514,55 @@ function CaseDetail() {
                         className="w-full h-auto aspect-[4/3] object-cover transition-transform duration-700 hover:scale-[1.02]"
                       />
                     </div>
-                    <div className="lg:col-span-5 xl:col-span-4 flex flex-col justify-between self-stretch pt-2 lg:pt-0">
-                      <div>
-                        <span className="font-mono text-xs tracking-widest text-accent font-semibold block mb-3">
-                          ARCHIVE RECORD / 01
-                        </span>
-                        <h3 className="serif text-2xl md:text-3xl text-foreground leading-tight">
-                          {l({
-                            en: "Grand Hall (Pre-Restoration)",
-                            ru: "Парадный зал до реставрации",
-                          })}
-                        </h3>
+                    <div className="lg:col-span-5 xl:col-span-4 flex flex-col justify-start">
+                      <h3 className="serif text-2xl md:text-3xl text-foreground font-normal leading-snug">
+                        {l({
+                          en: "Grand Hall",
+                          ru: "Парадный зал",
+                        })}
+                      </h3>
 
-                        <div className="mt-8 space-y-6">
-                          <div>
-                            <p className="text-[11px] tracking-[0.18em] uppercase font-semibold text-muted-foreground/80 mb-1.5">
-                              {l({ en: "Existing Condition", ru: "Исходное состояние" })}
-                            </p>
-                            <p className="text-sm text-foreground/85 leading-relaxed">
-                              {l({
-                                en: "Peeling plaster, exposed beam supports and bare subfloors.",
-                                ru: "Осыпавшаяся штукатурка, открытые перекрытия с временной подпоркой и черновой пол.",
-                              })}
-                            </p>
-                          </div>
-
-                          <div className="pt-2">
-                            <p className="text-[11px] tracking-[0.18em] uppercase font-semibold text-accent mb-1.5">
-                              {l({
-                                en: "Strategic Re-Evaluation",
-                                ru: "Стратегическая переоценка",
-                              })}
-                            </p>
-                            <p className="text-sm text-foreground leading-relaxed font-medium">
-                              {l({
-                                en: "Preserve authentic patina and volume for film productions rather than applying flat modern finishes.",
-                                ru: "Сохранение исторической патины и двусветного объема для киносъемок вместо плоского новодела.",
-                              })}
-                            </p>
-                          </div>
+                      <div className="mt-6 space-y-6">
+                        <div>
+                          <p className="eyebrow text-muted-foreground/80">
+                            {l({ en: "Existing Condition", ru: "Исходное состояние" })}
+                          </p>
+                          <p className="mt-2 text-base leading-relaxed text-muted-foreground">
+                            {l({
+                              en: "Peeling historical plaster, exposed ceiling timber framing and bare subfloors.",
+                              ru: "Осыпавшаяся историческая штукатурка, открытые балочные перекрытия и черновой пол.",
+                            })}
+                          </p>
                         </div>
-                      </div>
 
-                      <div className="hidden lg:block pt-8 border-t border-rule/40 mt-8">
-                        <p className="text-[11px] font-mono text-muted-foreground/60">
-                          BAUSKAS 16A · MAIN RESIDENCE WING
-                        </p>
+                        <div>
+                          <p className="eyebrow text-accent">
+                            {l({
+                              en: "Strategic Re-Evaluation",
+                              ru: "Стратегическая переоценка",
+                            })}
+                          </p>
+                          <p className="mt-2 text-base leading-relaxed text-foreground/85">
+                            {l({
+                              en: "Preserving authentic volume and weathered texture establishes turnkey production value for cinematography and editorial events without speculative reconstruction costs.",
+                              ru: "Сохранение аутентичной фактуры и двусветного объема создает готовую ценность для киносъемок и закрытых событий без затрат на новодельную перестройку.",
+                            })}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* 02: Historic Staircase — Narrower Offset Composition */}
-                <div className="border-t border-rule/70 pt-12 md:pt-16">
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                    <div className="lg:col-span-5 lg:order-2 overflow-hidden bg-muted">
+                <div className="border-t border-rule pt-12 md:pt-16">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+                    <div className="lg:col-span-5 lg:order-2 overflow-hidden bg-muted border border-rule">
                       <img
                         src="/images/cases/bauskas-16a/admin-archive/IMG_8760-3.jpg"
                         alt={l({
                           en: "Historic Staircase & Circulation",
-                          ru: "Историческая парадная лестница",
+                          ru: "Парадная лестница и внутренняя логистика",
                         })}
                         loading="lazy"
                         width={900}
@@ -581,38 +570,35 @@ function CaseDetail() {
                         className="w-full h-auto aspect-[4/5] object-cover transition-transform duration-700 hover:scale-[1.02]"
                       />
                     </div>
-                    <div className="lg:col-span-6 lg:col-start-1 lg:order-1 lg:pr-8">
-                      <span className="font-mono text-xs tracking-widest text-accent font-semibold block mb-3">
-                        ARCHIVE RECORD / 02
-                      </span>
-                      <h3 className="serif text-2xl md:text-3xl text-foreground leading-tight">
+                    <div className="lg:col-span-6 lg:col-start-1 lg:order-1 lg:pr-6">
+                      <h3 className="serif text-2xl md:text-3xl text-foreground font-normal leading-snug">
                         {l({
                           en: "Historic Staircase & Circulation",
-                          ru: "Историческая парадная лестница",
+                          ru: "Парадная лестница и межуровневые связи",
                         })}
                       </h3>
 
-                      <div className="mt-8 space-y-6 max-w-lg">
+                      <div className="mt-6 space-y-6 max-w-lg">
                         <div>
-                          <p className="text-[11px] tracking-[0.18em] uppercase font-semibold text-muted-foreground/80 mb-1.5">
+                          <p className="eyebrow text-muted-foreground/80">
                             {l({ en: "Existing Condition", ru: "Исходное состояние" })}
                           </p>
-                          <p className="text-sm text-foreground/85 leading-relaxed">
+                          <p className="mt-2 text-base leading-relaxed text-muted-foreground">
                             {l({
-                              en: "Worn stone treads, wrought-iron balustrades and damaged glazing.",
-                              ru: "Каменные ступени, кованые ограждения и осыпавшиеся стены без отделки.",
+                              en: "Worn stone steps, original wrought-iron balustrades and damaged glazing along vertical circulation routes.",
+                              ru: "Каменные ступени со следами времени, подлинные кованые ограждения и осыпавшиеся стены межуровневых переходов.",
                             })}
                           </p>
                         </div>
 
                         <div>
-                          <p className="text-[11px] tracking-[0.18em] uppercase font-semibold text-accent mb-1.5">
+                          <p className="eyebrow text-accent">
                             {l({ en: "Strategic Re-Evaluation", ru: "Стратегическая переоценка" })}
                           </p>
-                          <p className="text-sm text-foreground leading-relaxed font-medium">
+                          <p className="mt-2 text-base leading-relaxed text-foreground/85">
                             {l({
-                              en: "Natural flow separator between guest salons and private suites.",
-                              ru: "Естественный разделитель потоков между парадными залами и приватными резиденциями.",
+                              en: "Forms a natural architectural buffer, physically separating public reception salons from private residential suites.",
+                              ru: "Формирует естественный архитектурный буфер, разводя маршруты публичных представительских залов и приватных апартаментов.",
                             })}
                           </p>
                         </div>
@@ -622,63 +608,52 @@ function CaseDetail() {
                 </div>
 
                 {/* 03: Historic Stove & Salon Room — Alternating Editorial Spread */}
-                <div className="border-t border-rule/70 pt-12 md:pt-16">
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-                    <div className="lg:col-span-5 flex flex-col justify-between self-stretch pt-2 lg:pt-0">
-                      <div>
-                        <span className="font-mono text-xs tracking-widest text-accent font-semibold block mb-3">
-                          ARCHIVE RECORD / 03
-                        </span>
-                        <h3 className="serif text-2xl md:text-3xl text-foreground leading-tight">
-                          {l({
-                            en: "Historic Stove & Salon Room",
-                            ru: "Зал с изразцовой печью",
-                          })}
-                        </h3>
+                <div className="border-t border-rule pt-12 md:pt-16">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+                    <div className="lg:col-span-5 flex flex-col justify-start">
+                      <h3 className="serif text-2xl md:text-3xl text-foreground font-normal leading-snug">
+                        {l({
+                          en: "Historic Stove & Salon Chamber",
+                          ru: "Зал с исторической печью",
+                        })}
+                      </h3>
 
-                        <div className="mt-8 space-y-6">
-                          <div>
-                            <p className="text-[11px] tracking-[0.18em] uppercase font-semibold text-muted-foreground/80 mb-1.5">
-                              {l({ en: "Existing Condition", ru: "Исходное состояние" })}
-                            </p>
-                            <p className="text-sm text-foreground/85 leading-relaxed">
-                              {l({
-                                en: "Damaged historical stove and raw unplastered openings.",
-                                ru: "Историческая печь с утратами и неоштукатуренные дверные проемы.",
-                              })}
-                            </p>
-                          </div>
-
-                          <div>
-                            <p className="text-[11px] tracking-[0.18em] uppercase font-semibold text-accent mb-1.5">
-                              {l({
-                                en: "Strategic Re-Evaluation",
-                                ru: "Стратегическая переоценка",
-                              })}
-                            </p>
-                            <p className="text-sm text-foreground leading-relaxed font-medium">
-                              {l({
-                                en: "Restoring the focal architectural element for private dining and salon gatherings.",
-                                ru: "Восстановление ключевой интерьерной доминанты для приватных ужинов и камерных событий.",
-                              })}
-                            </p>
-                          </div>
+                      <div className="mt-6 space-y-6">
+                        <div>
+                          <p className="eyebrow text-muted-foreground/80">
+                            {l({ en: "Existing Condition", ru: "Исходное состояние" })}
+                          </p>
+                          <p className="mt-2 text-base leading-relaxed text-muted-foreground">
+                            {l({
+                              en: "Preserved ceramic tile stove with localized surface losses and unplastered doorway apertures.",
+                              ru: "Историческая изразцовая печь с локальными утратами и неоштукатуренные дверные порталы.",
+                            })}
+                          </p>
                         </div>
-                      </div>
 
-                      <div className="hidden lg:block pt-8 border-t border-rule/40 mt-8">
-                        <p className="text-[11px] font-mono text-muted-foreground/60">
-                          BAUSKAS 16A · SALON LAYER
-                        </p>
+                        <div>
+                          <p className="eyebrow text-accent">
+                            {l({
+                              en: "Strategic Re-Evaluation",
+                              ru: "Стратегическая переоценка",
+                            })}
+                          </p>
+                          <p className="mt-2 text-base leading-relaxed text-foreground/85">
+                            {l({
+                              en: "Restoring the stove as the focal architectural anchor defines an intimate salon chamber for private dining, readings and executive gatherings.",
+                              ru: "Реставрация печи как ключевой интерьерной доминанты задает формат камерного салона для закрытых ужинов, чтений и частных встреч.",
+                            })}
+                          </p>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="lg:col-span-7 overflow-hidden bg-muted">
+                    <div className="lg:col-span-7 overflow-hidden bg-muted border border-rule">
                       <img
                         src="/images/cases/bauskas-16a/admin-archive/IMG_8763-5.jpg"
                         alt={l({
-                          en: "Historic Stove & Salon Room",
-                          ru: "Зал с изразцовой печью",
+                          en: "Historic Stove & Salon Chamber",
+                          ru: "Зал с исторической печью",
                         })}
                         loading="lazy"
                         width={1200}
@@ -690,12 +665,12 @@ function CaseDetail() {
                 </div>
 
                 {/* 04: Vaulted Brick Basement — Wide Architectural Presentation */}
-                <div className="border-t border-rule/70 pt-12 md:pt-16">
-                  <div className="overflow-hidden bg-muted">
+                <div className="border-t border-rule pt-12 md:pt-16">
+                  <div className="overflow-hidden bg-muted border border-rule">
                     <img
                       src="/images/cases/bauskas-16a/admin-archive/IMG_8745-25.jpg"
                       alt={l({
-                        en: "Vaulted Brick Basement",
+                        en: "Vaulted Brick Undercroft",
                         ru: "Сводчатый кирпичный цоколь",
                       })}
                       loading="lazy"
@@ -705,39 +680,36 @@ function CaseDetail() {
                     />
                   </div>
 
-                  <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                    <div className="lg:col-span-4">
-                      <span className="font-mono text-xs tracking-widest text-accent font-semibold block mb-2">
-                        ARCHIVE RECORD / 04
-                      </span>
-                      <h3 className="serif text-2xl md:text-3xl text-foreground">
+                  <div className="mt-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                    <div className="md:col-span-4">
+                      <h3 className="serif text-2xl md:text-3xl text-foreground font-normal leading-snug">
                         {l({
-                          en: "Vaulted Brick Basement",
+                          en: "Vaulted Brick Undercroft",
                           ru: "Сводчатый кирпичный цоколь",
                         })}
                       </h3>
                     </div>
 
-                    <div className="lg:col-span-4">
-                      <p className="text-[11px] tracking-[0.18em] uppercase font-semibold text-muted-foreground/80 mb-1.5">
+                    <div className="md:col-span-4">
+                      <p className="eyebrow text-muted-foreground/80">
                         {l({ en: "Existing Condition", ru: "Исходное состояние" })}
                       </p>
-                      <p className="text-sm text-foreground/85 leading-relaxed">
+                      <p className="mt-2 text-base leading-relaxed text-muted-foreground">
                         {l({
-                          en: "Exposed brick vaults, massive masonry piers and earthen floors.",
-                          ru: "Открытые кирпичные своды, массивные пилоны и черновой контур.",
+                          en: "Exposed brick barrel vaults, massive masonry piers and earthen floors.",
+                          ru: "Открытые кирпичные своды, массивные несущие пилоны и черновой контур.",
                         })}
                       </p>
                     </div>
 
-                    <div className="lg:col-span-4">
-                      <p className="text-[11px] tracking-[0.18em] uppercase font-semibold text-accent mb-1.5">
+                    <div className="md:col-span-4">
+                      <p className="eyebrow text-accent">
                         {l({ en: "Strategic Re-Evaluation", ru: "Стратегическая переоценка" })}
                       </p>
-                      <p className="text-sm text-foreground leading-relaxed font-medium">
+                      <p className="mt-2 text-base leading-relaxed text-foreground/85">
                         {l({
-                          en: "Dedicated zone for commercial kitchen, spa and wellness logistics.",
-                          ru: "Выделенный уровень для профессиональной кухни, спа и сервисной логистики.",
+                          en: "Provides an atmospheric infrastructure layer dedicated to a commercial prep kitchen, wellness amenities and discreet operational logistics.",
+                          ru: "Формирует атмосферный инфраструктурный уровень для профессиональной кухни, спа-зоны и скрытой сервисной логистики.",
                         })}
                       </p>
                     </div>
@@ -745,9 +717,9 @@ function CaseDetail() {
                 </div>
 
                 {/* 05: Exterior Facade & Grounds — Visual Interruption of Interior Sequence */}
-                <div className="border-t border-rule/70 pt-12 md:pt-16">
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                    <div className="lg:col-span-7 overflow-hidden bg-muted">
+                <div className="border-t border-rule pt-12 md:pt-16">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+                    <div className="lg:col-span-7 overflow-hidden bg-muted border border-rule">
                       <img
                         src="/images/cases/bauskas-16a/admin-archive/IMG_8739-21.jpg"
                         alt={l({
@@ -761,66 +733,55 @@ function CaseDetail() {
                       />
                     </div>
 
-                    <div className="lg:col-span-5 flex flex-col justify-between self-stretch pt-2 lg:pt-0">
-                      <div>
-                        <span className="font-mono text-xs tracking-widest text-accent font-semibold block mb-3">
-                          ARCHIVE RECORD / 05
-                        </span>
-                        <h3 className="serif text-2xl md:text-3xl text-foreground leading-tight">
-                          {l({
-                            en: "Exterior Facade & Grounds",
-                            ru: "Фасад усадьбы и территория",
-                          })}
-                        </h3>
+                    <div className="lg:col-span-5 flex flex-col justify-start">
+                      <h3 className="serif text-2xl md:text-3xl text-foreground font-normal leading-snug">
+                        {l({
+                          en: "Exterior Facade & Grounds",
+                          ru: "Фасад усадьбы и территория",
+                        })}
+                      </h3>
 
-                        <div className="mt-8 space-y-6">
-                          <div>
-                            <p className="text-[11px] tracking-[0.18em] uppercase font-semibold text-muted-foreground/80 mb-1.5">
-                              {l({ en: "Existing Condition", ru: "Исходное состояние" })}
-                            </p>
-                            <p className="text-sm text-foreground/85 leading-relaxed">
-                              {l({
-                                en: "Weathered stone carvings, peeling paint and unpaved perimeter.",
-                                ru: "Потертая историческая лепнина, сколы камня и необустроенный двор.",
-                              })}
-                            </p>
-                          </div>
-
-                          <div>
-                            <p className="text-[11px] tracking-[0.18em] uppercase font-semibold text-accent mb-1.5">
-                              {l({
-                                en: "Strategic Re-Evaluation",
-                                ru: "Стратегическая переоценка",
-                              })}
-                            </p>
-                            <p className="text-sm text-foreground leading-relaxed font-medium">
-                              {l({
-                                en: "Exterior architectural presence as the flagship marketing anchor.",
-                                ru: "Монументальный внешний облик как главный маркетинговый якорь объекта.",
-                              })}
-                            </p>
-                          </div>
+                      <div className="mt-6 space-y-6">
+                        <div>
+                          <p className="eyebrow text-muted-foreground/80">
+                            {l({ en: "Existing Condition", ru: "Исходное состояние" })}
+                          </p>
+                          <p className="mt-2 text-base leading-relaxed text-muted-foreground">
+                            {l({
+                              en: "Weathered stone carvings, aged facade paint and an unpaved surrounding courtyard.",
+                              ru: "Историческая каменная пластика с патиной времени, выветривание отделки и необустроенный внутренний двор.",
+                            })}
+                          </p>
                         </div>
-                      </div>
 
-                      <div className="hidden lg:block pt-8 border-t border-rule/40 mt-8">
-                        <p className="text-[11px] font-mono text-muted-foreground/60">
-                          BAUSKAS 16A · FACADE & HERITAGE ENVELOPE
-                        </p>
+                        <div>
+                          <p className="eyebrow text-accent">
+                            {l({
+                              en: "Strategic Re-Evaluation",
+                              ru: "Стратегическая переоценка",
+                            })}
+                          </p>
+                          <p className="mt-2 text-base leading-relaxed text-foreground/85">
+                            {l({
+                              en: "The monumental architectural presence establishes the estate’s identity as an unmistakable urban landmark and cultural destination.",
+                              ru: "Монументальный силуэт здания утверждает статус усадьбы как заметного городского ориентира и культурного направления.",
+                            })}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* 06: Engineering Stabilization — Quieter, Precise Closing Record */}
-                <div className="border-t border-rule/70 pt-12 md:pt-16 pb-6">
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                    <div className="lg:col-span-5 lg:order-2 overflow-hidden bg-muted">
+                <div className="border-t border-rule pt-12 md:pt-16">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+                    <div className="lg:col-span-5 lg:order-2 overflow-hidden bg-muted border border-rule">
                       <img
                         src="/images/cases/bauskas-16a/admin-archive/IMG_8750-32.jpg"
                         alt={l({
-                          en: "Engineering Stabilization",
-                          ru: "Инженерная стабилизация",
+                          en: "Structural & Engineering Stabilization",
+                          ru: "Инженерная стабилизация и контур",
                         })}
                         loading="lazy"
                         width={900}
@@ -829,41 +790,38 @@ function CaseDetail() {
                       />
                     </div>
 
-                    <div className="lg:col-span-6 lg:col-start-1 lg:order-1 lg:pr-8">
-                      <span className="font-mono text-xs tracking-widest text-accent font-semibold block mb-3">
-                        ARCHIVE RECORD / 06
-                      </span>
-                      <h3 className="serif text-2xl md:text-3xl text-foreground leading-tight">
+                    <div className="lg:col-span-6 lg:col-start-1 lg:order-1 lg:pr-6">
+                      <h3 className="serif text-2xl md:text-3xl text-foreground font-normal leading-snug">
                         {l({
-                          en: "Engineering Stabilization",
-                          ru: "Инженерная стабилизация",
+                          en: "Structural & Utility Stabilization",
+                          ru: "Инженерная стабилизация и контур",
                         })}
                       </h3>
 
-                      <div className="mt-8 space-y-6 max-w-lg">
+                      <div className="mt-6 space-y-6 max-w-lg">
                         <div>
-                          <p className="text-[11px] tracking-[0.18em] uppercase font-semibold text-muted-foreground/80 mb-1.5">
+                          <p className="eyebrow text-muted-foreground/80">
                             {l({ en: "Existing Condition", ru: "Исходное состояние" })}
                           </p>
-                          <p className="text-sm text-foreground/85 leading-relaxed">
+                          <p className="mt-2 text-base leading-relaxed text-muted-foreground">
                             {l({
-                              en: "Conduit grooves, structural steel reinforcements and rough masonry.",
-                              ru: "Штробы под инженерные коммуникации, усиление конструкций и черновая подготовка.",
+                              en: "Conduit chases for utility distribution, structural steel reinforcements and rough masonry prep.",
+                              ru: "Штробы под инженерные коммуникации, стальные элементы усиления и черновая подготовка конструкций.",
                             })}
                           </p>
                         </div>
 
                         <div>
-                          <p className="text-[11px] tracking-[0.18em] uppercase font-semibold text-accent mb-1.5">
+                          <p className="eyebrow text-accent">
                             {l({
                               en: "Strategic Re-Evaluation",
                               ru: "Стратегическая переоценка",
                             })}
                           </p>
-                          <p className="text-sm text-foreground leading-relaxed font-medium">
+                          <p className="mt-2 text-base leading-relaxed text-foreground/85">
                             {l({
-                              en: "Phased utility upgrades synchronized with operator commitments.",
-                              ru: "Поэтапная модернизация инженерных сетей под подтвержденные требования оператора.",
+                              en: "Focuses initial capital deployment on structural integrity, life-safety and thermal efficiency, phasing further fit-out alongside operator commitments.",
+                              ru: "Концентрирует базовые инвестиции на надежности контура, тепла и безопасности, синхронизируя чистовую отделку с этапами привлечения операторов.",
                             })}
                           </p>
                         </div>
