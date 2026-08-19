@@ -422,6 +422,151 @@ function CaseDetail() {
         </section>
       )}
 
+      {caseStudy.slug === "bauskas-16a-riga" && (
+        <>
+          <section className="case-file-chapter border-t border-rule py-16 md:py-20">
+            <div className="container-rl max-w-5xl">
+              <p className="eyebrow text-accent">
+                {l({ en: "Repositioning in Motion", ru: "Репозиционирование в движении" })}
+              </p>
+              <div className="mt-8">
+                <BeforeAfterReveal
+                  beforeSrc="/images/cases/bauskas-16a/case12.jpg"
+                  afterSrc="/images/cases/bauskas-16a/baus2.jpg"
+                  beforeAlt={l({
+                    en: "Bauskas 16A interior before repositioning — unintegrated heritage structure without operating logic",
+                    ru: "Усадьба Bauskas 16A до перепозиционирования — фрагментированный объект наследия без операционной логики",
+                  })}
+                  afterAlt={l({
+                    en: "Bauskas 16A grand representative salon after repositioning — operator-led cultural and hospitality platform",
+                    ru: "Парадный зал Bauskas 16A после перепозиционирования — операторская платформа гостеприимства и съемок",
+                  })}
+                  beforeLabel={{
+                    eyebrow: l({ en: "Before", ru: "До" }),
+                    caption: l({ en: "Unintegrated Estate", ru: "Фрагментированная усадьба" }),
+                  }}
+                  afterLabel={{
+                    eyebrow: l({ en: "After", ru: "После" }),
+                    caption: l({ en: "Operator Platform", ru: "Операторская платформа" }),
+                  }}
+                  replayLabel={l({ en: "Replay transformation", ru: "Повторить трансформацию" })}
+                  replayLabelShort={l({ en: "Replay", ru: "Повтор" })}
+                  conceptEyebrow={l({
+                    en: "Professional Re-Evaluation",
+                    ru: "Профессиональная переоценка",
+                  })}
+                  conceptTitle={l({
+                    en: "From an illiquid property stalemate to an operator-led hospitality and production ecosystem",
+                    ru: "От неликвидного тупика — к операторской платформе гостеприимства, съемок и событий",
+                  })}
+                  conceptItems={[
+                    l({ en: "Operator-led hospitality", ru: "Операторское гостеприимство" }),
+                    l({ en: "Cinematic production", ru: "Кино- и фотопроизводство" }),
+                    l({ en: "Adaptive residencies", ru: "Адаптивные резиденции" }),
+                  ]}
+                />
+              </div>
+            </div>
+          </section>
+
+          <section className="border-t border-rule py-16 md:py-20 bg-muted/20">
+            <div className="container-rl max-w-5xl">
+              <div className="max-w-3xl">
+                <p className="eyebrow text-accent">
+                  {l({
+                    en: "Condition Assessment & Documentary Evidence",
+                    ru: "Оценка исходного состояния и документальный архив",
+                  })}
+                </p>
+                <h2 className="serif text-3xl md:text-4xl mt-4 text-foreground">
+                  {l({
+                    en: "Photographic record behind the strategic re-evaluation",
+                    ru: "Фотофиксация исходного состояния как основа переоценки",
+                  })}
+                </h2>
+                <p className="mt-4 text-muted-foreground leading-relaxed text-base md:text-lg">
+                  {l({
+                    en: "Before defining the repositioning thesis, the estate was audited room-by-room. The archival record revealed that physical patina and architectural layeredness—previously perceived as renovation liabilities—were the core assets needed for a differentiated operator model.",
+                    ru: "До формирования стратегии перепозиционирования объект прошел детальный аудит каждого помещения. Архивные кадры подтвердили: историческая патина и многослойность пространства, ранее считавшиеся затратным обременением, стали главным фактором привлекательности для профильных операторов.",
+                  })}
+                </p>
+              </div>
+
+              <div className="mt-12 grid gap-8 sm:grid-cols-2">
+                {[
+                  {
+                    src: "/images/cases/bauskas-16a/case12.jpg",
+                    title: {
+                      en: "Raw Interior Condition",
+                      ru: "Исходное состояние помещений",
+                    },
+                    note: {
+                      en: "Observed state: Worn authentic finishes and unprogrammed rooms. Strategic re-evaluation: Preserve genuine patina for cinematic value instead of speculative full-scale rebuild.",
+                      ru: "Факт наблюдения: Неоднородная историческая отделка без функционального назначения. Вывод переоценки: Сохранение патины для съемочных сценариев вместо дорогой новодельной отделки.",
+                    },
+                  },
+                  {
+                    src: "/images/cases/bauskas-16a/image3.jpg",
+                    title: {
+                      en: "Circulation & Flow Separation",
+                      ru: "Внутренняя циркуляция и потоки",
+                    },
+                    note: {
+                      en: "Observed state: Complex multi-level transitions. Strategic re-evaluation: Structure independent circulation between private apartments, public salon and service zones.",
+                      ru: "Факт наблюдения: Сложные межуровневые переходы. Вывод переоценки: Разделение маршрутов частного проживания, парадных приемов и бэк-офиса.",
+                    },
+                  },
+                  {
+                    src: "/images/cases/bauskas-16a/page12.jpg",
+                    title: {
+                      en: "Upper Level Historic Atmosphere",
+                      ru: "Историческая атмосфера верхних залов",
+                    },
+                    note: {
+                      en: "Observed state: Double-height proportions and library spaces. Strategic re-evaluation: Forms the emotional anchor for curated events and film productions.",
+                      ru: "Факт наблюдения: Двусветные пропорции и библиотечные залы. Вывод переоценки: Эмоциональное ядро для закрытых событий и кинопроизводства.",
+                    },
+                  },
+                  {
+                    src: "/images/cases/bauskas-16a/page123.jpg",
+                    title: {
+                      en: "Multi-Layered Spatial Scale",
+                      ru: "Многослойный масштаб пространства",
+                    },
+                    note: {
+                      en: "Observed state: Varied ceiling heights and room volumes. Strategic re-evaluation: Enables complementary multi-scenario operation across all seasons.",
+                      ru: "Факт наблюдения: Разновысотные помещения и контрастные объемы. Вывод переоценки: Возможность круглогодичной мультисценарной загрузки.",
+                    },
+                  },
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="border border-rule bg-background p-5 flex flex-col justify-between"
+                  >
+                    <div className="aspect-[4/3] overflow-hidden border border-rule/60 bg-muted">
+                      <img
+                        src={item.src}
+                        alt={l(item.title)}
+                        loading="lazy"
+                        width={800}
+                        height={600}
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                      />
+                    </div>
+                    <div className="mt-5 space-y-2">
+                      <h3 className="serif text-xl text-foreground">{l(item.title)}</h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {l(item.note)}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+
       {!hasEditorialGallery && (
         <section className="paper py-20">
           <div className="container-rl">
