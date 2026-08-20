@@ -3485,17 +3485,17 @@
   /* Case-study photography: one restrained scroll-reveal system with
      light development, optical settling, paired timing and panoramic masks. */
   .case-photo-reveal {
-    --case-photo-duration: 1250ms;
+    --case-photo-duration: 750ms;
     --case-photo-ease: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .case-photo-reveal-ready .case-photo-reveal-light {
     opacity: 0;
-    filter: brightness(0.72) contrast(0.88) saturate(0.78);
-    transform: translate3d(0, 22px, 0);
+    filter: brightness(0.82) contrast(0.92) saturate(0.86);
+    transform: translate3d(0, 14px, 0);
     transition:
       opacity var(--case-photo-duration) var(--case-photo-ease),
-      filter 1500ms var(--case-photo-ease),
+      filter 750ms var(--case-photo-ease),
       transform var(--case-photo-duration) var(--case-photo-ease),
       border-color 240ms ease;
   }
@@ -3507,8 +3507,8 @@
   }
 
   .case-photo-reveal-ready .case-photo-reveal-zoom img {
-    transform: scale(1.065);
-    transition: transform 1700ms var(--case-photo-ease);
+    transform: scale(1.04);
+    transition: transform 900ms var(--case-photo-ease);
   }
 
   .case-photo-reveal-ready .case-photo-reveal-zoom.is-visible img {
@@ -3517,19 +3517,19 @@
 
   .case-photo-reveal-ready .case-photo-reveal-panorama {
     opacity: 0;
-    filter: brightness(0.78) contrast(0.9) saturate(0.82);
-    transform: translate3d(52px, 20px, 0);
+    filter: brightness(0.86) contrast(0.94) saturate(0.9);
+    transform: translate3d(24px, 12px, 0);
     transition:
-      opacity 1450ms var(--case-photo-ease),
-      filter 1650ms var(--case-photo-ease),
-      transform 1650ms var(--case-photo-ease),
+      opacity 750ms var(--case-photo-ease),
+      filter 750ms var(--case-photo-ease),
+      transform 850ms var(--case-photo-ease),
       border-color 240ms ease;
     will-change: opacity, filter, transform;
   }
 
   .case-photo-reveal-ready .case-photo-reveal-panorama img {
-    transform: scale(1.045);
-    transition: transform 1900ms var(--case-photo-ease);
+    transform: scale(1.03);
+    transition: transform 900ms var(--case-photo-ease);
     will-change: transform;
   }
 
@@ -3544,11 +3544,11 @@
   }
 
   .case-file-evidence-zone.grid .case-photo-reveal:nth-child(2) {
-    transition-delay: 180ms;
+    transition-delay: 80ms;
   }
 
   .case-file-evidence-zone.grid .case-photo-reveal:nth-child(2) img {
-    transition-delay: 180ms;
+    transition-delay: 80ms;
   }
 
   @media (min-width: 1024px) {

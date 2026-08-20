@@ -86,7 +86,7 @@ function CaseDetail() {
           }
         });
       },
-      { threshold: 0.08, rootMargin: "0px 0px -4% 0px" },
+      { threshold: 0.04, rootMargin: "0px 0px 30px 0px" },
     );
 
     items.forEach((item) => observer.observe(item));
@@ -363,7 +363,7 @@ function CaseDetail() {
             <p className="case-file-advantages-label eyebrow text-accent">
               {l(t.cases.advantagesLabel)}
             </p>
-            <div className="mt-8 grid gap-7 md:grid-cols-2">
+            <div className="case-file-advantages-grid mt-8 grid gap-7 md:grid-cols-2">
               {caseStudy.advantages.map((advantage) => (
                 <div key={advantage.title.en}>
                   <h2 className="serif text-2xl text-foreground">{l(advantage.title)}</h2>
@@ -514,7 +514,7 @@ function CaseDetail() {
                         className="w-full h-auto aspect-[4/3] object-cover transition-transform duration-700 hover:scale-[1.02]"
                       />
                     </div>
-                    <div className="lg:col-span-5 xl:col-span-4 flex flex-col justify-start">
+                    <div className="case-condition-text lg:col-span-5 xl:col-span-4 flex flex-col justify-start">
                       <h3 className="serif text-2xl md:text-3xl text-foreground font-normal leading-snug">
                         {l({
                           en: "Grand Hall",
@@ -570,7 +570,7 @@ function CaseDetail() {
                         className="w-full h-auto aspect-[4/5] object-cover transition-transform duration-700 hover:scale-[1.02]"
                       />
                     </div>
-                    <div className="lg:col-span-6 lg:col-start-1 lg:order-1 lg:pr-6">
+                    <div className="case-condition-text lg:col-span-6 lg:col-start-1 lg:order-1 lg:pr-6">
                       <h3 className="serif text-2xl md:text-3xl text-foreground font-normal leading-snug">
                         {l({
                           en: "Historic Staircase & Circulation",
@@ -610,7 +610,7 @@ function CaseDetail() {
                 {/* 03: Historic Stove & Salon Room — Alternating Editorial Spread */}
                 <div className="border-t border-rule pt-12 md:pt-16">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
-                    <div className="lg:col-span-5 flex flex-col justify-start">
+                    <div className="case-condition-text lg:col-span-5 flex flex-col justify-start">
                       <h3 className="serif text-2xl md:text-3xl text-foreground font-normal leading-snug">
                         {l({
                           en: "Historic Stove & Salon Chamber",
@@ -680,7 +680,7 @@ function CaseDetail() {
                     />
                   </div>
 
-                  <div className="mt-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                  <div className="case-condition-text mt-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
                     <div className="md:col-span-4">
                       <h3 className="serif text-2xl md:text-3xl text-foreground font-normal leading-snug">
                         {l({
@@ -733,7 +733,7 @@ function CaseDetail() {
                       />
                     </div>
 
-                    <div className="lg:col-span-5 flex flex-col justify-start">
+                    <div className="case-condition-text lg:col-span-5 flex flex-col justify-start">
                       <h3 className="serif text-2xl md:text-3xl text-foreground font-normal leading-snug">
                         {l({
                           en: "Exterior Facade & Grounds",
@@ -790,7 +790,7 @@ function CaseDetail() {
                       />
                     </div>
 
-                    <div className="lg:col-span-6 lg:col-start-1 lg:order-1 lg:pr-6">
+                    <div className="case-condition-text lg:col-span-6 lg:col-start-1 lg:order-1 lg:pr-6">
                       <h3 className="serif text-2xl md:text-3xl text-foreground font-normal leading-snug">
                         {l({
                           en: "Structural & Utility Stabilization",

@@ -199,8 +199,8 @@ function GlobalScrollReveal() {
             [
               {
                 opacity: 0,
-                filter: "blur(4px)",
-                transform: "translate3d(0, 18px, 0)",
+                filter: "blur(2.5px)",
+                transform: "translate3d(0, 12px, 0)",
               },
               {
                 opacity: 1,
@@ -209,22 +209,52 @@ function GlobalScrollReveal() {
               },
             ],
             {
-              duration: 820,
+              duration: 720,
               easing: "cubic-bezier(0.22, 1, 0.36, 1)",
             },
           );
           observer.unobserve(entry.target);
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -7% 0px" },
+      { threshold: 0.04, rootMargin: "0px 0px 30px 0px" },
     );
 
     const register = (root: ParentNode = document) => {
+      const targets = new Set<HTMLElement>();
+
+      // 1. Identify coherent editorial / text group containers
+      const GROUP_SELECTORS = [
+        ".case-file-chapter",
+        ".case-file-finding",
+        ".case-condition-text",
+        ".case-file-advantages-grid > div",
+        ".service-card",
+        ".who-pillar",
+        ".approach-stage",
+      ].join(", ");
+
+      const groupContainers = Array.from(root.querySelectorAll<HTMLElement>(GROUP_SELECTORS));
+      const handledGroups = new Set<HTMLElement>();
+
+      groupContainers.forEach((group) => {
+        if (
+          group.closest(".home-hero") ||
+          group.closest(".approach-hero") ||
+          group.closest(".cases-hero") ||
+          group.closest(".standard-page-hero") ||
+          group.closest(".case-detail-hero") ||
+          group.closest('[role="slider"]')
+        ) {
+          return;
+        }
+        targets.add(group);
+        handledGroups.add(group);
+      });
+
+      // 2. Register standalone text elements not wrapped in handled groups
       const textItems = root.querySelectorAll<HTMLElement>(
         "main h1, main h2, main h3, main h4, main p, main blockquote, main li, main fieldset",
       );
-      const imageItems = root.querySelectorAll<HTMLImageElement>("main img");
-      const targets = new Set<HTMLElement>();
 
       textItems.forEach((item) => {
         if (
@@ -240,9 +270,18 @@ function GlobalScrollReveal() {
         ) {
           return;
         }
+
+        for (const group of handledGroups) {
+          if (group.contains(item)) {
+            return;
+          }
+        }
+
         targets.add(item);
       });
 
+      // 3. Register standalone image wrappers (excluding custom photo-reveal plates)
+      const imageItems = root.querySelectorAll<HTMLImageElement>("main img");
       imageItems.forEach((image) => {
         if (
           image.closest(".castle-line-drawing") ||
