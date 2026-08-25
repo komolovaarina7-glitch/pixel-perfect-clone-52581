@@ -424,50 +424,326 @@ function CaseDetail() {
 
       {caseStudy.slug === "bauskas-16a-riga" && (
         <>
-          <section className="case-file-chapter border-t border-rule py-16 md:py-20">
+          {/* PHASE 1: PRE-REVOLUTIONARY HISTORICAL PROVENANCE (Villa Maria) */}
+          <section className="case-file-historical-archive border-t border-rule py-16 md:py-24">
             <div className="container-rl max-w-5xl">
-              <p className="eyebrow text-accent">
-                {l({ en: "Repositioning in Motion", ru: "Репозиционирование в движении" })}
-              </p>
-              <div className="mt-8">
-                <BeforeAfterReveal
-                  beforeSrc="/images/cases/bauskas-16a/admin-archive/IMG_8764-7.jpg"
-                  afterSrc="/images/cases/bauskas-16a/baus2.jpg"
-                  beforeAlt={l({
-                    en: "Bauskas 16A interior before repositioning — raw unrestored hall with exposed timbers and missing plaster",
-                    ru: "Усадьба Bauskas 16A до перепозиционирования — аварийный зал без штукатурки, с открытыми балками и голыми перекрытиями",
+              {/* Section Header */}
+              <div className="max-w-3xl">
+                <p className="eyebrow text-accent">
+                  {l({
+                    en: "Phase 01 · Historical Provenance & Archival Genesis",
+                    ru: "Фаза 01 · Исторический генезис и подлинное наследие",
                   })}
-                  afterAlt={l({
-                    en: "Bauskas 16A grand representative salon after repositioning — operator-led cultural and hospitality platform",
-                    ru: "Парадный зал Bauskas 16A после перепозиционирования — операторская платформа гостеприимства и съемок",
+                </p>
+                <h2 className="serif text-3xl md:text-5xl mt-5 leading-tight text-foreground">
+                  {l({
+                    en: "Villa Maria: The Schweinfurth Estate (c. 1895–1910)",
+                    ru: "Усадьба Villa Maria: фабрично-парковый ансамбль Швейнфурта",
                   })}
-                  beforeLabel={{
-                    eyebrow: l({ en: "Before", ru: "До" }),
-                    caption: l({
-                      en: "Raw Unrestored State",
-                      ru: "Исходное состояние (без отделки)",
-                    }),
-                  }}
-                  afterLabel={{
-                    eyebrow: l({ en: "After", ru: "После" }),
-                    caption: l({ en: "Operator Platform", ru: "Операторская платформа" }),
-                  }}
-                  replayLabel={l({ en: "Replay transformation", ru: "Повторить трансформацию" })}
-                  replayLabelShort={l({ en: "Replay", ru: "Повтор" })}
-                  conceptEyebrow={l({
-                    en: "Professional Re-Evaluation",
-                    ru: "Профессиональная переоценка",
+                </h2>
+                <p className="mt-5 text-muted-foreground leading-relaxed text-base md:text-lg">
+                  {l({
+                    en: "To understand the true repositioning potential of Bauskas 16A, one must trace its origins. Built at the turn of the 20th century as the private residence and industrial estate of C. L. Schweinfurth, 'Villa Maria' combined neo-Renaissance majesty with manicured parklands and representative salon culture. Archival documentation reveals the authentic architectural DNA that modern construction cannot replicate.",
+                    ru: "Чтобы понять истинный потенциал Bauskas 16A, необходимо обратиться к первоисточнику. Построенная на рубеже XIX–XX веков как парадная резиденция и фабричный комплекс промышленника К. Л. Швейнфурта, усадьба «Villa Maria» объединяла величие неоренессансной архитектуры, приватный ландшафтный парк и высокую салонную культуру. Дореволюционный фотоархив раскрывает подлинный пространственный код, который невозможно воспроизвести новым строительством.",
                   })}
-                  conceptTitle={l({
-                    en: "From a distressed heritage shell to an operator-led hospitality and production ecosystem",
-                    ru: "От аварийного объема усадьбы — к операторской платформе гостеприимства, съемок и событий",
-                  })}
-                  conceptItems={[
-                    l({ en: "Operator-led hospitality", ru: "Операторское гостеприимство" }),
-                    l({ en: "Cinematic production", ru: "Кино- и фотопроизводство" }),
-                    l({ en: "Adaptive residencies", ru: "Адаптивные резиденции" }),
-                  ]}
-                />
+                </p>
+              </div>
+
+              {/* Editorial Historical Sequence */}
+              <div className="mt-16 md:mt-24 space-y-20 md:space-y-28">
+                {/* 01: Estate Provenance & Urban Landmark */}
+                <div className="border-t border-rule pt-12 md:pt-16">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+                    <div className="lg:col-span-7 xl:col-span-8 overflow-hidden bg-muted border border-rule">
+                      <img
+                        src="/images/cases/bauskas-16a/historical/historical-09.png"
+                        alt={l({
+                          en: "Historic entrance gate with Schweinfurth signage framing Villa Maria",
+                          ru: "Парадный въезд с трехъязычной вывеской фабрики Швейнфурта и вид на Villa Maria",
+                        })}
+                        loading="lazy"
+                        width={1200}
+                        height={900}
+                        className="w-full h-auto aspect-[4/3] object-cover transition-transform duration-700 hover:scale-[1.02]"
+                      />
+                    </div>
+                    <div className="case-condition-text lg:col-span-5 xl:col-span-4 flex flex-col justify-start">
+                      <h3 className="serif text-2xl md:text-3xl text-foreground font-normal leading-snug">
+                        {l({
+                          en: "Estate Landmark & Provenance",
+                          ru: "Исторический статус и парадный въезд",
+                        })}
+                      </h3>
+
+                      <div className="mt-6 space-y-6">
+                        <div>
+                          <p className="eyebrow text-muted-foreground/80">
+                            {l({ en: "Archival Record", ru: "Архивное свидетельство" })}
+                          </p>
+                          <p className="mt-2 text-base leading-relaxed text-muted-foreground">
+                            {l({
+                              en: "Archival photography captures the monumental entrance gate along Bauskas street with the tri-lingual industrial signboard ('C. L. Schweinfurth / К. Л. Швейнфуртъ') framing Villa Maria. The estate stood as a striking architectural landmark, combining industrial entrepreneurship with aristocratic residential elegance.",
+                              ru: "Дореволюционный снимок фиксирует парадные кованые ворота по улице Баускас с трехъязычной вывеской («К. Л. Швейнфуртъ / C. L. Schweinfurth»), открывавшие перспективу на виллу. Усадьба являлась выразительной доминантой левобережья, сочетая предпринимательский масштаб с утонченной эстетикой загородной жизни.",
+                            })}
+                          </p>
+                        </div>
+
+                        <div>
+                          <p className="eyebrow text-accent">
+                            {l({
+                              en: "Strategic Value Driver",
+                              ru: "Фактор капитализации",
+                            })}
+                          </p>
+                          <p className="mt-2 text-base leading-relaxed text-foreground/85">
+                            {l({
+                              en: "Historical provenance elevates the asset from a neglected building into a culturally irreplaceable legacy property, establishing an authentic institutional pedigree.",
+                              ru: "Исторический статус переводит объект из категории рядовой заброшенной постройки в статус редкого культурного наследия с безупречной родословной.",
+                            })}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Secondary Pairing: Villa Maria Tower Elevation */}
+                  <div className="mt-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <div className="md:col-span-5 md:col-start-8 overflow-hidden bg-muted border border-rule">
+                      <img
+                        src="/images/cases/bauskas-16a/historical/historical-07.png"
+                        alt={l({
+                          en: "Villa Maria corner tower elevation with spire and landscaped garden",
+                          ru: "Угловая башня Villa Maria со шпилем и приватный парк",
+                        })}
+                        loading="lazy"
+                        width={900}
+                        height={1200}
+                        className="w-full h-auto aspect-[3/4] object-cover transition-transform duration-700 hover:scale-[1.02]"
+                      />
+                    </div>
+                    <div className="case-condition-text md:col-span-7 md:col-start-1 md:row-start-1">
+                      <p className="text-sm md:text-base leading-relaxed text-muted-foreground italic">
+                        {l({
+                          en: "Villa Maria’s corner tower with bell spire, pediment crest, and sculpted stone balconies served as the focal point of the private parkland.",
+                          ru: "Угловая башня Villa Maria с колокольным шпилем, фронтоном и резными каменными балконами служила визуальной доминантой усадебного парка.",
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 02: Representative Salon Enfilade & Glazed Ceramic Stove */}
+                <div className="border-t border-rule pt-12 md:pt-16">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+                    <div className="lg:col-span-5 xl:col-span-5 overflow-hidden bg-muted border border-rule">
+                      <img
+                        src="/images/cases/bauskas-16a/historical/historical-01.png"
+                        alt={l({
+                          en: "Master-crafted glazed ceramic stove and fireplace in representative salon",
+                          ru: "Монументальная изразцовая печь-камин в парадном зале",
+                        })}
+                        loading="lazy"
+                        width={900}
+                        height={1200}
+                        className="w-full h-auto aspect-[3/4] object-cover transition-transform duration-700 hover:scale-[1.02]"
+                      />
+                    </div>
+                    <div className="case-condition-text lg:col-span-7 xl:col-span-7 flex flex-col justify-start">
+                      <h3 className="serif text-2xl md:text-3xl text-foreground font-normal leading-snug">
+                        {l({
+                          en: "Imperial Salon Enfilade & Ceramic Craftsmanship",
+                          ru: "Парадная анфилада и изразцовое искусство",
+                        })}
+                      </h3>
+
+                      <div className="mt-6 space-y-6 max-w-xl">
+                        <div>
+                          <p className="eyebrow text-muted-foreground/80">
+                            {l({ en: "Archival Record", ru: "Архивное свидетельство" })}
+                          </p>
+                          <p className="mt-2 text-base leading-relaxed text-muted-foreground">
+                            {l({
+                              en: "The reception salons were organized along an enfilade axis with herringbone parquet, carved woodwork, and monumental glazed ceramic stoves with sculpted crowns, clock mantels, and ornate brass fire doors.",
+                              ru: "Интерьеры парадного этажа были организованы по анфиладному принципу с наборным паркетом, массивными дубовыми порталами и монументальными изразцовыми печами с лепными навершиями, часовыми постаментами и латунными топочными дверцами.",
+                            })}
+                          </p>
+                        </div>
+
+                        <div>
+                          <p className="eyebrow text-accent">
+                            {l({
+                              en: "Strategic Value Driver",
+                              ru: "Фактор капитализации",
+                            })}
+                          </p>
+                          <p className="mt-2 text-base leading-relaxed text-foreground/85">
+                            {l({
+                              en: "The surviving ceramic stoves and volumetric proportions provide ready-made period authenticity for high-end boutique dining, private members' clubs, or cinematic filming environments.",
+                              ru: "Сохранившиеся подлинные печи и пропорции залов формируют готовую аутентичную основу для закрытого клубного формата, авторской гастрономии или исторических съемок.",
+                            })}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Paired Enfilade View */}
+                      <div className="mt-8 overflow-hidden bg-muted border border-rule max-w-md">
+                        <img
+                          src="/images/cases/bauskas-16a/historical/historical-02.png"
+                          alt={l({
+                            en: "Enfilade perspective into the private drawing room with period armchairs and high windows",
+                            ru: "Анфиладная перспектива в гостиную с салонной мебелью и высоким окном",
+                          })}
+                          loading="lazy"
+                          width={1000}
+                          height={750}
+                          className="w-full h-auto aspect-[4/3] object-cover transition-transform duration-700 hover:scale-[1.02]"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 03: Art Nouveau Grand Staircase */}
+                <div className="border-t border-rule pt-12 md:pt-16">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+                    <div className="lg:col-span-6 lg:order-2 overflow-hidden bg-muted border border-rule">
+                      <img
+                        src="/images/cases/bauskas-16a/historical/historical-03.png"
+                        alt={l({
+                          en: "Grand stone staircase with Art Nouveau wrought-iron balustrade and stenciled wall motifs",
+                          ru: "Парадная каменная лестница с кованым ограждением в югендстиле и настенной росписью",
+                        })}
+                        loading="lazy"
+                        width={900}
+                        height={1200}
+                        className="w-full h-auto aspect-[3/4] object-cover transition-transform duration-700 hover:scale-[1.02]"
+                      />
+                    </div>
+                    <div className="case-condition-text lg:col-span-6 lg:order-1 flex flex-col justify-start">
+                      <h3 className="serif text-2xl md:text-3xl text-foreground font-normal leading-snug">
+                        {l({
+                          en: "Art Nouveau Circulation Core",
+                          ru: "Вертикальная ось в стиле модерн",
+                        })}
+                      </h3>
+
+                      <div className="mt-6 space-y-6 max-w-lg">
+                        <div>
+                          <p className="eyebrow text-muted-foreground/80">
+                            {l({ en: "Archival Record", ru: "Архивное свидетельство" })}
+                          </p>
+                          <p className="mt-2 text-base leading-relaxed text-muted-foreground">
+                            {l({
+                              en: "The estate’s vertical spine integrated monolithic stone steps with flowing Jugendstil wrought-iron balustrades, glazed wood portals, and floral stencil wall paintings, creating a ceremonial transition across floors.",
+                              ru: "Главная лестница усадьбы объединяла монолитные каменные ступени, пластику кованых перил в стиле югендстиль, застекленные порталы и трафаретную настенную роспись с растительными мотивами, создавая торжественный маршрут подъема.",
+                            })}
+                          </p>
+                        </div>
+
+                        <div>
+                          <p className="eyebrow text-accent">
+                            {l({
+                              en: "Strategic Value Driver",
+                              ru: "Фактор капитализации",
+                            })}
+                          </p>
+                          <p className="mt-2 text-base leading-relaxed text-foreground/85">
+                            {l({
+                              en: "The central staircase acts as a natural spatial buffer, seamlessly isolating ground-floor hospitality and public functions from upper private suites without requiring invasive structural modifications.",
+                              ru: "Монументальная лестница служит естественным пространственным буфером, разделяющим публичный первый этаж и приватные апартаменты без вмешательства в несущие конструкции.",
+                            })}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 04: Romantic Parkland & Inscribed Garden Facade */}
+                <div className="border-t border-rule pt-12 md:pt-16">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+                    <div className="lg:col-span-7 xl:col-span-8 overflow-hidden bg-muted border border-rule">
+                      <img
+                        src="/images/cases/bauskas-16a/historical/historical-05.png"
+                        alt={l({
+                          en: "Full garden facade with slate-tiled roof, decorative spires, and Gothic inscription",
+                          ru: "Садовый фасад с черепичной кровлей, шпилями и готической надписью над порталом",
+                        })}
+                        loading="lazy"
+                        width={1200}
+                        height={900}
+                        className="w-full h-auto aspect-[4/3] object-cover transition-transform duration-700 hover:scale-[1.02]"
+                      />
+                    </div>
+                    <div className="case-condition-text lg:col-span-5 xl:col-span-4 flex flex-col justify-start">
+                      <h3 className="serif text-2xl md:text-3xl text-foreground font-normal leading-snug">
+                        {l({
+                          en: "Secluded Parkland & Garden Facade",
+                          ru: "Усадебный парк и ландшафтная среда",
+                        })}
+                      </h3>
+
+                      <div className="mt-6 space-y-6">
+                        <div>
+                          <p className="eyebrow text-muted-foreground/80">
+                            {l({ en: "Archival Record", ru: "Архивное свидетельство" })}
+                          </p>
+                          <p className="mt-2 text-base leading-relaxed text-muted-foreground">
+                            {l({
+                              en: "Villa Maria was enveloped by a private landscaped park with gravel walkways, pergolas, mature pines, and a glazed veranda, protected from the urban street by an ornate stone-and-iron perimeter wall.",
+                              ru: "Виллу окружал приватный ландшафтный парк с гравийными дорожками, перголами, хвойными рощами и остекленной террасой, защищенный массивной кирпичной оградой от городской суеты.",
+                            })}
+                          </p>
+                        </div>
+
+                        <div>
+                          <p className="eyebrow text-accent">
+                            {l({
+                              en: "Strategic Value Driver",
+                              ru: "Фактор капитализации",
+                            })}
+                          </p>
+                          <p className="mt-2 text-base leading-relaxed text-foreground/85">
+                            {l({
+                              en: "The preserved garden perimeter enables unique outdoor hospitality, private events, and open-air cultural pavilions within an insulated urban oasis.",
+                              ru: "Сохранившийся парковый периметр открывает возможности для сезонных событий, открытых террас и уединенного формата гостеприимства в черте города.",
+                            })}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Dual Garden & Wall Pairing */}
+                  <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div className="overflow-hidden bg-muted border border-rule">
+                      <img
+                        src="/images/cases/bauskas-16a/historical/historical-06.png"
+                        alt={l({
+                          en: "Winding park pathways and pergolas in the estate garden",
+                          ru: "Извилистые парковые дорожки и перголы усадебного сада",
+                        })}
+                        loading="lazy"
+                        width={800}
+                        height={600}
+                        className="w-full h-auto aspect-[4/3] object-cover transition-transform duration-700 hover:scale-[1.02]"
+                      />
+                    </div>
+                    <div className="overflow-hidden bg-muted border border-rule">
+                      <img
+                        src="/images/cases/bauskas-16a/historical/historical-10.png"
+                        alt={l({
+                          en: "Masonry perimeter wall and street view along Bauskas street",
+                          ru: "Массивная каменная ограда усадьбы вдоль улицы Баускас",
+                        })}
+                        loading="lazy"
+                        width={800}
+                        height={600}
+                        className="w-full h-auto aspect-[4/3] object-cover transition-transform duration-700 hover:scale-[1.02]"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -478,8 +754,8 @@ function CaseDetail() {
               <div className="max-w-3xl">
                 <p className="eyebrow text-accent">
                   {l({
-                    en: "Condition Assessment & Documentary Evidence",
-                    ru: "Оценка исходного состояния и документальный архив",
+                    en: "Phase 02 · Condition Assessment & Documentary Audit",
+                    ru: "Фаза 02 · Аудит исходного состояния и фотофиксация",
                   })}
                 </p>
                 <h2 className="serif text-3xl md:text-5xl mt-5 leading-tight text-foreground">
@@ -829,6 +1105,73 @@ function CaseDetail() {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </section>
+
+          {/* PHASE 3: REPOSITIONING IN MOTION & OPERATOR PLATFORM (The New Platform) */}
+          <section className="case-file-chapter border-t border-rule py-16 md:py-20">
+            <div className="container-rl max-w-5xl">
+              <div className="max-w-3xl">
+                <p className="eyebrow text-accent">
+                  {l({
+                    en: "Phase 03 · Repositioning in Motion",
+                    ru: "Фаза 03 · Репозиционирование в движении",
+                  })}
+                </p>
+                <h2 className="serif text-3xl md:text-5xl mt-5 leading-tight text-foreground">
+                  {l({
+                    en: "Transformation from distressed shell to operator platform",
+                    ru: "Трансформация от аварийного объема к операторской платформе",
+                  })}
+                </h2>
+                <p className="mt-5 text-muted-foreground leading-relaxed text-base md:text-lg">
+                  {l({
+                    en: "The repositioning thesis bridges historical provenance and raw physical reality into an operational concept: activating the grand volumes for boutique hospitality, creative production, and cultural events without speculative over-restoration.",
+                    ru: "Стратегия перепозиционирования объединяет историческое наследие и физическую реальность в рабочую операционную модель: запуск парадных залов под бутик-гостеприимство, кинопроизводство и культурные события без затратного новодельного перестроения.",
+                  })}
+                </p>
+              </div>
+
+              <div className="mt-12">
+                <BeforeAfterReveal
+                  beforeSrc="/images/cases/bauskas-16a/admin-archive/IMG_8764-7.jpg"
+                  afterSrc="/images/cases/bauskas-16a/baus2.jpg"
+                  beforeAlt={l({
+                    en: "Bauskas 16A interior before repositioning — raw unrestored hall with exposed timbers and missing plaster",
+                    ru: "Усадьба Bauskas 16A до перепозиционирования — аварийный зал без штукатурки, с открытыми балками и голыми перекрытиями",
+                  })}
+                  afterAlt={l({
+                    en: "Bauskas 16A grand representative salon after repositioning — operator-led cultural and hospitality platform",
+                    ru: "Парадный зал Bauskas 16A после перепозиционирования — операторская платформа гостеприимства и съемок",
+                  })}
+                  beforeLabel={{
+                    eyebrow: l({ en: "Before", ru: "До" }),
+                    caption: l({
+                      en: "Raw Unrestored State",
+                      ru: "Исходное состояние (без отделки)",
+                    }),
+                  }}
+                  afterLabel={{
+                    eyebrow: l({ en: "After", ru: "После" }),
+                    caption: l({ en: "Operator Platform", ru: "Операторская платформа" }),
+                  }}
+                  replayLabel={l({ en: "Replay transformation", ru: "Повторить трансформацию" })}
+                  replayLabelShort={l({ en: "Replay", ru: "Повтор" })}
+                  conceptEyebrow={l({
+                    en: "Professional Re-Evaluation",
+                    ru: "Профессиональная переоценка",
+                  })}
+                  conceptTitle={l({
+                    en: "From a distressed heritage shell to an operator-led hospitality and production ecosystem",
+                    ru: "От аварийного объема усадьбы — к операторской платформе гостеприимства, съемок и событий",
+                  })}
+                  conceptItems={[
+                    l({ en: "Operator-led hospitality", ru: "Операторское гостеприимство" }),
+                    l({ en: "Cinematic production", ru: "Кино- и фотопроизводство" }),
+                    l({ en: "Adaptive residencies", ru: "Адаптивные резиденции" }),
+                  ]}
+                />
               </div>
             </div>
           </section>
